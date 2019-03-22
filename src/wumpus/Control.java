@@ -8,6 +8,26 @@ package wumpus;
 
 public class Control
 {
+	// Game Objects //
+	
+	/* These will most likely be transferred from object to object in parameters of functions,
+	 * so when one object needs heavy use of another for a certain task, the object will receive
+	 * the necessary object in the parameters of the method that carries out that task.
+	 * 
+	 * e.g. If the Cave object needs to use the GUI object to draw some stuff, it will be transfered
+	 * to it by calling caveObject.drawStuff(guiObject); from a method in this class.
+	 */
+	
+	private Cave caveObject; // The Cave Object for the current game instance
+	
+	private GUI guiObject; // The GUI Object for the current game instance
+	
+	private Map mapObject; // The Map object for the current game instance
+	
+	private Player playerObject; // The Player object for the current game instance
+	
+	private Trivia triviaObject; // The Trivia object for the current game instance
+	
 	// Constructs the object
 	// IDK, maybe this object should be static. TODO?
 	public Control()
@@ -61,5 +81,12 @@ public class Control
 	// The player kills the wumpus
 	public void killedWumpus()
 	{
+	}
+	
+	// The game has ended, because the player has either killed the wumpus, or died
+	// Specify true if the wumpus has been killed
+	public void endGame(boolean wumpusKilled)
+	{
+		
 	}
 }

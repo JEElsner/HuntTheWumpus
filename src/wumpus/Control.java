@@ -82,4 +82,11 @@ public class Control
 	public void killedWumpus()
 	{
 	}
+	
+	// The game has ended, because the player has either killed the wumpus, or died
+	// Specify true if the wumpus has been killed
+	public void endGame(boolean wumpusKilled)
+	{
+		
+	}
 }

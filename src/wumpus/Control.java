@@ -6,8 +6,50 @@
  */
 package wumpus;
 
+import java.util.Scanner;
+
 public class Control
-{
+{	
+	public static void main(String[] args)
+	{
+		Scanner in = new Scanner(System.in);
+		System.out.println("To debug, type [debug], then the name of your class, otherwise, press enter.");
+		System.out.print("Debug an object? ");
+		String inputRecieved = in.nextLine();
+		
+		if(inputRecieved.startsWith("debug"))
+		{
+			String clazz = inputRecieved.split("\\s")[1];
+			
+			if(clazz.equalsIgnoreCase("control"))
+			{
+				Control.debug();
+			}else if(clazz.equalsIgnoreCase("Cave"))
+			{
+				Cave.debug();
+			}else if(clazz.equalsIgnoreCase("GUI"))
+			{
+				GUI.debugging();
+			}else if(clazz.equalsIgnoreCase("Map"))
+			{
+				GUI.debugging();
+			}else if(clazz.equalsIgnoreCase("Player"))
+			{
+				Player.debug();
+			}else if(clazz.equalsIgnoreCase("Trivia"))
+			{
+				Trivia.debug();
+			}
+			
+			return;
+		}
+	}
+	
+	public static void debug()
+	{
+		System.out.println("Debug test");
+	}
+	
 	// Game Objects //
 	
 	/* These will most likely be transferred from object to object in parameters of functions,
@@ -47,19 +89,7 @@ public class Control
 	}
 	
 	// Move the player
-	// Again, don't have a Direction object yet, so using a generic again.
-	/* I imagine direction could just be an int, as an id for the direction
-	 * 
-	 * OR
-	 * 
-	 * We could use ints that represent the difference between the current room and the room
-	 * traveled to. I made a diagram. Anyway, then the code would just be as simple as:
-	 * 
-	 * Player.setRoom((Player.getRoom() + difference) % 29 + 1);
-	 * 														 ^---
-	 * Tangent: I wish the room numbering would start at 0, so we could get rid of this stupid +1
-	 */
-	public <Direction> void movePlayer(Direction dir)
+	public void movePlayer(MovementDirection dir)
 	{
 	}
 	

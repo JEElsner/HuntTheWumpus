@@ -1,7 +1,19 @@
 package wumpus;
 
+//John Knowlton
+
 public class Player
 {
+	
+	public int arrows;
+	public int coins;
+	public int turns;
+	public int score;
+	
+	public static void debug()
+	{
+		
+	}
 	
 	//constructor
 	public Player()

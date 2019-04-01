@@ -29,7 +29,7 @@ public class Control
 				Cave.debug();
 			}else if(clazz.equalsIgnoreCase("GUI"))
 			{
-				GUI.debugging();
+				GUI.debug();
 			}else if(clazz.equalsIgnoreCase("Map"))
 			{
 				Map.debug();

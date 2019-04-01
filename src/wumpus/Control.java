@@ -32,7 +32,7 @@ public class Control
 				GUI.debugging();
 			}else if(clazz.equalsIgnoreCase("Map"))
 			{
-				GUI.debugging();
+				Map.debug();
 			}else if(clazz.equalsIgnoreCase("Player"))
 			{
 				Player.debug();

@@ -7,9 +7,9 @@ package wumpus;
  */
 public class GUI 
 {
-	public void debugging()
+	public static void debugging()
 	{
-		
+		//Pls help me
 	}
 	
 	public void displayWin()

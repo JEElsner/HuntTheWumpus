@@ -5,8 +5,13 @@ package wumpus;
 /*Side note - not sure of values needed for actions 
  * Most likely they will be either booleans or ints from GameControl
  */
-public class GUI
+public class GUI 
 {
+	public void debugging()
+	{
+		
+	}
+	
 	public void displayWin()
 	{
 		//Run this if you win

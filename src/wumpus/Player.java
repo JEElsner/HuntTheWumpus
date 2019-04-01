@@ -3,6 +3,11 @@ package wumpus;
 public class Player
 {
 	
+	public int arrows;
+	public int coins;
+	public int turns;
+	public int score;
+	
 	//constructor
 	public Player()
 	{

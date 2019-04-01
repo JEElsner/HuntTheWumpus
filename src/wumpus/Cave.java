@@ -1,8 +1,17 @@
 package wumpus;
+import java.io.File;
 import java.util.*;
 
 	public class Cave{
 
+		
+		
+		int cave[][]=new int[30][3];
+		int i=1;
+		
+		
+		      
+		
 		public Cave()
 		{
 		}
@@ -25,6 +34,11 @@ import java.util.*;
 		public boolean checkRoom()
 		{
 		return false;
+		}
+		
+		public static void debug()
+		{
+			
 		}
 
 	}

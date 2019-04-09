@@ -8,6 +8,8 @@ package wumpus;
 
 import java.util.Scanner;
 
+import gui.GUI;
+
 public class Control
 {	
 	public static void main(String[] args)

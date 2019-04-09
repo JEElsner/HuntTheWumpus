@@ -1,15 +1,43 @@
-package wumpus;
-// Logan Munoz and all others who may help please
-//btw I have basically no idea what I'm doing
+package gui;
 
-/*Side note - not sure of values needed for actions 
- * Most likely they will be either booleans or ints from GameControl
- */
-public class GUI 
+import java.awt.EventQueue;
+
+public class GUI
 {
+	
+	public static final String titleScreen = "Title Screen";
+	public static final String highScoreNameEnter = "Enter Your High Score";
+	public static final String gameplay = "General Gameplay Screen";
+	public static final String trivia = "Trivia Screen";
+	public static final String WinScreen = "Win";
+	public static final String LoseScreen = "Lose";
+	public static final String PlayAgain = "Play Again";
+	public static final String easterEgg = "Easter Egg?";
+	
+	// The GUI that displays the game
+	protected static MainWindow mainWindow;
+	
 	public static void debug()
 	{
-		//Pls help me
+		new GUI().startGUI();
+	}
+	
+	public void startGUI()
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
+					mainWindow = new MainWindow();
+					mainWindow.setVisible(true);
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public void displayWin()

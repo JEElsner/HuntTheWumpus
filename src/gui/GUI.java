@@ -1,15 +1,58 @@
-package wumpus;
-// Logan Munoz and all others who may help please
-//btw I have basically no idea what I'm doing
+package gui;
 
-/*Side note - not sure of values needed for actions 
- * Most likely they will be either booleans or ints from GameControl
- */
-public class GUI 
+import java.awt.EventQueue;
+import java.lang.reflect.InvocationTargetException;
+
+public class GUI
 {
+	
+	public static final String titleScreen = "Title Screen";
+	public static final String highScoreNameEnter = "Enter Your High Score";
+	public static final String gameplay = "General Gameplay Screen";
+	public static final String trivia = "Trivia Screen";
+	public static final String WinScreen = "Win";
+	public static final String LoseScreen = "Lose";
+	public static final String PlayAgain = "Play Again";
+	public static final String easterEgg = "Easter Egg?";
+	public static final String debugging = "Debug";
+	
+	// The GUI that displays the game
+	protected static MainWindow mainWindow;
+	
+	private Object controlNotifier;
+	
+	public GUI(Object obj)
+	{
+		controlNotifier = obj;
+	}
 	public static void debug()
 	{
-		//Pls help me
+		new GUI(new Object()).startGUI();
+	}
+	
+	public void startGUI()
+	{
+		try
+		{
+			EventQueue.invokeAndWait(new Runnable()
+			{
+				public void run()
+				{
+					try
+					{
+						mainWindow = new MainWindow();
+						mainWindow.setVisible(true);
+					} catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+				}
+			});
+		} catch (InvocationTargetException | InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void displayWin()
@@ -65,16 +108,17 @@ public class GUI
 		//Then use this to put it into high score at the end of the game
 	}
 	
-	public void highScoreDisplay()
+	public String highScoreDisplay(String name, int score)
 	{
 		//This is for the inbetween games, to just have it on the screen
+		return "" + name + ": " + score;
 	}
 	
 	public void betweenGames()
 	{
 		//Here you have the play again questions
 		//Also displaying the high scores
-		highScoreDisplay();
+		//highScoreDisplay();
 	}
 	
 	public void displayInventory()
@@ -113,5 +157,11 @@ public class GUI
 	public void runTrivia()
 	{
 		//Run the trivia for x amount of times - read from Control
+	}
+	
+	// Notify the Control Object when it needs to respond to a GUI event
+	protected void notifyControl()
+	{
+		controlNotifier.notify();
 	}
 }

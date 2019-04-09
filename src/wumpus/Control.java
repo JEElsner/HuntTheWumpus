@@ -8,6 +8,8 @@ package wumpus;
 
 import java.util.Scanner;
 
+import gui.GUI;
+
 public class Control
 {	
 	public static void main(String[] args)
@@ -32,7 +34,7 @@ public class Control
 				GUI.debug();
 			}else if(clazz.equalsIgnoreCase("Map"))
 			{
-				GUI.debug();
+				Map.debug();
 			}else if(clazz.equalsIgnoreCase("Player"))
 			{
 				Player.debug();

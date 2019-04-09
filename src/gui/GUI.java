@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.lang.reflect.InvocationTargetException;
 
 public class GUI
 {
@@ -13,31 +14,45 @@ public class GUI
 	public static final String LoseScreen = "Lose";
 	public static final String PlayAgain = "Play Again";
 	public static final String easterEgg = "Easter Egg?";
+	public static final String debugging = "Debug";
 	
 	// The GUI that displays the game
 	protected static MainWindow mainWindow;
 	
+	private Object controlNotifier;
+	
+	public GUI(Object obj)
+	{
+		controlNotifier = obj;
+	}
 	public static void debug()
 	{
-		new GUI().startGUI();
+		new GUI(new Object()).startGUI();
 	}
 	
 	public void startGUI()
 	{
-		EventQueue.invokeLater(new Runnable()
+		try
 		{
-			public void run()
+			EventQueue.invokeAndWait(new Runnable()
 			{
-				try
+				public void run()
 				{
-					mainWindow = new MainWindow();
-					mainWindow.setVisible(true);
-				} catch (Exception e)
-				{
-					e.printStackTrace();
+					try
+					{
+						mainWindow = new MainWindow();
+						mainWindow.setVisible(true);
+					} catch (Exception e)
+					{
+						e.printStackTrace();
+					}
 				}
-			}
-		});
+			});
+		} catch (InvocationTargetException | InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void displayWin()
@@ -93,16 +108,17 @@ public class GUI
 		//Then use this to put it into high score at the end of the game
 	}
 	
-	public void highScoreDisplay()
+	public String highScoreDisplay(String name, int score)
 	{
 		//This is for the inbetween games, to just have it on the screen
+		return "" + name + ": " + score;
 	}
 	
 	public void betweenGames()
 	{
 		//Here you have the play again questions
 		//Also displaying the high scores
-		highScoreDisplay();
+		//highScoreDisplay();
 	}
 	
 	public void displayInventory()
@@ -141,5 +157,11 @@ public class GUI
 	public void runTrivia()
 	{
 		//Run the trivia for x amount of times - read from Control
+	}
+	
+	// Notify the Control Object when it needs to respond to a GUI event
+	protected void notifyControl()
+	{
+		controlNotifier.notify();
 	}
 }

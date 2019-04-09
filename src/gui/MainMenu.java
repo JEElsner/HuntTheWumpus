@@ -31,45 +31,23 @@ public class MainMenu extends JPanel
 		btnNewgame.setBounds(172, 92, 97, 25);
 		add(btnNewgame);
 		
-		JButton btnEnterHighScore = new JButton("Enter High Score");
-		btnEnterHighScore.addActionListener(new ActionListener() {
+		JButton btnForDebuggin = new JButton("For Debuggin");
+		btnForDebuggin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.highScoreNameEnter);
+				GUI.mainWindow.changeView(GUI.debugging);
 			}
 		});
-		btnEnterHighScore.setBounds(152, 124, 129, 25);
-		add(btnEnterHighScore);
+		btnForDebuggin.setBounds(314, 250, 124, 25);
+		add(btnForDebuggin);
 		
-		JButton btnWin = new JButton("Win");
-		btnWin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				GUI.mainWindow.changeView(GUI.WinScreen);
-			}
-		});
-		btnWin.setBounds(172, 162, 97, 25);
-		add(btnWin);
+		JLabel lblHighScores = new JLabel("High Scores");
+		lblHighScores.setBounds(58, 154, 74, 16);
+		add(lblHighScores);
 		
-		JButton btnLose = new JButton("Lose");
-		btnLose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				GUI.mainWindow.changeView(GUI.LoseScreen);
-			}
-		});
-		btnLose.setBounds(172, 190, 97, 25);
-		add(btnLose);
-		
-		JButton btnTriva = new JButton("Triva");
-		btnTriva.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				GUI.mainWindow.changeView(GUI.trivia);
-			}
-		});
-		btnTriva.setBounds(172, 228, 97, 25);
-		add(btnTriva);
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setBounds(68, 183, 56, 16);
+		add(lblNewLabel);
 
 	}
 }

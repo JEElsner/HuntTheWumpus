@@ -25,6 +25,7 @@ public class MainWindow extends JFrame
 	private JPanel triviaScreen = new Trivia();
 	private JPanel loseScreen = new Lose();
 	private JPanel winScreen = new Win();
+	private JPanel debug = new ForDebugging();
 	
 
 	/**
@@ -53,6 +54,7 @@ public class MainWindow extends JFrame
 	 */
 	protected MainWindow()
 	{
+		setTitle("Hunt The Wumpus");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 200, 550, 400);
 		contentPane = new JPanel();
@@ -70,6 +72,7 @@ public class MainWindow extends JFrame
 		contentPane.add(triviaScreen, GUI.trivia);
 		contentPane.add(loseScreen, GUI.LoseScreen);
 		contentPane.add(winScreen, GUI.WinScreen);
+		contentPane.add(debug, GUI.debugging);
 	}
 
 	

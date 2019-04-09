@@ -59,14 +59,19 @@ public class Trivia
 		}
 	}
 	
-	public static void debug() throws FileNotFoundException
+	public static void debug()
 	{
-		read_qa();
+		try
+		{
+			read_qa();
+		} catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(answer(1,"False"))
 			System.out.println("Correct answer ");
 		else
-			System.out.println("Incorrect answer");
-			
-		
+			System.out.println("Incorrect answer");	
 	}
 }

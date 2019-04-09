@@ -4,8 +4,8 @@ package wumpus;
 public class Map
 {
 	public int StartingRoom;
-	public int PlayerRoom = 5;
-	public int WumpusRoom = 6;
+	public int PlayerRoom;
+	public int WumpusRoom;
 	public int PitRoom;
 	public int PitRoom2;
 	public int BatRoom;
@@ -56,10 +56,12 @@ public class Map
 	public static void debug()
 	{
 		Map map = new Map();
+		map.PlayerRoom = 5;
+		map.WumpusRoom = 6;
 		for(int i = 0; i < 6; i ++)
 		{
-			if (neighbors[map.PlayerRoom][i] == map.WumpusRoom)
-				System.out.println("There is a Wumpus in room: " + i);
+			if (neighbors[4][i] == map.WumpusRoom)
+				System.out.println("There is a Wumpus in room: " + neighbors[map.PlayerRoom][i]);
 			else
 				System.out.println("No Wumpus");
 		}

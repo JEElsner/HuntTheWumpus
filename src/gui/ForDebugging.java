@@ -75,6 +75,7 @@ public class ForDebugging extends JPanel
 		JButton btnTestNotify = new JButton("Test Notify");
 		btnTestNotify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GUI.guiObject.notifyControl();
 			}
 		});
 		btnTestNotify.setBounds(24, 243, 97, 25);

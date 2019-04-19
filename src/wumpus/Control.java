@@ -3,17 +3,27 @@
  * Control.java
  * 
  * Defines the control object of Hunt The Wumpus, and interacts with all other aspects of the game.
+ * 
+ * Since different methods in this class occur on different threads, each method is annotated with
+ * the thread where it should execute
  */
 package wumpus;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.SwingWorker;
 
 import gui.GUI;
 
-public class Control
+public class Control extends SwingWorker<Void, Object>
 {	
+	// Thread: Initial thread
 	public static void main(String[] args)
 	{
+		// Debug Code
+		
 		Scanner in = new Scanner(System.in);
 		System.out.println("To debug, type [debug], then the name of your class, otherwise, press enter.");
 		System.out.print("Debug an object? ");
@@ -41,12 +51,17 @@ public class Control
 			}else if(clazz.equalsIgnoreCase("Trivia"))
 			{
 				Trivia.debug();
-			}
-			
+			}			
 			return;
-		}
+		} // End "debug" if
+		
+		// Actual Code
+		
+		controlObject = new Control();
+		controlObject.startGame();
 	}
 	
+	// Thread: Initial
 	public static void debug()
 	{
 		System.out.println("Debug test");
@@ -62,6 +77,9 @@ public class Control
 	 * to it by calling caveObject.drawStuff(guiObject); from a method in this class.
 	 */
 	
+	private static Control controlObject; // The Control Object manages the interactions between all of the other objects
+	// This one is static because it is the object that owns all the others, and needs not have reference to itself
+	
 	private Cave caveObject; // The Cave Object for the current game instance
 	
 	private GUI guiObject; // The GUI Object for the current game instance
@@ -72,18 +90,79 @@ public class Control
 	
 	private Trivia triviaObject; // The Trivia object for the current game instance
 	
+	// --- Instance Data --- //
+	
+	private ArrayList<Object> guiMessages; // Used to receive notifications of events happening on the gui
+	
 	// Constructs the object
-	// IDK, maybe this object should be static. TODO?
+	// Thread: Initial
 	public Control()
 	{
+		guiMessages = new ArrayList<Object>();
+		
+		guiObject = new GUI(guiMessages);
+	}
+	
+	// Thread: Initial
+	public void startGame()
+	{
+		guiObject.startGUI(); // Start the GUI
+		
+		this.execute(); // Begin the worker thread to support the GUI in the background
+		// TODO, is this no bueno, and should be done in the EDT
+		/* Oh yeah, this may be no bueno, because the process method should be called in the EDT,
+		 * and that may actually be the only location where it works properly, and is called frequently
+		 */
+	}
+	
+	// Thread: Worker
+	protected Void doInBackground() throws Exception
+	{	
+		while(true)
+		{
+			synchronized(guiMessages)
+			{
+				try
+				{
+					guiMessages.wait();
+				} catch (InterruptedException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				System.out.println("Notification Recieved");
+			}
+		}
+	}
+	
+	// Process results from the SwingWorker worker thread
+	// Thread: EDT
+	// TODO, hand all of this off to Logan, in the GUI class? Maybe
+	protected void process(List<Object> messages)
+	{
+		
+	}
+	
+	// Send a message from the gui to the worker thread
+	// Thread: EDT
+	public void sendMessage(Object message)
+	{
+		synchronized(guiMessages)
+		{
+			guiMessages.add(message);
+			guiMessages.notifyAll();
+		}
 	}
 	
 	// Start a new game for the player to play
+	// Thread: Worker
 	public void newGame()
 	{
 	}
 	
 	// Let's user see high scores
+	// Thread: Worker
 	// Don't have a score object yet, so I define and use a generic for now :P
 	public <Score> Score[] getScores()
 	{
@@ -91,32 +170,39 @@ public class Control
 	}
 	
 	// Move the player
+	
+	// Thread: Worker
 	public void movePlayer(MovementDirection dir)
 	{
 	}
 	
 	// The player enters the same room as the Wumpus
+	// Thread: Worker
 	public void foundWumpus()
 	{
 	}
 	
 	// The player enters a room with bats
+	// Thread: Worker
 	public void foundBats()
 	{
 	}
 	
 	// The player enters a room with a bottomless pit
+	// Thread: Worker
 	public void foundPit()
 	{
 	}
 	
 	// The player kills the wumpus
+	// Thread: Worker
 	public void killedWumpus()
 	{
 	}
 	
 	// The game has ended, because the player has either killed the wumpus, or died
 	// Specify true if the wumpus has been killed
+	// TODO rename to lostGame(), because it should not be similar to startGame, whose purpose is not an antonym of endGame
 	public void endGame(boolean wumpusKilled)
 	{
 		

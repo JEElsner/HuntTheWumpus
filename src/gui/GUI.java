@@ -19,10 +19,15 @@ public class GUI
 	// The GUI that displays the game
 	protected static MainWindow mainWindow;
 	
-	private Object controlNotifier;
+	// The Current GUI object
+	protected static GUI guiObject; // TODO, refactor so there is no static variable?
+	
+	private Object controlNotifier; // TODO, change to ArrayList
 	
 	public GUI(Object obj)
 	{
+		guiObject = this;
+		
 		controlNotifier = obj;
 	}
 	public static void debug()
@@ -162,6 +167,9 @@ public class GUI
 	// Notify the Control Object when it needs to respond to a GUI event
 	protected void notifyControl()
 	{
-		controlNotifier.notify();
+		synchronized(controlNotifier)
+		{
+			controlNotifier.notify();
+		}
 	}
 }

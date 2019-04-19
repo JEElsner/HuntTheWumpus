@@ -12,6 +12,7 @@ public class MainMenu extends JPanel
 	/**
 	 * Create the panel.
 	 */
+	public static String name;
 	public MainMenu()
 	{
 		setLayout(null);
@@ -45,7 +46,7 @@ public class MainMenu extends JPanel
 		lblHighScores.setBounds(58, 154, 74, 16);
 		add(lblHighScores);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel(name);
 		lblNewLabel.setBounds(68, 183, 56, 16);
 		add(lblNewLabel);
 

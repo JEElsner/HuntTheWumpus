@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
@@ -11,6 +12,8 @@ public class HighScore extends JPanel
 {
 	private JTextField textField;
 	private JTextField textField_1;
+	public String name;
+	Scanner scan = new Scanner(System.in);
 
 	/**
 	 * Create the panel.
@@ -34,6 +37,12 @@ public class HighScore extends JPanel
 		add(btnMainMenu);
 		
 		textField = new JTextField();
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				name = textField.getText();
+			}
+		});
 		textField.setBounds(12, 200, 116, 22);
 		add(textField);
 		textField.setColumns(10);

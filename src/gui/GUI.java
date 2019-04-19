@@ -15,6 +15,7 @@ public class GUI
 	public static final String PlayAgain = "Play Again";
 	public static final String easterEgg = "Easter Egg?";
 	public static final String debugging = "Debug";
+	public static String name;
 	
 	// The GUI that displays the game
 	protected static MainWindow mainWindow;
@@ -117,6 +118,11 @@ public class GUI
 	{
 		//This is for the inbetween games, to just have it on the screen
 		return "" + name + ": " + score;
+	}
+	
+	public void name(String n)
+	{
+		name = n;
 	}
 	
 	public void betweenGames()

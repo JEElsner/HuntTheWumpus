@@ -18,7 +18,7 @@ public class HighScore extends JPanel
 	/**
 	 * Create the panel.
 	 */
-	public HighScore()
+	public HighScore(GUI guiObject)
 	{
 		setLayout(null);
 		
@@ -30,7 +30,7 @@ public class HighScore extends JPanel
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.titleScreen);
+				guiObject.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
 		btnMainMenu.setBounds(157, 127, 97, 25);

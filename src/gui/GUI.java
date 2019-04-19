@@ -18,7 +18,7 @@ public class GUI
 	public static String name;
 	
 	// The GUI that displays the game
-	protected static MainWindow mainWindow;
+	protected MainWindow mainWindow;
 	
 	// The Current GUI object
 	protected static GUI guiObject; // TODO, refactor so there is no static variable?
@@ -40,13 +40,15 @@ public class GUI
 	{
 		try
 		{
+			GUI thisGUI = this;
+			
 			EventQueue.invokeAndWait(new Runnable()
 			{
 				public void run()
 				{
 					try
 					{
-						mainWindow = new MainWindow();
+						mainWindow = new MainWindow(thisGUI);
 						mainWindow.setVisible(true);
 					} catch (Exception e)
 					{

@@ -13,11 +13,10 @@ import javax.swing.JTextField;
 public class Trivia extends JPanel
 {
 	private JTextField txtEnterAnswersHere;
-
 	/**
 	 * Create the panel.
 	 */
-	public Trivia()
+	public Trivia(GUI guiObject)
 	{
 		setLayout(null);
 		
@@ -29,7 +28,7 @@ public class Trivia extends JPanel
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.titleScreen);
+				guiObject.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
 		btnMainMenu.setBounds(323, 262, 97, 25);

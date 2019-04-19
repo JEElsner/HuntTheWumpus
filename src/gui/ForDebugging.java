@@ -10,11 +10,10 @@ import javax.swing.JButton;
 
 public class ForDebugging extends JPanel
 {
-
 	/**
 	 * Create the panel.
 	 */
-	public ForDebugging()
+	public ForDebugging(GUI guiObject)
 	{
 		setLayout(null);
 		
@@ -26,7 +25,7 @@ public class ForDebugging extends JPanel
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.highScoreNameEnter);
+				guiObject.mainWindow.changeView(GUI.highScoreNameEnter);
 			}
 		});
 		button.setBounds(161, 127, 129, 25);
@@ -36,7 +35,7 @@ public class ForDebugging extends JPanel
 		btnWin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.WinScreen);
+				guiObject.mainWindow.changeView(GUI.WinScreen);
 			}
 		});
 		btnWin.setBounds(172, 162, 97, 25);
@@ -46,7 +45,7 @@ public class ForDebugging extends JPanel
 		btnLose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.LoseScreen);
+				guiObject.mainWindow.changeView(GUI.LoseScreen);
 			}
 		});
 		btnLose.setBounds(172, 190, 97, 25);
@@ -56,7 +55,7 @@ public class ForDebugging extends JPanel
 		btnTriva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.trivia);
+				guiObject.mainWindow.changeView(GUI.trivia);
 			}
 		});
 		btnTriva.setBounds(172, 228, 97, 25);
@@ -66,7 +65,7 @@ public class ForDebugging extends JPanel
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.titleScreen);
+				guiObject.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
 		btnMainMenu.setBounds(295, 228, 97, 25);

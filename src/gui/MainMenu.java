@@ -13,7 +13,7 @@ public class MainMenu extends JPanel
 	 * Create the panel.
 	 */
 	public static String name;
-	public MainMenu()
+	public MainMenu(GUI guiObject)
 	{
 		setLayout(null);
 
@@ -26,7 +26,7 @@ public class MainMenu extends JPanel
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				GUI.mainWindow.changeView(GUI.gameplay);
+				guiObject.mainWindow.changeView(GUI.gameplay);
 			}
 		});
 		btnNewgame.setBounds(172, 92, 97, 25);
@@ -36,7 +36,7 @@ public class MainMenu extends JPanel
 		btnForDebuggin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.debugging);
+				guiObject.mainWindow.changeView(GUI.debugging);
 			}
 		});
 		btnForDebuggin.setBounds(314, 250, 124, 25);

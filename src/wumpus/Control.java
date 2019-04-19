@@ -15,9 +15,11 @@ import java.util.Scanner;
 
 import javax.swing.SwingWorker;
 
+import gui.ControlToGUIUpdate;
 import gui.GUI;
+import gui.GUIToControlUpdate;
 
-public class Control extends SwingWorker<Void, Object>
+public class Control extends SwingWorker<Void, ControlToGUIUpdate>
 {	
 	// Thread: Initial thread
 	public static void main(String[] args)
@@ -92,15 +94,14 @@ public class Control extends SwingWorker<Void, Object>
 	
 	// --- Instance Data --- //
 	
-	private ArrayList<Object> guiMessages; // Used to receive notifications of events happening on the gui
+	private ArrayList<GUIToControlUpdate> guiMessages; // Used to receive notifications of events happening on the gui
 	
 	// Constructs the object
 	// Thread: Initial
 	public Control()
 	{
-		guiMessages = new ArrayList<Object>();
-		
-		guiObject = new GUI(guiMessages);
+		guiMessages = new ArrayList<GUIToControlUpdate>();
+		guiObject = new GUI(this); // TODO this may cause an error because control isn't fully instantiated yet
 	}
 	
 	// Thread: Initial
@@ -139,14 +140,14 @@ public class Control extends SwingWorker<Void, Object>
 	// Process results from the SwingWorker worker thread
 	// Thread: EDT
 	// TODO, hand all of this off to Logan, in the GUI class? Maybe
-	protected void process(List<Object> messages)
+	protected void process(List<ControlToGUIUpdate> updates)
 	{
-		
+		guiObject.processControlUpdates(updates);
 	}
 	
 	// Send a message from the gui to the worker thread
 	// Thread: EDT
-	public void sendMessage(Object message)
+	public void sendMessage(GUIToControlUpdate message)
 	{
 		synchronized(guiMessages)
 		{

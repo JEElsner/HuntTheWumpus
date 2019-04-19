@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.EventQueue;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import wumpus.Control;
 
 public class GUI
 {
@@ -20,20 +23,16 @@ public class GUI
 	// The GUI that displays the game
 	protected MainWindow mainWindow;
 	
-	// The Current GUI object
-	protected static GUI guiObject; // TODO, refactor so there is no static variable?
+	private Control controller;
 	
-	private Object controlNotifier; // TODO, change to ArrayList
-	
-	public GUI(Object obj)
+	public GUI(Control controller)
 	{
-		guiObject = this;
-		
-		controlNotifier = obj;
+		this.controller = controller;
 	}
+	
 	public static void debug()
 	{
-		new GUI(new Object()).startGUI();
+		new GUI(new Control()).startGUI();
 	}
 	
 	public void startGUI()
@@ -172,12 +171,17 @@ public class GUI
 		//Run the trivia for x amount of times - read from Control
 	}
 	
-	// Notify the Control Object when it needs to respond to a GUI event
-	protected void notifyControl()
+	// Process updates from the control worker thread
+	// Thread: EDT
+	public void processControlUpdates(List<ControlToGUIUpdate> updates)
 	{
-		synchronized(controlNotifier)
-		{
-			controlNotifier.notify();
-		}
+		
+	}
+	
+	// Notify the Control Object when it needs to respond to a GUI event
+	// Thread: EDT
+	protected void notifyControl(GUIToControlUpdate update)
+	{
+		controller.sendMessage(update);
 	}
 }

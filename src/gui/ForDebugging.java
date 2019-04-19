@@ -10,11 +10,15 @@ import javax.swing.JButton;
 
 public class ForDebugging extends JPanel
 {
+	private GUI gui;
+	
 	/**
 	 * Create the panel.
 	 */
 	public ForDebugging(GUI guiObject)
 	{
+		gui = guiObject;
+		
 		setLayout(null);
 		
 		JLabel lblForDebugging = new JLabel("For Debugging");
@@ -74,7 +78,7 @@ public class ForDebugging extends JPanel
 		JButton btnTestNotify = new JButton("Test Notify");
 		btnTestNotify.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUI.guiObject.notifyControl();
+				gui.notifyControl(new GUIToControlUpdate(false, "Hey, this is debug!", GUIToControlUpdate.Action.GET_HIGH_SCORE));
 			}
 		});
 		btnTestNotify.setBounds(24, 243, 97, 25);

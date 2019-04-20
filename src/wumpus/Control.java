@@ -15,11 +15,10 @@ import java.util.Scanner;
 
 import javax.swing.SwingWorker;
 
-import gui.ControlToGUIUpdate;
 import gui.GUI;
-import gui.GUIToControlUpdate;
+import gui.Update;
 
-public class Control extends SwingWorker<Void, ControlToGUIUpdate>
+public class Control extends SwingWorker<Void, Update>
 {	
 	// Thread: Initial thread
 	public static void main(String[] args)
@@ -94,13 +93,13 @@ public class Control extends SwingWorker<Void, ControlToGUIUpdate>
 	
 	// --- Instance Data --- //
 	
-	private ArrayList<GUIToControlUpdate> guiMessages; // Used to receive notifications of events happening on the gui
+	private ArrayList<Update> guiMessages; // Used to receive notifications of events happening on the gui
 	
 	// Constructs the object
 	// Thread: Initial
 	public Control()
 	{
-		guiMessages = new ArrayList<GUIToControlUpdate>();
+		guiMessages = new ArrayList<Update>();
 		guiObject = new GUI(this); // TODO this may cause an error because control isn't fully instantiated yet
 	}
 	
@@ -132,7 +131,7 @@ public class Control extends SwingWorker<Void, ControlToGUIUpdate>
 					e.printStackTrace();
 				}
 				
-				System.out.println("Notification Recieved");
+				System.out.println("Notification Recieved: " + guiMessages.get(0).getData());
 			}
 		}
 	}
@@ -140,14 +139,14 @@ public class Control extends SwingWorker<Void, ControlToGUIUpdate>
 	// Process results from the SwingWorker worker thread
 	// Thread: EDT
 	// TODO, hand all of this off to Logan, in the GUI class? Maybe
-	protected void process(List<ControlToGUIUpdate> updates)
+	protected void process(List<Update> updates)
 	{
 		guiObject.processControlUpdates(updates);
 	}
 	
 	// Send a message from the gui to the worker thread
 	// Thread: EDT
-	public void sendMessage(GUIToControlUpdate message)
+	public void sendMessage(Update message)
 	{
 		synchronized(guiMessages)
 		{

@@ -17,6 +17,7 @@ import javax.swing.SwingWorker;
 
 import gui.GUI;
 import gui.Update;
+import gui.UpdateType;
 
 public class Control extends SwingWorker<Void, Update>
 {	
@@ -120,18 +121,69 @@ public class Control extends SwingWorker<Void, Update>
 	{	
 		while(true)
 		{
+			// IDK if all of this code, especially the Update handling, should
+			// occur within the synchronized block
 			synchronized(guiMessages)
 			{
 				try
 				{
-					guiMessages.wait();
+					guiMessages.wait(); // Wait for a new update to be posted, then continue once notified
 				} catch (InterruptedException e)
 				{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
-				System.out.println("Notification Recieved: " + guiMessages.get(0).getData());
+				while(guiMessages.size() > 0)
+				{
+					Update msg = guiMessages.get(0); // Get the first message to occur
+					
+					// Ensure the message hasn't already been processed. If it has, get rid of it
+					if(msg.isUpdateProcessed())
+						guiMessages.remove(0);
+					
+					// --- Handle the Update --- //
+					
+					switch(msg.getType())
+					{
+					case DEBUG:
+						System.out.println("Recieved debug update from GUI: " + msg.getData());
+						break;
+						
+					case NEW_GAME:
+						newGame();
+						break;
+						
+					case GET_HIGH_SCORE:
+						break;
+						
+					case GET_TRIVIA:
+						break;
+						
+					case MOVE:
+						movePlayer((MovementDirection) msg.getData());
+						break;
+						
+					case PURCHASE_ARROW:
+						break;
+						
+					case PURCHASE_SECRET:
+						break;
+						
+					case SHOOT_ARROW:
+						break;
+						
+					default:
+						throw new IllegalArgumentException("Invalid Control Update: " + msg.getType());
+					}
+					
+					// --- End of handling Update --- //
+					
+					msg.finishProcessing(); // Indicate that the message is done being processed
+					// TODO necessary?
+					
+					guiMessages.remove(0); // Remove the update, since it has been processed
+				}
 			}
 		}
 	}
@@ -170,7 +222,6 @@ public class Control extends SwingWorker<Void, Update>
 	}
 	
 	// Move the player
-	
 	// Thread: Worker
 	public void movePlayer(MovementDirection dir)
 	{
@@ -180,31 +231,39 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void foundWumpus()
 	{
+		publish(new Update(UpdateType.ENCOUNTER_WUMPUS));
 	}
 	
 	// The player enters a room with bats
 	// Thread: Worker
 	public void foundBats()
 	{
+		publish(new Update(UpdateType.ENCOUNTER_BAT));
 	}
 	
 	// The player enters a room with a bottomless pit
 	// Thread: Worker
 	public void foundPit()
 	{
+		publish(new Update(UpdateType.ENCOUNTER_PIT));
 	}
 	
 	// The player kills the wumpus
 	// Thread: Worker
 	public void killedWumpus()
 	{
+		endGame(true);
 	}
 	
 	// The game has ended, because the player has either killed the wumpus, or died
 	// Specify true if the wumpus has been killed
+	// Thread: Worker
 	// TODO rename to lostGame(), because it should not be similar to startGame, whose purpose is not an antonym of endGame
 	public void endGame(boolean wumpusKilled)
 	{
-		
+		if(wumpusKilled)
+			publish(new Update(UpdateType.DISPLAY_WIN));
+		else
+			publish(new Update(UpdateType.DISPLAY_LOSE));
 	}
 }

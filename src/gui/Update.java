@@ -14,10 +14,15 @@ public class Update
 	private Object data; // Associated data with the update
 	private UpdateType type; // The type of update, determining what the recipient needs to do with it
 	
-	Update(UpdateType type, Object data)
+	public Update(UpdateType type, Object data)
 	{
 		this.type = type;
 		this.data = data;
+	}
+	
+	public Update(UpdateType type)
+	{
+		this(type, null);
 	}
 	
 	// Indicate that the update has been fully consumed by the recipient

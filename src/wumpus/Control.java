@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 
 import gui.GUI;
@@ -60,7 +61,7 @@ public class Control extends SwingWorker<Void, Update>
 		// Actual Code
 		
 		controlObject = new Control();
-		controlObject.startGame();
+		controlObject.startControl();
 	}
 	
 	// Thread: Initial
@@ -105,15 +106,12 @@ public class Control extends SwingWorker<Void, Update>
 	}
 	
 	// Thread: Initial
-	public void startGame()
+	public void startControl()
 	{
 		guiObject.startGUI(); // Start the GUI
 		
-		this.execute(); // Begin the worker thread to support the GUI in the background
-		// TODO, is this no bueno, and should be done in the EDT
-		/* Oh yeah, this may be no bueno, because the process method should be called in the EDT,
-		 * and that may actually be the only location where it works properly, and is called frequently
-		 */
+		SwingUtilities.invokeLater(this::execute); // Begin the worker thread to support the GUI in the background
+		// I'm pretty sure SwingWorker.execute() must be called on the EDT, so hence the invokeLater
 	}
 	
 	// Thread: Worker
@@ -130,7 +128,7 @@ public class Control extends SwingWorker<Void, Update>
 					guiMessages.wait(); // Wait for a new update to be posted, then continue once notified
 				} catch (InterruptedException e)
 				{
-					// TODO Auto-generated catch block
+					System.err.println("Control worker interrupted:");
 					e.printStackTrace();
 				}
 				
@@ -190,7 +188,6 @@ public class Control extends SwingWorker<Void, Update>
 	
 	// Process results from the SwingWorker worker thread
 	// Thread: EDT
-	// TODO, hand all of this off to Logan, in the GUI class? Maybe
 	protected void process(List<Update> updates)
 	{
 		guiObject.processControlUpdates(updates);
@@ -258,7 +255,6 @@ public class Control extends SwingWorker<Void, Update>
 	// The game has ended, because the player has either killed the wumpus, or died
 	// Specify true if the wumpus has been killed
 	// Thread: Worker
-	// TODO rename to lostGame(), because it should not be similar to startGame, whose purpose is not an antonym of endGame
 	public void endGame(boolean wumpusKilled)
 	{
 		if(wumpusKilled)

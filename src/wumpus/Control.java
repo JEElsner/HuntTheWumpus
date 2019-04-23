@@ -228,21 +228,21 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void foundWumpus()
 	{
-		publish(new Update(UpdateType.ENCOUNTER_WUMPUS));
+		publish(new Update(UpdateType.ENCOUNTER_WUMPUS, false));
 	}
 	
 	// The player enters a room with bats
 	// Thread: Worker
 	public void foundBats()
 	{
-		publish(new Update(UpdateType.ENCOUNTER_BAT));
+		publish(new Update(UpdateType.ENCOUNTER_BAT, false));
 	}
 	
 	// The player enters a room with a bottomless pit
 	// Thread: Worker
 	public void foundPit()
 	{
-		publish(new Update(UpdateType.ENCOUNTER_PIT));
+		publish(new Update(UpdateType.ENCOUNTER_PIT, false));
 	}
 	
 	// The player kills the wumpus
@@ -258,8 +258,8 @@ public class Control extends SwingWorker<Void, Update>
 	public void endGame(boolean wumpusKilled)
 	{
 		if(wumpusKilled)
-			publish(new Update(UpdateType.DISPLAY_WIN));
+			publish(new Update(UpdateType.DISPLAY_WIN, false));
 		else
-			publish(new Update(UpdateType.DISPLAY_LOSE));
+			publish(new Update(UpdateType.DISPLAY_LOSE, false));
 	}
 }

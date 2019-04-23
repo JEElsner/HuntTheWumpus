@@ -13,16 +13,18 @@ public class Update
 	private boolean updateProcessed = false; // Has the update been fully consumed by the recipient?
 	private Object data; // Associated data with the update
 	private UpdateType type; // The type of update, determining what the recipient needs to do with it
+	private boolean forControl; //Tells who the update if for
 	
-	public Update(UpdateType type, Object data)
+	public Update(UpdateType type, boolean forControl, Object data)
 	{
 		this.type = type;
 		this.data = data;
+		this.forControl = forControl;
 	}
 	
-	public Update(UpdateType type)
+	public Update(UpdateType type, boolean forControl)
 	{
-		this(type, null);
+		this(type, forControl, null);
 	}
 	
 	// Indicate that the update has been fully consumed by the recipient
@@ -44,5 +46,15 @@ public class Update
 	public UpdateType getType()
 	{
 		return type;
+	}
+	
+	public boolean isForControl()
+	{
+		return forControl;
+	}
+	
+	public boolean isForGUI()
+	{
+		return !(forControl);
 	}
 }

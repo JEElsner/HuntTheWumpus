@@ -147,7 +147,7 @@ public class Control extends SwingWorker<Void, Update<?>>
 					// --- Handle the Update --- //
 					
 					try
-					{
+					{	
 						switch(msg.getType())
 						{
 						case DEBUG:
@@ -236,11 +236,39 @@ public class Control extends SwingWorker<Void, Update<?>>
 	// Thread: Worker
 	public void movePlayer(MovementDirection dir)
 	{
-		// Move the player to the new location
-		// Check for wumpus
-		// Check for pits & bats
+		int room = mapObject.movePlayer(dir); // Move the player to the new location
 		
-		publish(new Update(UpdateType.MOVE, false)); // Pass new room to GUI
+		publish(new Update(UpdateType.MOVE, false)); // Pass new room & Warnings to GUI
+		
+		// --- Check if a player moved into a bad room --- //
+		
+		if(room == mapObject.getWumpusRoom())
+		{
+			foundWumpus();
+		}else if(room == mapObject.getPitRoom() || room == mapObject.getPitRoom2())
+		{
+			foundPit();
+		}else if(room == mapObject.getBatRoom() || room == mapObject.getBatRoom2())
+		{
+			foundBats();
+		}
+		
+		// --- Check for and warn about pits --- //
+		
+		int batWarnings = mapObject.CheckForBats();
+		int pitWarnings = mapObject.CheckForPits();
+		
+		if(batWarnings > 0)
+		{
+			publish(new Update<Integer>(UpdateType.BAT_WARNING, false, batWarnings));
+		}
+		
+		if(pitWarnings > 0)
+		{
+			publish(new Update<Integer>(UpdateType.PIT_WARNING, false, pitWarnings));
+		}
+		
+		// TODO Warn about wumpus
 	}
 	
 	// The player enters the same room as the Wumpus

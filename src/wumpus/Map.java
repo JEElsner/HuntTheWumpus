@@ -28,9 +28,9 @@ public class Map
 		return BatRoom2;
 	}
 
-	public static int[][] getNeighbors()
+	public static int[] getNeighbors(int RoomNumber)
 	{
-		return neighbors;
+		return neighbors[RoomNumber - 1];
 	}
 
 
@@ -79,7 +79,7 @@ public class Map
 	
 	static
 	{		
-		neighbors[0] = new int[] {25, 26, 2, 7, 6, 30 };
+		neighbors[0] = new int[] {25, 26, 2, 7, 6, 30};
 		//The first number is UP
 		//The second number is UP_RIGHT
 		//The third number is DOWN_RIGHT 
@@ -120,17 +120,14 @@ public class Map
 	public static void debug()
 	{
 		Map m1 = new Map();
-		System.out.println(m1.BatRoom + ", " + m1.BatRoom2 + ", " + m1.PitRoom + ", " + m1.PitRoom2);	
+		m1.BatRoom = 1;
+		System.out.println(m1.getPlayerRoom() + ", " + m1.getBatRoom() + ", " + m1.getBatRoom2() + ", " +
+		m1.getWumpusRoom());
 		
-		Map m2 = new Map();
-		System.out.println(m2.BatRoom + ", " + m2.BatRoom2 + ", " + m2.PitRoom + ", " + m2.PitRoom2);	
+		m1.flyAway();
+		System.out.println(m1.getPlayerRoom() + ", " + m1.getBatRoom() + ", " + m1.getBatRoom2() + ", " +
+		m1.getWumpusRoom());
 		
-		Map m3 = new Map();
-		System.out.println(m3.BatRoom + ", " + m3.BatRoom2 + ", " + m3.PitRoom + ", " + m3.PitRoom2);	
-		
-		Map m4 = new Map();
-		System.out.println(m4.BatRoom + ", " + m4.BatRoom2 + ", " + m4.PitRoom + ", " + m4.PitRoom2);	
-				
 	}
 	
 	public int getWumpusRoom()
@@ -164,26 +161,35 @@ public class Map
 	
 	public int flyAway()
 	{
-		/* if(PlayerRoom == BatRoom)
+		if(PlayerRoom == BatRoom)
 		{
-			int same = PlayerRoom;
-			while(PlayerRoom == same)
-				PlayerRoom = (int) (Math.random() * 30 + 1);
-			int same2 = BatRoom;
-			while(BatRoom == same)
-				BatRoom = (int) (Math.random() * 30 + 1);
-		}
+			BatRoom = (int) (Math.random() * 29 + 2);
+			while(BatRoom == BatRoom2 || BatRoom == PitRoom || BatRoom == PitRoom2 || BatRoom == PlayerRoom)
+			{
+				BatRoom = (int) (Math.random() * 29 + 2);
+			}	
+			
+			PlayerRoom = (int) (Math.random() * 29 + 2);
+			while(PlayerRoom == BatRoom || PlayerRoom == BatRoom || PlayerRoom == PitRoom || PlayerRoom == PitRoom2 || PlayerRoom == WumpusRoom)
+			{
+				PlayerRoom = (int) (Math.random() * 29 + 2);
+			}
+		}	
 		
-		else if(PlayerRoom == BatRoom2)
+		if(PlayerRoom == BatRoom2)
 		{
-			int same = PlayerRoom;
-			while(PlayerRoom == same)
-				PlayerRoom = (int) (Math.random() * 30 + 1);
-			int same2 = BatRoom2;
-			while(BatRoom2 == same2)
-				BatRoom2 = (int) (Math.random() * 30 + 1);
-		}
-		*/
+			BatRoom2 = (int) (Math.random() * 29 + 2);
+			while(BatRoom2 == BatRoom || BatRoom2 == PitRoom || BatRoom2 == PitRoom2 || BatRoom2 == PlayerRoom)
+			{
+				BatRoom2 = (int) (Math.random() * 29 + 2);
+			}
+			
+			PlayerRoom = (int) (Math.random() * 29 + 2);
+			while(PlayerRoom == BatRoom || PlayerRoom == BatRoom || PlayerRoom == PitRoom || PlayerRoom == PitRoom2 || PlayerRoom == WumpusRoom)
+			{
+				PlayerRoom = (int) (Math.random() * 29 + 2);
+			}
+		}					
 		return PlayerRoom;
 	}
 	

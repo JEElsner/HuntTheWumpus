@@ -3,14 +3,45 @@ package wumpus;
 
 public class Map
 {
-	public int StartingRoom = 1;
-	public int PlayerRoom = 1;
-	public int WumpusRoom;
-	public int PitRoom = 0;
-	public int PitRoom2 = 0;
-	public int BatRoom = 0;
-	public int BatRoom2 = 0;
-	public boolean AnyMatch;
+	public int getStartingRoom()
+	{
+		return StartingRoom;
+	}
+
+	public int getPitRoom()
+	{
+		return PitRoom;
+	}
+
+	public int getPitRoom2()
+	{
+		return PitRoom2;
+	}
+
+	public int getBatRoom()
+	{
+		return BatRoom;
+	}
+
+	public int getBatRoom2()
+	{
+		return BatRoom2;
+	}
+
+	public static int[][] getNeighbors()
+	{
+		return neighbors;
+	}
+
+
+	private int StartingRoom = 1;
+	private int PlayerRoom = 1;
+	private int WumpusRoom;
+	private int PitRoom = 0;
+	private int PitRoom2 = 0;
+	private int BatRoom = 0;
+	private int BatRoom2 = 0;
+	private boolean AnyMatch;
 	
 	public Map()
 	{
@@ -88,26 +119,18 @@ public class Map
 	
 	public static void debug()
 	{
-		int x;
-		Map map = new Map(); 
+		Map m1 = new Map();
+		System.out.println(m1.BatRoom + ", " + m1.BatRoom2 + ", " + m1.PitRoom + ", " + m1.PitRoom2);	
 		
-		/* for(int init = 2; init <= 6; init += 2)
-		{
-			x = init;
-			
-			do 
-			{
-				System.out.println(x);
-				x = map.getNearbyRoom(x, MovementDirection.UP);	
-			}while(x != init);
-		}
-		*/
-		map.PitRoom = 16;
-		map.PitRoom2 = 24;
-		map.PlayerRoom = 23;
-		x = map.CheckForPits();
-		System.out.println(x);
+		Map m2 = new Map();
+		System.out.println(m2.BatRoom + ", " + m2.BatRoom2 + ", " + m2.PitRoom + ", " + m2.PitRoom2);	
 		
+		Map m3 = new Map();
+		System.out.println(m3.BatRoom + ", " + m3.BatRoom2 + ", " + m3.PitRoom + ", " + m3.PitRoom2);	
+		
+		Map m4 = new Map();
+		System.out.println(m4.BatRoom + ", " + m4.BatRoom2 + ", " + m4.PitRoom + ", " + m4.PitRoom2);	
+				
 	}
 	
 	public int getWumpusRoom()

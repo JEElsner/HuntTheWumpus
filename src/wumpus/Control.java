@@ -67,7 +67,7 @@ public class Control extends SwingWorker<Void, Update<?>>
 	// Thread: Initial
 	public static void debug()
 	{
-		System.out.println("Debug test");
+		System.out.println("Debug test".contains(null));
 	}
 	
 	// Game Objects //
@@ -142,37 +142,45 @@ public class Control extends SwingWorker<Void, Update<?>>
 					
 					// --- Handle the Update --- //
 					
-					switch(msg.getType())
+					try
 					{
-					case DEBUG:
-						System.out.println("Recieved debug update from GUI: " + msg.getData());
-						break;
-						
-					case NEW_GAME:
-						newGame();
-						break;
-						
-					case GET_HIGH_SCORE:
-						break;
-						
-					case GET_TRIVIA:
-						break;
-						
-					case MOVE:
-						movePlayer((MovementDirection) msg.getData());
-						break;
-						
-					case PURCHASE_ARROW:
-						break;
-						
-					case PURCHASE_SECRET:
-						break;
-						
-					case SHOOT_ARROW:
-						break;
-						
-					default:
-						throw new IllegalArgumentException("Invalid Control Update: " + msg.getType());
+						switch(msg.getType())
+						{
+						case DEBUG:
+							System.out.println("Recieved debug update from GUI: " + msg.getData());
+							break;
+							
+						case NEW_GAME:
+							newGame();
+							break;
+							
+						case GET_HIGH_SCORE:
+							break;
+							
+						case GET_TRIVIA:
+							break;
+							
+						case MOVE:
+							movePlayer((MovementDirection) msg.getData());
+							break;
+							
+						case PURCHASE_ARROW:
+							break;
+							
+						case PURCHASE_SECRET:
+							break;
+							
+						case SHOOT_ARROW:
+							break;
+							
+						default:
+							// TODO change to be more durable
+							throw new IllegalArgumentException("Invalid Control Update: " + msg.getType());
+						}
+					}catch(ClassCastException ex)
+					{
+						System.err.println("Invalid data for Update: " + msg.getType().toString());
+						System.err.println(ex.getMessage());
 					}
 					
 					// --- End of handling Update --- //
@@ -208,6 +216,8 @@ public class Control extends SwingWorker<Void, Update<?>>
 	// Thread: Worker
 	public void newGame()
 	{
+		// Create a new cave with different rooms and stuff
+		// Give the current room the player is in to the GUI
 	}
 	
 	// Let's user see high scores
@@ -222,27 +232,38 @@ public class Control extends SwingWorker<Void, Update<?>>
 	// Thread: Worker
 	public void movePlayer(MovementDirection dir)
 	{
+		// Move the player to the new location
+		// Check for wumpus
+		// Check for pits & bats
+		
+		publish(new Update(UpdateType.MOVE, false)); // Pass new room to GUI
 	}
 	
 	// The player enters the same room as the Wumpus
 	// Thread: Worker
 	public void foundWumpus()
 	{
-		publish(new Update(UpdateType.ENCOUNTER_WUMPUS, false));
+		publish(new Update(UpdateType.ENCOUNTER_WUMPUS, false)); // Pass trivia questions with update?
+		
+		// Make the player answer trivia
+		// If trivia correct, move wumpus
+		// If trivia incorrect, end game
 	}
 	
 	// The player enters a room with bats
 	// Thread: Worker
 	public void foundBats()
 	{
-		publish(new Update(UpdateType.ENCOUNTER_BAT, false));
+		publish(new Update(UpdateType.ENCOUNTER_BAT, false)); // Pass trivia questions with update?
+		
+		// Make the player answer trivia?
 	}
 	
 	// The player enters a room with a bottomless pit
 	// Thread: Worker
 	public void foundPit()
 	{
-		publish(new Update(UpdateType.ENCOUNTER_PIT, false));
+		publish(new Update(UpdateType.ENCOUNTER_PIT, false)); // Pass trivia questions with update?
 	}
 	
 	// The player kills the wumpus
@@ -258,8 +279,8 @@ public class Control extends SwingWorker<Void, Update<?>>
 	public void endGame(boolean wumpusKilled)
 	{
 		if(wumpusKilled)
-			publish(new Update(UpdateType.DISPLAY_WIN, false));
+			publish(new Update(UpdateType.DISPLAY_WIN, false)); // Pass high scores?
 		else
-			publish(new Update(UpdateType.DISPLAY_LOSE, false));
+			publish(new Update(UpdateType.DISPLAY_LOSE, false)); // Pass high scores?
 	}
 }

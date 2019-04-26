@@ -54,9 +54,13 @@ public class Control extends SwingWorker<Void, Update<?>>
 			}else if(clazz.equalsIgnoreCase("Trivia"))
 			{
 				Trivia.debug();
-			}			
+			}
+			
+			in.close();
 			return;
 		} // End "debug" if
+		
+		in.close();
 		
 		// Actual Code
 		

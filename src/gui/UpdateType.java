@@ -59,6 +59,21 @@ public enum UpdateType
 	 * Objects:
 	 */
 	CHECK_ENCOUNTER,
+
+	/* To GUI: Warnings that there are pits near the room the player is in
+	 * Object: int number of pits in surrounding rooms
+	 */
+	PIT_WARNING,
+	
+	/* To GUI: Warnings that there are bats near the room the player is in
+	 * Object: int number of bats in surrounding rooms
+	 */
+	BAT_WARNING,
+	
+	/* To GUI: Warnings that the wumpus is near the player
+	 * Object: None
+	 */
+	WUMPUS_WARNING,
 	
 	/* To Control:
 	 * -------------

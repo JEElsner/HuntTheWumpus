@@ -6,18 +6,45 @@ public class Map
 	public int StartingRoom = 1;
 	public int PlayerRoom = 1;
 	public int WumpusRoom;
-	public int PitRoom;
-	public int PitRoom2;
-	public int BatRoom;
-	public int BatRoom2;
+	public int PitRoom = 0;
+	public int PitRoom2 = 0;
+	public int BatRoom = 0;
+	public int BatRoom2 = 0;
+	public boolean AnyMatch;
 	
 	public Map()
 	{
+		WumpusRoom = (int) (Math.random() * 29 + 2);
 		
+		int[] hazards = new int[4];
+		for(int i = 0; i < hazards.length; i++)
+		{
+			do
+			{
+				hazards[i] = (int) (Math.random() * 29 + 2);
+				
+				AnyMatch = false;
+				for(int k = 0; k < hazards.length; k++)
+				{
+					if (i == k)
+						continue;
+					else if (hazards[i] == hazards[k])
+					{
+						AnyMatch = true;
+						break;
+					}
+				}
+			}while(AnyMatch);
+			
+		}		
+		PitRoom = hazards[0];
+		PitRoom2 = hazards[1];
+		BatRoom = hazards[2];
+		BatRoom2 = hazards[3];		
 	}
 	
 	
-	public static final int [][] neighbors = new int[30][]; // The 30 represents the room number, and the 0 underneath is the room number - 1 due to index shenanigans
+	private static final int [][] neighbors = new int[30][]; // The 30 represents the room number, and the 0 underneath is the room number - 1 due to index shenanigans
 	
 	static
 	{		
@@ -105,7 +132,7 @@ public class Map
 		return newRoom;
 	}
 	
-	public boolean ShootArrow(MovementDirection dir)
+	public boolean shootArrow(MovementDirection dir)
 	{
 		if(WumpusRoom == getNearbyRoom(PlayerRoom, dir))
 			return true;
@@ -114,7 +141,7 @@ public class Map
 	
 	public int flyAway()
 	{
-		if(PlayerRoom == BatRoom)
+		/* if(PlayerRoom == BatRoom)
 		{
 			int same = PlayerRoom;
 			while(PlayerRoom == same)
@@ -133,6 +160,7 @@ public class Map
 			while(BatRoom2 == same2)
 				BatRoom2 = (int) (Math.random() * 30 + 1);
 		}
+		*/
 		return PlayerRoom;
 	}
 	

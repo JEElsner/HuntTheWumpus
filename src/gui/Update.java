@@ -6,16 +6,16 @@
 
 package gui;
 
-public class Update
+public class Update<V>
 {		
 	// --- Instance Data --- //
 	
 	private boolean updateProcessed = false; // Has the update been fully consumed by the recipient?
-	private Object data; // Associated data with the update
+	private V data; // Associated data with the update
 	private UpdateType type; // The type of update, determining what the recipient needs to do with it
 	private boolean forControl; //Tells who the update if for
 	
-	public Update(UpdateType type, boolean forControl, Object data)
+	public Update(UpdateType type, boolean forControl, V data)
 	{
 		this.type = type;
 		this.data = data;
@@ -39,7 +39,7 @@ public class Update
 	{
 		return updateProcessed;
 	}
-	public Object getData()
+	public V getData()
 	{
 		return data;
 	}

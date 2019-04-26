@@ -20,7 +20,7 @@ import gui.GUI;
 import gui.Update;
 import gui.UpdateType;
 
-public class Control extends SwingWorker<Void, Update>
+public class Control extends SwingWorker<Void, Update<?>>
 {	
 	// Thread: Initial thread
 	public static void main(String[] args)
@@ -188,7 +188,7 @@ public class Control extends SwingWorker<Void, Update>
 	
 	// Process results from the SwingWorker worker thread
 	// Thread: EDT
-	protected void process(List<Update> updates)
+	protected void process(List<Update<?>> updates)
 	{
 		guiObject.processControlUpdates(updates);
 	}

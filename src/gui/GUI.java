@@ -173,14 +173,14 @@ public class GUI
 	
 	// Process updates from the control worker thread
 	// Thread: EDT
-	public void processControlUpdates(List<Update> updates)
+	public void processControlUpdates(List<Update<?>> updates)
 	{
 		
 	}
 	
 	// Notify the Control Object when it needs to respond to a GUI event
 	// Thread: EDT
-	protected void notifyControl(Update update)
+	protected void notifyControl(Update<?> update)
 	{
 		controller.sendMessage(update);
 	}

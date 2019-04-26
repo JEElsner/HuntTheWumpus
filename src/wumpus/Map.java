@@ -222,6 +222,16 @@ public class Map
 		//if the player has a neighbor room containing a bat, then it will send the number of adjacent pits, and therefore the GUI in order to send a warning
 	}
 	
+	public boolean CheckForWumpus()
+	{
+		for(MovementDirection dir : MovementDirection.values())
+		{
+			if(WumpusRoom == getNearbyRoom(PlayerRoom, dir))
+				return true;
+		}		
+		return false;
+	}
+	
 	public boolean fallIntoPit()
 	{
 		// if player room is the same as the room as the pit

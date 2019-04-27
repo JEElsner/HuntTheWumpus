@@ -20,7 +20,7 @@ import gui.GUI;
 import gui.Update;
 import gui.UpdateType;
 
-public class Control extends SwingWorker<Void, Update<?>>
+public class Control extends SwingWorker<Void, Update>
 {	
 	// Thread: Initial thread
 	public static void main(String[] args)
@@ -99,13 +99,13 @@ public class Control extends SwingWorker<Void, Update<?>>
 	
 	// --- Instance Data --- //
 	
-	private ArrayList<Update<?>> guiMessages; // Used to receive notifications of events happening on the gui
+	private ArrayList<Update> guiMessages; // Used to receive notifications of events happening on the gui
 	
 	// Constructs the object
 	// Thread: Initial
 	public Control()
 	{
-		guiMessages = new ArrayList<Update<?>>();
+		guiMessages = new ArrayList<Update>();
 		guiObject = new GUI(this); // TODO this may cause an error because control isn't fully instantiated yet
 	}
 	
@@ -138,7 +138,7 @@ public class Control extends SwingWorker<Void, Update<?>>
 				
 				while(guiMessages.size() > 0)
 				{
-					Update<?> msg = guiMessages.get(0); // Get the first message to occur
+					Update msg = guiMessages.get(0); // Get the first message to occur
 					
 					// Ensure the message hasn't already been processed. If it has, get rid of it
 					if(msg.isUpdateProcessed())
@@ -151,7 +151,7 @@ public class Control extends SwingWorker<Void, Update<?>>
 						switch(msg.getType())
 						{
 						case DEBUG:
-							System.out.println("Recieved debug update from GUI: " + msg.getData());
+							System.out.println("Recieved debug update from GUI: " + msg.getData().toString());
 							break;
 							
 						case NEW_GAME:
@@ -200,14 +200,14 @@ public class Control extends SwingWorker<Void, Update<?>>
 	
 	// Process results from the SwingWorker worker thread
 	// Thread: EDT
-	protected void process(List<Update<?>> updates)
+	protected void process(List<Update> updates)
 	{
 		guiObject.processControlUpdates(updates);
 	}
 	
 	// Send a message from the gui to the worker thread
 	// Thread: EDT
-	public void sendMessage(Update<?> message)
+	public void sendMessage(Update message)
 	{
 		synchronized(guiMessages)
 		{
@@ -268,12 +268,12 @@ public class Control extends SwingWorker<Void, Update<?>>
 		
 		if(batWarnings > 0)
 		{
-			publish(new Update<Integer>(UpdateType.BAT_WARNING, false, batWarnings));
+			publish(new Update(UpdateType.BAT_WARNING, false, batWarnings));
 		}
 		
 		if(pitWarnings > 0)
 		{
-			publish(new Update<Integer>(UpdateType.PIT_WARNING, false, pitWarnings));
+			publish(new Update(UpdateType.PIT_WARNING, false, pitWarnings));
 		}
 	}
 	

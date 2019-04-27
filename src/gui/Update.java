@@ -6,17 +6,24 @@
 
 package gui;
 
-public class Update<V>
+public class Update
 {		
 	// --- Instance Data --- //
 	
 	private boolean updateProcessed = false; // Has the update been fully consumed by the recipient?
-	private V data; // Associated data with the update
+	private Object data; // Associated data with the update
 	private UpdateType type; // The type of update, determining what the recipient needs to do with it
 	private boolean forControl; //Tells who the update if for
 	
-	public Update(UpdateType type, boolean forControl, V data)
+	public Update(UpdateType type, boolean forControl, Object data)
 	{
+		if(data != null)
+		{
+			if(!type.getDataType(forControl).isInstance(data))
+				throw new IllegalArgumentException("Invalid data for UpdateType " + type + ": " + data.getClass().getSimpleName());
+		}else if(type.getDataType(forControl) != Void.class)
+			throw new IllegalArgumentException("Non-null data expected for UpdateType: " + type);
+		
 		this.type = type;
 		this.data = data;
 		this.forControl = forControl;
@@ -39,7 +46,7 @@ public class Update<V>
 	{
 		return updateProcessed;
 	}
-	public V getData()
+	public Object getData()
 	{
 		return data;
 	}

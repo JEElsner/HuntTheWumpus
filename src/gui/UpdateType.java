@@ -11,10 +11,11 @@ public enum UpdateType
 {
 	// === Enum Values === //
 	
+	// TODO, some of the information below needs to be corrected, go over with Logan
 	
 	// Updates that could either be for the GUI or Control
 	DEBUG(Object.class, Object.class), // You know, debug
-	
+
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify start of new game
@@ -195,19 +196,30 @@ public enum UpdateType
 	 */
 	ARROW_MISS(Void.class, Integer.class)
 	
-	;
+	; // <---- Hey there's a semi-colon here! Yay!
 	
-	// --- Value Data --- //
+	// --- Instance Data --- //
 	
+	// The type of data that would be transmitted to Control for this update
 	public final Class<?> TO_CONTROL_DATA_TYPE;
+	
+	// The type of data that would be transmitted to GUI (& the EDT) for this update
 	public final Class<?> TO_GUI_DATA_TYPE;
 	
+	// Constructor
 	private UpdateType(Class<?> toControl, Class<?> toGUI)
 	{
 		TO_CONTROL_DATA_TYPE = toControl;
 		TO_GUI_DATA_TYPE = toGUI;
 	}
 	
+	/* Returns the type of data being transmitted for the UpdateType and direction,
+	 * based on the boolean parameter of whether the data is going to the control object or not.
+	 * 
+	 * This is essentially a quality of life function, because the fields being accessed are already
+	 * public, this just makes it even easier to use in Update.java, because there is already a boolean
+	 * there called forControl which can be passed to this function to get the proper data type.
+	 */
 	public Class<?> getDataType(boolean isToControl)
 	{
 		if(isToControl)

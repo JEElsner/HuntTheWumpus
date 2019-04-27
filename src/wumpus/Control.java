@@ -162,6 +162,12 @@ public class Control extends SwingWorker<Void, Update>
 							break;
 							
 						case GET_TRIVIA:
+							/* So thinking about the trivia, and the multi-threading, Control isn't going
+							 * to wait in whatever method askTrivia() say, for an answer, it should likely keep going,
+							 * and then be notified by a TRIVIA_RESPONSE Update or something, which is then processed and
+							 * compared to the correct answer. I think this method goes beyond Control though, Trivia
+							 * will have to keep track of the current question that was last asked. oh boy, help.
+							 */
 							break;
 							
 						case MOVE:
@@ -169,12 +175,15 @@ public class Control extends SwingWorker<Void, Update>
 							break;
 							
 						case PURCHASE_ARROW:
+							purchaseArrow();
 							break;
 							
 						case PURCHASE_SECRET:
+							purchaseSecret();
 							break;
 							
 						case SHOOT_ARROW:
+							shootArrow((MovementDirection) msg.getData());
 							break;
 							
 						default:
@@ -310,6 +319,39 @@ public class Control extends SwingWorker<Void, Update>
 		mapObject.fallIntoPit();
 		checkForHazards();
 		checkForWarnings();
+	}
+	
+	/* Purchases a secret for the player, and tells the GUI what it is
+	 * 
+	 */
+	private void purchaseSecret()
+	{
+		// TODO
+		// Use coin
+		// Ask trivia?
+		// Get secret
+		publish(new Update(UpdateType.PURCHASE_SECRET, false, "Secret"));
+	}
+
+	/* Method that purchases another arrow for the player using coins
+	 * and tells the GUI about it
+	 */
+	private void purchaseArrow()
+	{
+		// TODO
+		// Use coin
+		// Ask trivia?
+		// tell player they've got another arrow
+		publish(new Update(UpdateType.PURCHASE_ARROW, false, -1)); // return new number of arrows
+	}
+	
+	// The player shoots an arrow
+	private void shootArrow(MovementDirection dir)
+	{
+		// TODO
+		// Ask map if we hit the wumpus
+		// If so, win game
+		// If not, how many arrows left?
 	}
 	
 	// The player kills the wumpus

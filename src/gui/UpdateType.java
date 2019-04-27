@@ -164,7 +164,7 @@ public enum UpdateType
 	 * Purpose: Notify the GUI of how many arrows the player has
 	 * Objects: int number of arrows
 	 */
-	PURCHASE_ARROW(Void.class, Void.class), // The user requested an arrow is purchased
+	PURCHASE_ARROW(Void.class, Integer.class), // The user requested an arrow is purchased
 	
 	/* To Control:
 	 * -------------

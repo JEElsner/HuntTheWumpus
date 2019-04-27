@@ -99,13 +99,13 @@ public class Control extends SwingWorker<Void, Update<?>>
 	
 	// --- Instance Data --- //
 	
-	private ArrayList<Update> guiMessages; // Used to receive notifications of events happening on the gui
+	private ArrayList<Update<?>> guiMessages; // Used to receive notifications of events happening on the gui
 	
 	// Constructs the object
 	// Thread: Initial
 	public Control()
 	{
-		guiMessages = new ArrayList<Update>();
+		guiMessages = new ArrayList<Update<?>>();
 		guiObject = new GUI(this); // TODO this may cause an error because control isn't fully instantiated yet
 	}
 	
@@ -138,7 +138,7 @@ public class Control extends SwingWorker<Void, Update<?>>
 				
 				while(guiMessages.size() > 0)
 				{
-					Update msg = guiMessages.get(0); // Get the first message to occur
+					Update<?> msg = guiMessages.get(0); // Get the first message to occur
 					
 					// Ensure the message hasn't already been processed. If it has, get rid of it
 					if(msg.isUpdateProcessed())
@@ -207,7 +207,7 @@ public class Control extends SwingWorker<Void, Update<?>>
 	
 	// Send a message from the gui to the worker thread
 	// Thread: EDT
-	public void sendMessage(Update message)
+	public void sendMessage(Update<?> message)
 	{
 		synchronized(guiMessages)
 		{
@@ -236,11 +236,18 @@ public class Control extends SwingWorker<Void, Update<?>>
 	// Thread: Worker
 	public void movePlayer(MovementDirection dir)
 	{
-		int room = mapObject.movePlayer(dir); // Move the player to the new location
-		
+		mapObject.movePlayer(dir); // Move the player to the new location
 		publish(new Update(UpdateType.MOVE, false)); // Pass new room & Warnings to GUI
 		
-		// --- Check if a player moved into a bad room --- //
+		checkForHazards();
+		checkForWarnings();
+		
+		// TODO Warn about wumpus
+	}
+	
+	private void checkForHazards()
+	{
+		int room = mapObject.getPlayerRoom();
 		
 		if(room == mapObject.getWumpusRoom())
 		{
@@ -252,9 +259,10 @@ public class Control extends SwingWorker<Void, Update<?>>
 		{
 			foundBats();
 		}
-		
-		// --- Check for and warn about pits --- //
-		
+	}
+	
+	private void checkForWarnings()
+	{
 		int batWarnings = mapObject.CheckForBats();
 		int pitWarnings = mapObject.CheckForPits();
 		
@@ -267,8 +275,6 @@ public class Control extends SwingWorker<Void, Update<?>>
 		{
 			publish(new Update<Integer>(UpdateType.PIT_WARNING, false, pitWarnings));
 		}
-		
-		// TODO Warn about wumpus
 	}
 	
 	// The player enters the same room as the Wumpus
@@ -289,6 +295,10 @@ public class Control extends SwingWorker<Void, Update<?>>
 		publish(new Update(UpdateType.ENCOUNTER_BAT, false)); // Pass trivia questions with update?
 		
 		// Make the player answer trivia?
+		
+		mapObject.flyAway();
+		checkForHazards();
+		checkForWarnings();
 	}
 	
 	// The player enters a room with a bottomless pit
@@ -296,6 +306,10 @@ public class Control extends SwingWorker<Void, Update<?>>
 	public void foundPit()
 	{
 		publish(new Update(UpdateType.ENCOUNTER_PIT, false)); // Pass trivia questions with update?
+		
+		mapObject.fallIntoPit();
+		checkForHazards();
+		checkForWarnings();
 	}
 	
 	// The player kills the wumpus

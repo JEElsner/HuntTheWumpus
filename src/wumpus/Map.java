@@ -27,6 +27,11 @@ public class Map
 	{
 		return BatRoom2;
 	}
+	
+	public boolean isWumpusAwake()
+	{
+		return isAwake;
+	}
 
 	public static int[] getNeighbors(int RoomNumber)
 	{
@@ -42,12 +47,13 @@ public class Map
 	private int BatRoom = 0;
 	private int BatRoom2 = 0;
 	private boolean AnyMatch;
+	private boolean isAwake = false;
 	
 	public Map()
 	{
 		WumpusRoom = (int) (Math.random() * 29 + 2);
 		
-		int[] hazards = new int[4];
+		int[] hazards = new int[4]; // This for loops randomly assigns the 4 hazards to 4 different rooms
 		for(int i = 0; i < hazards.length; i++)
 		{
 			do
@@ -153,10 +159,44 @@ public class Map
 	}
 	
 	public boolean shootArrow(MovementDirection dir)
-	{
+	{		
 		if(WumpusRoom == getNearbyRoom(PlayerRoom, dir))
 			return true;
-		return false;		
+		
+		int ArrowRoom = getNearbyRoom(PlayerRoom, dir);
+		
+		int[] ArrowNeighbors = getNeighbors(ArrowRoom);
+		
+		for(int i = 0; i < 6; i++)
+		{
+			if(ArrowNeighbors[i] == WumpusRoom)
+			{
+				isAwake = true;
+			}
+		}
+		return false; 
+	}
+	
+	public int moveWumpus()
+	{
+		if(isAwake)
+		{
+			int random = (int) (Math.random() * 2);
+			if(random == 1)
+			{
+				return WumpusRoom;
+			}
+			
+			else
+			{
+				int randomRoom = (int) (Math.random() * 6);
+				
+				WumpusRoom = getNearbyRoom(WumpusRoom, MovementDirection.values()[randomRoom]);
+				
+			}
+			
+		}
+		return WumpusRoom;
 	}
 	
 	public int flyAway()
@@ -232,13 +272,9 @@ public class Map
 		return false;
 	}
 	
-	public boolean fallIntoPit()
+	public void fallIntoPit() //returns the Player Room Number, or -1 if lost?
 	{
-		// if player room is the same as the room as the pit
-		// ask trivia class for 3 questions
-		// if 2 is correct, return false(Game does not end) and Player Room = starting position
-		// if less than 2, return true(Game Over)
-		return false;
+		PlayerRoom = 1;
 	}
 	
 }

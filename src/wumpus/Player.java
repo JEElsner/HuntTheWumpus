@@ -58,4 +58,14 @@ public class Player
 	{
 		return (100 - turns + coins + (10 * arrows));
 	}
+	
+	public void loseCoins()
+	{
+		coins = 0;
+	}
+	
+	public void loseArrows()
+	{
+		arrows = 0;
+	}
 }

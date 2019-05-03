@@ -11,7 +11,7 @@ public enum UpdateType
 {
 	// === Enum Values === //
 	
-	// TODO, some of the information below needs to be corrected, go over with Logan
+	// REVIEW, some of the information below needs to be corrected, go over with Logan
 	
 	// Updates that could either be for the GUI or Control
 	DEBUG(Object.class, Object.class), // You know, debug
@@ -43,7 +43,8 @@ public enum UpdateType
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify to receive Triva Q's based on action performed
-	 * Objects: Trivia
+	 * 			Actually, this may not be necessary to be sent to Control
+	 * Objects:
 	 * 
 	 * To GUI:
 	 * ------------
@@ -53,19 +54,6 @@ public enum UpdateType
 	GET_TRIVIA(String.class, String.class),
 	
 	// Updates that are likely for GUI only
-	/* To Control:
-	 * -------------
-	 * Purpose: Notify to check adjacent rooms for encounters
-	 * Objects: Map
-	 * 
-	 * To GUI:
-	 * ------------
-	 * Purpose: IDK
-	 * Objects:
-	 * 
-	 * This may not be necessary
-	 */
-	CHECK_ENCOUNTER(Void.class, Void.class),
 
 	/* To GUI: Warnings that there are pits near the room the player is in
 	 * Object: int number of pits in surrounding rooms
@@ -151,14 +139,15 @@ public enum UpdateType
 	 * To GUI:
 	 * ------------
 	 * Purpose: Notify the gui it is the player's turn to move
-	 * Objects: N/A
+	 * Objects: Directions the player can move to get out of the new room
+	 * 			the 0th index will contain the direction from which the player came
 	 */
-	MOVE(MovementDirection.class, Void.class), // The user requested the player move, the data should be the MovementDirection enum
+	MOVE(MovementDirection.class, MovementDirection[].class), // The user requested the player move, the data should be the MovementDirection enum
 	
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify of attempt at purchasing an arrow
-	 * Objects: Trivia, Player
+	 * Objects:
 	 * 
 	 * To GUI:
 	 * ------------
@@ -170,7 +159,7 @@ public enum UpdateType
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify of attempt at purchasing an secret
-	 * Objects: Trivia, Player
+	 * Objects:
 	 * 
 	 * To GUI:
 	 * ------------
@@ -182,7 +171,7 @@ public enum UpdateType
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify of attempt at shooting an arrow
-	 * Objects: Map, Player(if successful for high scores, and win)
+	 * Objects:
 	 * 
 	 * To GUI:
 	 * ------------

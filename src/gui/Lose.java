@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Lose extends JPanel
+public class Lose extends JPanel implements UpdateScreen
 {
 	/**
 	 * Create the panel.
@@ -30,7 +30,7 @@ public class Lose extends JPanel
 		add(btnMainMenu);
 
 	}
-	public void updatePanel()
+	public void updatePanel(String update)
 	{
 		
 	}

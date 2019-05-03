@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class ForDebugging extends JPanel
+public class ForDebugging extends JPanel implements UpdateScreen
 {
 	private GUI gui;
 	
@@ -86,7 +86,7 @@ public class ForDebugging extends JPanel
 
 	}
 	
-	public void updatePanel()
+	public void updatePanel(String update)
 	{
 		
 	}

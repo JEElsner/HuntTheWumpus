@@ -20,6 +20,7 @@ public class GUI
 	public static final String debugging = "Debug";
 	
 	private String name;
+	private String answer;
 	
 	public void setName(String n)
 	{
@@ -31,6 +32,16 @@ public class GUI
 		return name;
 	}
 
+	public String getAnswer()
+	{
+		return answer;
+	}
+
+	public void setAnswer(String answer)
+	{
+		this.answer = answer;
+	}
+	
 	// The GUI that displays the game
 	protected MainWindow mainWindow;
 	
@@ -195,4 +206,5 @@ public class GUI
 	{
 		controller.sendMessage(update);
 	}
+
 }

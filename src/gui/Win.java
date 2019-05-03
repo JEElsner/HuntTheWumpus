@@ -6,7 +6,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Win extends JPanel
+public class Win extends JPanel implements UpdateScreen
 {
 	/**
 	 * Create the panel.
@@ -31,7 +31,7 @@ public class Win extends JPanel
 
 	}
 
-	public void updatePanel()
+	public void updatePanel(String update)
 	{
 		
 	}

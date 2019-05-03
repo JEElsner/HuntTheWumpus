@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class MainMenu extends JPanel
+public class MainMenu extends JPanel implements UpdateScreen
 {
 
 	/**
@@ -16,6 +16,7 @@ public class MainMenu extends JPanel
 	 */
 	private GUI gui;
 	private JLabel playerNameLbl;
+	private String updateRequired = "yes";
 	
 	public MainMenu(GUI guiObject)
 	{
@@ -78,12 +79,12 @@ public class MainMenu extends JPanel
 	//What you could do, IDK if this is a good idea
 	public void repaint()
 	{
-		updatePanel();
+		updatePanel(updateRequired);
 		
 		super.repaint();
 	}
 	
-	public void updatePanel()
+	public void updatePanel(String update)
 	{
 		if(gui == null)
 			return;

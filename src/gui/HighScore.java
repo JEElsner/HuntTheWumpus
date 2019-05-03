@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class HighScore extends JPanel
+public class HighScore extends JPanel implements UpdateScreen
 {
 	private JTextField textField;
 	Scanner scan = new Scanner(System.in);
@@ -53,7 +53,7 @@ public class HighScore extends JPanel
 
 	}
 	
-	public void updatePanel()
+	public void updatePanel(String update)
 	{
 		
 	}

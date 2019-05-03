@@ -9,6 +9,7 @@ public class Player
 	public int coins;
 	public int turns;
 	public int score;
+	public boolean trivia;
 	
 	public static void debug()
 	{
@@ -16,33 +17,45 @@ public class Player
 	}
 	
 	//constructor
-	public Player()
+	public Player(int c, int a, int t, int s)
 	{
-		
+		c = coins;
+		a = arrows;
+		t = turns;
+		s = score;
 	}
 	
 	public int getArrows()
 	{
-		return 0;//return arrows
+		return arrows;
 	}
 	
 	public int buyArrows()
 	{
-		return 0;// arrows += 1 if trivia is answered
+		coins--;
+		return 0;//if(trivia)
+		//{
+		// arrows++; 
+		//}
 	}
 	
 	public int getCoins()
 	{
-		return 0;//return coins
+		return coins;
+	}
+	
+	public void countTurns()
+	{
+		turns++;
 	}
 	
 	public int getTurns()
 	{
-		return 0;//return total turns
+		return turns;
 	}
 	
 	public int finalScore()
 	{
-		return 0;//100 points - turns + gold + 10*arrows
+		return (100 - turns + coins + (10 * arrows));
 	}
 }

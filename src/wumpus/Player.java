@@ -5,11 +5,11 @@ package wumpus;
 public class Player
 {
 	
-	public int arrows;
-	public int coins;
-	public int turns;
-	public int score;
-	public boolean trivia;
+	private int arrows;
+	private int coins;
+	private int turns;
+	private int score;
+	private boolean trivia;
 	
 	public static void debug()
 	{

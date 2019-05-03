@@ -114,7 +114,7 @@ public class Control extends SwingWorker<Void, Update>
 		guiMessages = new ArrayList<Update>(); // The array through which messages from the GUI are sent
 		
 		// Initialize all the different game objects
-		guiObject = new GUI(this); // TODO this may cause an error because control isn't fully instantiated yet
+		guiObject = new GUI(this); // REVIEW this may cause an error because control isn't fully instantiated yet
 		// No other objects are instantiated yet, because they are used on a per-game basis
 	}
 	
@@ -209,7 +209,7 @@ public class Control extends SwingWorker<Void, Update>
 							break;
 							
 						default: // In case we get a bad update
-							// TODO change to be more durable
+							// CHANGE change to be more durable
 							throw new IllegalArgumentException("Invalid Control Update: " + msg.getType());
 						}
 					}catch(ClassCastException ex)
@@ -223,7 +223,7 @@ public class Control extends SwingWorker<Void, Update>
 					// --- End of handling Update --- //
 					
 					msg.finishProcessing(); // Indicate that the message is done being processed
-					// TODO necessary?
+					// REVIEW necessary?
 					
 					guiMessages.remove(0); // Remove the update, since it has been processed
 				}
@@ -254,7 +254,7 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void newGame()
 	{
-		// TODO uh, I should instantiate map, lol
+		mapObject = new Map();
 		
 		// Create a new cave with different rooms and stuff
 		// Give the current room the player is in to the GUI
@@ -281,7 +281,8 @@ public class Control extends SwingWorker<Void, Update>
 		checkForHazards();
 		checkForWarnings();
 		
-		// TODO Warn about wumpus
+		// TODO Warn about wumpus. What did I want to do here?
+		// mapObject.moveWumpus(); // TODO tell wumpus he can move
 	}
 	
 	/* Check whether the player's current room has any hazards in it, and handle them
@@ -312,6 +313,7 @@ public class Control extends SwingWorker<Void, Update>
 	private void checkForWarnings()
 	{
 		// Get the number of bats & pits in the surrounding pits
+		// I have no idea why I put these into variables first
 		int batWarnings = mapObject.CheckForBats();
 		int pitWarnings = mapObject.CheckForPits();
 		
@@ -326,7 +328,10 @@ public class Control extends SwingWorker<Void, Update>
 			publish(new Update(UpdateType.PIT_WARNING, false, pitWarnings));
 		}
 		
-		// TODO check for wumpus
+		if(mapObject.CheckForWumpus())
+		{
+			publish(new Update(UpdateType.WUMPUS_WARNING, false));
+		}
 	}
 	
 	// The player enters the same room as the Wumpus
@@ -338,6 +343,7 @@ public class Control extends SwingWorker<Void, Update>
 		// Make the player answer trivia
 		// If trivia correct, move wumpus
 		// If trivia incorrect, end game
+		// Tell the map the wumpus is awake
 	}
 	
 	// The player enters a room with bats
@@ -372,7 +378,7 @@ public class Control extends SwingWorker<Void, Update>
 	 */
 	private void purchaseSecret()
 	{
-		// TODO
+		// TODO Implement Purchase Secret
 		// Use coin
 		// Ask trivia?
 		// Get secret
@@ -386,7 +392,7 @@ public class Control extends SwingWorker<Void, Update>
 	 */
 	private void purchaseArrow()
 	{
-		// TODO
+		// TODO Implement Purchase Arrow
 		// Use coin
 		// Ask trivia?
 		// tell player they've got another arrow
@@ -397,7 +403,7 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	private void shootArrow(MovementDirection dir)
 	{
-		// TODO
+		// TODO Implement Shoot Arrow
 		// Ask map if we hit the wumpus
 		// If so, win game
 		// If not, how many arrows left?

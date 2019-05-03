@@ -8,11 +8,10 @@ import java.awt.event.ActionEvent;
 
 public class Lose extends JPanel
 {
-
 	/**
 	 * Create the panel.
 	 */
-	public Lose()
+	public Lose(GUI guiObject)
 	{
 		setLayout(null);
 		
@@ -24,7 +23,7 @@ public class Lose extends JPanel
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.titleScreen);
+				guiObject.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
 		btnMainMenu.setBounds(164, 117, 97, 25);

@@ -12,7 +12,8 @@ public class MainMenu extends JPanel
 	/**
 	 * Create the panel.
 	 */
-	public MainMenu()
+	public static String name;
+	public MainMenu(GUI guiObject)
 	{
 		setLayout(null);
 
@@ -25,7 +26,7 @@ public class MainMenu extends JPanel
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				GUI.mainWindow.changeView(GUI.gameplay);
+				guiObject.mainWindow.changeView(GUI.gameplay);
 			}
 		});
 		btnNewgame.setBounds(172, 92, 97, 25);
@@ -35,7 +36,7 @@ public class MainMenu extends JPanel
 		btnForDebuggin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.debugging);
+				guiObject.mainWindow.changeView(GUI.debugging);
 			}
 		});
 		btnForDebuggin.setBounds(314, 250, 124, 25);
@@ -45,7 +46,7 @@ public class MainMenu extends JPanel
 		lblHighScores.setBounds(58, 154, 74, 16);
 		add(lblHighScores);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel(name);
 		lblNewLabel.setBounds(68, 183, 56, 16);
 		add(lblNewLabel);
 

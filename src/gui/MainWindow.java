@@ -16,44 +16,32 @@ public class MainWindow extends JFrame
 
 	private JPanel contentPane;
 	private CardLayout layout;
-	
+	public GUI guiObject;
 	// Different Cards to show
 	
-	private JPanel menuScreen = new MainMenu();
-	private JPanel gameplayScreen = new GamePanel();
-	private JPanel highScoreScreen = new HighScore();
-	private JPanel triviaScreen = new Trivia();
-	private JPanel loseScreen = new Lose();
-	private JPanel winScreen = new Win();
-	private JPanel debug = new ForDebugging();
-	
-
-	/**
-	 * Launch the application.
-	 */
-/*	public static void main(String[] args)
-	{
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
-					MainWindow frame = new MainWindow();
-					frame.setVisible(true);
-				} catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+	protected MainMenu menuScreen;
+	protected GamePanel gameplayScreen;
+	protected HighScore highScoreScreen;
+	protected Trivia triviaScreen;
+	protected Lose loseScreen;
+	protected Win winScreen;
+	protected ForDebugging debug;
 
 	/**
 	 * Create the frame.
 	 */
-	protected MainWindow()
+	protected MainWindow(GUI guiObject)
 	{
+		this.guiObject = guiObject;
+		
+		menuScreen = new MainMenu(guiObject);
+		gameplayScreen = new GamePanel(guiObject);
+		highScoreScreen = new HighScore(guiObject);
+		triviaScreen = new Trivia(guiObject);
+		loseScreen = new Lose(guiObject);
+		winScreen = new Win(guiObject);
+		debug = new ForDebugging(guiObject);
+		
 		setTitle("Hunt The Wumpus");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(200, 200, 550, 400);

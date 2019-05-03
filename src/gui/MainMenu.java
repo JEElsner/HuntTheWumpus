@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class MainMenu extends JPanel
 {
@@ -12,9 +14,13 @@ public class MainMenu extends JPanel
 	/**
 	 * Create the panel.
 	 */
-	public static String name;
+	private GUI gui;
+	private JLabel playerNameLbl;
+	
 	public MainMenu(GUI guiObject)
 	{
+
+		gui = guiObject;
 		setLayout(null);
 
 		JLabel lblTitle = new JLabel("Hunt The Wumpus");
@@ -26,7 +32,7 @@ public class MainMenu extends JPanel
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				guiObject.mainWindow.changeView(GUI.gameplay);
+				gui.mainWindow.changeView(GUI.gameplay);
 			}
 		});
 		btnNewgame.setBounds(172, 92, 97, 25);
@@ -36,7 +42,7 @@ public class MainMenu extends JPanel
 		btnForDebuggin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				guiObject.mainWindow.changeView(GUI.debugging);
+				gui.mainWindow.changeView(GUI.debugging);
 			}
 		});
 		btnForDebuggin.setBounds(314, 250, 124, 25);
@@ -46,9 +52,42 @@ public class MainMenu extends JPanel
 		lblHighScores.setBounds(58, 154, 74, 16);
 		add(lblHighScores);
 		
-		JLabel lblNewLabel = new JLabel(name);
-		lblNewLabel.setBounds(68, 183, 56, 16);
-		add(lblNewLabel);
-
+		playerNameLbl = new JLabel();
+		playerNameLbl.setText("Hello " + gui.getName());
+		playerNameLbl.setBounds(68, 183, 106, 16);
+		add(playerNameLbl);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playerNameLbl.setText("Hello " + gui.getName());
+			}
+		});
+		btnUpdate.setBounds(77, 250, 97, 25);
+		add(btnUpdate);
+		
+		addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				playerNameLbl.setText("Hello " + gui.getName());
+				System.out.println("Focus");
+			}
+		});
+	}
+	
+	//What you could do, IDK if this is a good idea
+	public void repaint()
+	{
+		updatePanel();
+		
+		super.repaint();
+	}
+	
+	public void updatePanel()
+	{
+		if(gui == null)
+			return;
+		
+		playerNameLbl.setText("Hello " + gui.getName());
 	}
 }

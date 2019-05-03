@@ -18,8 +18,19 @@ public class GUI
 	public static final String PlayAgain = "Play Again";
 	public static final String easterEgg = "Easter Egg?";
 	public static final String debugging = "Debug";
-	public static String name;
 	
+	private String name;
+	
+	public void setName(String n)
+	{
+		name = n;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+
 	// The GUI that displays the game
 	protected MainWindow mainWindow;
 	

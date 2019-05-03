@@ -30,5 +30,9 @@ public class Lose extends JPanel
 		add(btnMainMenu);
 
 	}
+	public void updatePanel()
+	{
+		
+	}
 
 }

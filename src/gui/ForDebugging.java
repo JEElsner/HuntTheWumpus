@@ -85,5 +85,10 @@ public class ForDebugging extends JPanel
 		add(btnTestNotify);
 
 	}
+	
+	public void updatePanel()
+	{
+		
+	}
 
 }

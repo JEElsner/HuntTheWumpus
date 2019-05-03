@@ -30,5 +30,9 @@ public class GamePanel extends JPanel
 		add(btnMainMenu);
 
 	}
+	public void updatePanel()
+	{
+		
+	}
 
 }

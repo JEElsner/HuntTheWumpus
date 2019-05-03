@@ -59,4 +59,9 @@ public class Trivia extends JPanel
 		add(lblTrivaAnswersHere);
 
 	}
+	
+	public void updatePanel()
+	{
+		
+	}
 }

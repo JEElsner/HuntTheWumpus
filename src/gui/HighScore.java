@@ -7,19 +7,20 @@ import java.awt.event.ActionListener;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class HighScore extends JPanel
 {
 	private JTextField textField;
-	private JTextField textField_1;
-	public String name;
 	Scanner scan = new Scanner(System.in);
-
+	private GUI gui;
 	/**
 	 * Create the panel.
 	 */
 	public HighScore(GUI guiObject)
 	{
+		gui = guiObject;
 		setLayout(null);
 		
 		JLabel lblHighScore = new JLabel("High Score");
@@ -30,27 +31,30 @@ public class HighScore extends JPanel
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				guiObject.mainWindow.changeView(GUI.titleScreen);
+				gui.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
 		btnMainMenu.setBounds(157, 127, 97, 25);
 		add(btnMainMenu);
 		
 		textField = new JTextField();
-		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				name = textField.getText();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent ev) {
+				if(ev.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					gui.setName(textField.getText());
+				}
 			}
 		});
-		textField.setBounds(12, 200, 116, 22);
+		textField.setBounds(113, 178, 116, 22);
 		add(textField);
 		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(164, 200, 116, 22);
-		add(textField_1);
-		textField_1.setColumns(10);
 
+	}
+	
+	public void updatePanel()
+	{
+		
 	}
 }

@@ -31,4 +31,8 @@ public class Win extends JPanel
 
 	}
 
+	public void updatePanel()
+	{
+		
+	}
 }

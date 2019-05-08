@@ -12,10 +12,15 @@ public class Trivia
 	private static String answers[]=new String[101];
 	private static boolean asked[]=new boolean[101];
  
+	
+	//Reads the set of 100 questions and answers from two files 
+	
+	//Builds two String arrays 
+	
 	public static void read_qa() throws FileNotFoundException
 	{
 		int i=1;
-		File qlist=new File("C:\\Users\\sn390603\\Desktop\\questions.txt");
+		File qlist=new File("C:\\Users\\sn390603\\Desktop\\Questions.txt");
 		Scanner qreader=new Scanner(qlist);
 		while(qreader.hasNextLine()&&(i<101))
 		{
@@ -29,7 +34,7 @@ public class Trivia
 		qreader.close();
 	//-------------------------------------------------------------------------------	
 		i=1;
-		File alist=new File("C:\\Users\\sn390603\\Desktop\\answers.txt");
+		File alist=new File("C:\\Users\\sn390603\\Desktop\\Answers.txt");
 		Scanner areader=new Scanner(alist);
 		while(areader.hasNextLine()&&(i<101))
 		{
@@ -43,9 +48,13 @@ public class Trivia
 		areader.close();
 		
 		for(int j=1;i<=100;i++)
-			asked[i]=false;
+			asked[i]=false; //at the start, no question was asked
 	}
 	
+	
+	//Method used to check if given answer is corrrect(guess)
+	//takes in the question number - i
+	//Assign asked value to true because it was asked
 	public static boolean answer(int i,String guess)
 	{
 		if(guess.equals(answers[i]))

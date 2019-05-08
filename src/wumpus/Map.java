@@ -125,15 +125,27 @@ public class Map
 	
 	public static void debug()
 	{
-		Map m1 = new Map();
-		m1.BatRoom = 1;
-		System.out.println(m1.getPlayerRoom() + ", " + m1.getBatRoom() + ", " + m1.getBatRoom2() + ", " +
-		m1.getWumpusRoom());
+		Map m1 = new Map();		
+		System.out.println(m1.WumpusRoom);
+		m1.isAwake = true;
 		
-		m1.flyAway();
-		System.out.println(m1.getPlayerRoom() + ", " + m1.getBatRoom() + ", " + m1.getBatRoom2() + ", " +
-		m1.getWumpusRoom());
+		m1.moveWumpus();
+		System.out.println(m1.WumpusRoom);
 		
+		m1.moveWumpus();
+		System.out.println(m1.WumpusRoom);
+		
+		m1.moveWumpus();
+		System.out.println(m1.WumpusRoom);
+		
+		m1.moveWumpus();
+		System.out.println(m1.WumpusRoom);
+		
+		m1.moveWumpus();
+		System.out.println(m1.WumpusRoom);
+		
+		m1.moveWumpus();
+		System.out.println(m1.WumpusRoom);
 	}
 	
 	public int getWumpusRoom()

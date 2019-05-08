@@ -164,7 +164,7 @@ public class Map
 		return PlayerRoom;
 	}
 	
-	public int getNearbyRoom(int room, MovementDirection dir)
+	public static int getNearbyRoom(int room, MovementDirection dir)
 	{
 		int newRoom = neighbors[room - 1][dir.ordinal()];
 		return newRoom;

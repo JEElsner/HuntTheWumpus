@@ -7,6 +7,8 @@ import java.util.Scanner;
 		
 		private static int[][] cave=new int[30][7];
 		
+		// 2D array representing room connections
+		// 1-6 column indexes represent 6 designated directions
 		public Cave() throws FileNotFoundException
 		{
 			int i=0,j=0;
@@ -26,7 +28,7 @@ import java.util.Scanner;
 			qreader.close();
 		}
 		
-		
+		//Prints a list of the built cave for debugging purposes 
 		public  void printConnections()
 		{
 			System.out.println("-------Map connections list-------");
@@ -45,7 +47,7 @@ import java.util.Scanner;
 		
 		
 		/* room is an integer between 1 and 30 representing the room number
-		 * 
+		 * Return a integer of 6 int(s) that represent the 6 designated directions.
 		 */
 		public int[] getConnections(int room)
 		{ 

@@ -8,11 +8,10 @@ import java.awt.event.ActionEvent;
 
 public class GamePanel extends JPanel
 {
-
 	/**
 	 * Create the panel.
 	 */
-	public GamePanel()
+	public GamePanel(GUI guiObject)
 	{
 		setLayout(null);
 		
@@ -24,7 +23,7 @@ public class GamePanel extends JPanel
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				GUI.mainWindow.changeView(GUI.titleScreen);
+				guiObject.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
 		btnMainMenu.setBounds(162, 137, 97, 25);

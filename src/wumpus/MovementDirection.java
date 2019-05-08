@@ -7,5 +7,10 @@ public enum MovementDirection
 	DOWN_RIGHT,	// etc.
 	DOWN,
 	DOWN_LEFT,
-	UP_LEFT
+	UP_LEFT;
+	
+	public static MovementDirection getOpposite(MovementDirection d)
+	{
+		return values()[(d.ordinal() + 3) % 6];
+	}
 }

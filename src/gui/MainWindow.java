@@ -31,6 +31,11 @@ public class MainWindow extends JFrame
 	protected Win winScreen;
 	protected ForDebugging debug;
 	
+	
+	public GUI getGUI()
+	{
+		return guiObject;
+	}
 
 	/**
 	 * Create the frame.

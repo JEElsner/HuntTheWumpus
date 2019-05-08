@@ -23,6 +23,8 @@ import javax.swing.SwingConstants;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
 
+import wumpus.MovementDirection;
+
 public class GamePanel extends JPanel implements UpdateScreen
 {
 	/**
@@ -39,17 +41,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JButton moveDownRight;
 	private JButton moveDownLeft;
 	
-	private boolean debugging = false;
+	private GUI gui;
 	
-	private final int UP = 0, UP_RIGHT = 1, DOWN_RIGHT = 2, DOWN = 3, DOWN_LEFT = 4, UP_LEFT = 5;
+	private JButton[] moving = new JButton[6];
+	
 	
 	
 	public GamePanel(GUI guiObject)
 	{
-		
+		gui = guiObject;
 		setLayout(null);
-		
-
 		
 		JLabel lblTitle = new JLabel("Game Panel");
 		lblTitle.setBounds(299, 0, 68, 16);
@@ -95,15 +96,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		shootArrow.setBounds(610, 91, 111, 25);
 		add(shootArrow);
 		
-//		Canvas c = new Canvas();
-//		c.setBackground(Color.LIGHT_GRAY);
-//		c.setBounds(146, 46, 440, 410);
-//		add(c);
-		
-		canvas.setBackground(Color.LIGHT_GRAY);
-		canvas.setBounds(146, 46, 440, 410);
-		add(canvas);
-		
 		//----------------------------------//
 		//--------Movement Buttons----------//
 		//----------------------------------//
@@ -113,7 +105,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Moving");
 			}
 		});
-		moveUp.setBounds(367, 13, 97, 25);
+		moveUp.setBounds(311, 46, 97, 25);
 		add(moveUp);
 		
 		moveUpRight = new JButton("Up Right");
@@ -122,7 +114,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Moving");
 			}
 		});
-		moveUpRight.setBounds(610, 172, 97, 25);
+		moveUpRight.setBounds(489, 91, 97, 25);
 		add(moveUpRight);
 		
 		moveUpLeft = new JButton("Up Left");
@@ -131,7 +123,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Moving");
 			}
 		});
-		moveUpLeft.setBounds(31, 156, 97, 25);
+		moveUpLeft.setBounds(151, 104, 97, 25);
 		add(moveUpLeft);
 		
 		moveDown = new JButton("Down");
@@ -140,7 +132,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Moving");
 			}
 		});
-		moveDown.setBounds(323, 462, 97, 25);
+		moveDown.setBounds(321, 431, 97, 25);
 		add(moveDown);
 		
 		moveDownRight = new JButton("Down Right");
@@ -149,7 +141,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Moving");
 			}
 		});
-		moveDownRight.setBounds(592, 368, 97, 25);
+		moveDownRight.setBounds(476, 383, 110, 25);
 		add(moveDownRight);
 		
 		moveDownLeft = new JButton("Down Left");
@@ -158,10 +150,33 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Moving");
 			}
 		});
-		moveDownLeft.setBounds(43, 381, 97, 25);
+		moveDownLeft.setBounds(151, 383, 97, 25);
 		add(moveDownLeft);
 		
+		moving[0] = moveUp;
+		moving[1] = moveUpRight;
+		moving[2] = moveUpLeft;
+		moving[3] = moveDown;
+		moving[4] = moveDownRight;
+		moving[5] = moveDownLeft;
+		
 		//-----------Making Them Rotate---------------//
+		
+//		Canvas c = new Canvas();
+//		c.setBackground(Color.LIGHT_GRAY);
+//		c.setBounds(146, 46, 440, 410);
+//		add(c);
+		
+		canvas.setBackground(Color.LIGHT_GRAY);
+		canvas.setBounds(146, 46, 440, 410);
+		add(canvas);
+		
+		
+		
+		
+		
+		
+		updatePanel("Refresh");
 
 	}
 	
@@ -188,35 +203,47 @@ public class GamePanel extends JPanel implements UpdateScreen
 	
 	public void updatePanel(String update)
 	{
-		int x = (int)(Math.random() * 2);
-		int y = (int)(Math.random() * 2) + 2;
-		int z = (int)(Math.random() * 2) + 4;
 		System.out.println(update);
-		if(x == UP)
-			moveUp.setVisible(false);
-		if(x == UP_RIGHT)
-			moveUpRight.setVisible(false);
-		if(y == DOWN_RIGHT)
-			moveDownRight.setVisible(false);
-		if(y == DOWN)
-			moveDown.setVisible(false);
-		if(z == UP_LEFT)
-			moveUpLeft.setVisible(false);
-		if(z == DOWN_LEFT)
-			moveDownLeft.setVisible(false);
+		for(JButton b : moving)
+		{
+			b.setVisible(false);
+		}
 		
-		
-		if(x != UP)
-			moveUp.setVisible(true);
-		if(x != UP_RIGHT)
-			moveUpRight.setVisible(true);
-		if(y != DOWN_RIGHT)
-			moveDownRight.setVisible(true);
-		if(y != DOWN)
-			moveDown.setVisible(true);
-		if(z != UP_LEFT)
-			moveUpLeft.setVisible(true);
-		if(z != DOWN_LEFT)
-			moveDownLeft.setVisible(true);
+		for(MovementDirection md : gui.getDoors())
+		{
+			if(md == null)
+				continue;
+			
+			if(md.equals(MovementDirection.UP))
+			{
+				moving[0].setVisible(true);
+			}
+			
+			if(md.equals(MovementDirection.UP_RIGHT))
+			{
+				moving[1].setVisible(true);
+			}
+			
+			if(md.equals(MovementDirection.UP_LEFT))
+			{
+				moving[2].setVisible(true);
+			}
+			
+			if(md.equals(MovementDirection.DOWN))
+			{
+				moving[3].setVisible(true);
+			}
+			
+			if(md.equals(MovementDirection.DOWN_RIGHT))
+			{
+				moving[4].setVisible(true);
+			}
+			
+			if(md.equals(MovementDirection.DOWN_LEFT))
+			{
+				moving[5].setVisible(true);
+			}
+				
+		}
 	}
 }

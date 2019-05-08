@@ -2,9 +2,11 @@ package gui;
 
 import java.awt.EventQueue;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
 
 import wumpus.Control;
+import wumpus.MovementDirection;
 
 public class GUI
 {
@@ -21,6 +23,19 @@ public class GUI
 	
 	private String name;
 	private String answer;
+	
+	private MovementDirection[] doors = new MovementDirection[3];
+	
+
+	public MovementDirection[] getDoors()
+	{
+		return doors;
+	}
+
+	public void setDoors(MovementDirection[] doors)
+	{
+		this.doors = doors;
+	}
 	
 	public void setName(String n)
 	{
@@ -54,7 +69,10 @@ public class GUI
 	
 	public static void debug()
 	{
-		new GUI(new Control()).startGUI();
+		GUI g = new GUI(new Control());
+		
+		g.startGUI();
+		g.processControlUpdates(Arrays.asList(new Update(UpdateType.MOVE, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.UP_RIGHT})));
 	}
 	
 	public void startGUI()
@@ -162,6 +180,7 @@ public class GUI
 		//Reads what room/direction you want to move
 		//U, UR, UL, DR, DL ***No Stay option
 		//Move accordingly
+		
 	}
 	
 	public void shootArrow()
@@ -193,7 +212,21 @@ public class GUI
 	// Thread: EDT
 	public void processControlUpdates(List<Update> updates)
 	{
+		System.out.print("Yeah");
 		
+		for(Update update : updates)
+		{
+			switch(update.getType())
+			{
+			case MOVE:
+				doors = (MovementDirection[]) update.getData();
+				break;
+				
+			default:
+				System.err.println("Unhandled update type: " + update.getType());
+				break;
+			}
+		}
 	}
 	
 	// Notify the Control Object when it needs to respond to a GUI event
@@ -202,5 +235,6 @@ public class GUI
 	{
 		controller.sendMessage(update);
 	}
+
 
 }

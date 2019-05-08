@@ -143,10 +143,6 @@ public class GUI
 		return "" + name + ": " + score;
 	}
 	
-	public void name(String n)
-	{
-		name = n;
-	}
 	
 	public void betweenGames()
 	{

@@ -1,8 +1,11 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.EventQueue;
 import java.util.ArrayList;
+
+import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -71,6 +74,8 @@ public class MainWindow extends JFrame
 	protected void changeView(String changeView)
 	{
 		layout.show(contentPane, changeView);
+		//String update = "";
 		//menuScreen.updatePanel();
+		//gameplayScreen.updatePanel(update);
 	}
 }

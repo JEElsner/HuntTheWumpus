@@ -9,6 +9,7 @@
  */
 package wumpus;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -127,6 +128,19 @@ public class Control extends SwingWorker<Void, Update>
 		
 		SwingUtilities.invokeLater(this::execute); // Begin the worker thread to support the GUI in the background
 		// I'm pretty sure SwingWorker.execute() must be called on the EDT, so hence the invokeLater
+		
+		try
+		{
+			caveObject = new Cave();
+		} catch (FileNotFoundException e)
+		{
+			System.err.println("Built-in cave file not found.");
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			System.exit(1);
+		}
 	}
 	
 	/* Processes updates from the GUI & EDT

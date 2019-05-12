@@ -21,6 +21,12 @@ public class GUI
 	public static final String easterEgg = "Easter Egg?";
 	public static final String debugging = "Debug";
 	
+	private static String hs1N;
+	private static String hs2N;
+	private static String hs3N;
+	private static String hs4N;
+	private static String hs5N;
+	
 	private String name;
 	private String answer;
 	
@@ -37,6 +43,56 @@ public class GUI
 		this.doors = doors;
 	}
 	
+	public String getHs1()
+	{
+		return hs1N;
+	}
+
+	public void setHs1(String hs1)
+	{
+		GUI.hs1N = hs1;
+	}
+
+	public String getHs2()
+	{
+		return hs2N;
+	}
+
+	public void setHs2(String hs2)
+	{
+		GUI.hs2N = hs2;
+	}
+
+	public String getHs3()
+	{
+		return hs3N;
+	}
+
+	public void setHs3(String hs3)
+	{
+		GUI.hs3N = hs3;
+	}
+
+	public String getHs4()
+	{
+		return hs4N;
+	}
+
+	public void setHs4(String hs4)
+	{
+		GUI.hs4N = hs4;
+	}
+
+	public String getHs5()
+	{
+		return hs5N;
+	}
+
+	public void setHs5(String hs5)
+	{
+		GUI.hs5N = hs5;
+	}
+
 	public void setName(String n)
 	{
 		name = n;
@@ -235,6 +291,7 @@ public class GUI
 	{
 		controller.sendMessage(update);
 	}
+
 
 
 }

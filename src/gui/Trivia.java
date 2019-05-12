@@ -51,18 +51,26 @@ public class Trivia extends JPanel implements UpdateScreen
 		add(answers);
 		answers.setColumns(10);
 		
-		JLabel questionStats = new JLabel("Stats on what questions are needed");
-		questionStats.setBounds(4, 189, 235, 98);
+		JLabel questionStats = new JLabel("You are attempting to *****");
+		questionStats.setBounds(4, 189, 235, 25);
 		add(questionStats);
 		
-		JButton submit = new JButton("Submit");
+		JButton submit = new JButton("Submit Answer");
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.setAnswer(submit.getText());
 			}
 		});
-		submit.setBounds(341, 226, 97, 25);
+		submit.setBounds(319, 196, 119, 25);
 		add(submit);
+		
+		JLabel lblYouMustAnswer = new JLabel("You must answer **** correctly");
+		lblYouMustAnswer.setBounds(4, 212, 235, 25);
+		add(lblYouMustAnswer);
+		
+		JLabel lblInsertCurrentStats = new JLabel("Insert Current Stats on questions right");
+		lblInsertCurrentStats.setBounds(4, 250, 235, 16);
+		add(lblInsertCurrentStats);
 
 	}
 	

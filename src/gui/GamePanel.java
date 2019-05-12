@@ -44,6 +44,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private GUI gui;
 	
 	private JButton[] moving = new JButton[6];
+	private JLabel playerName;
+	private JLabel lblInventory;
+	private JLabel lblCoins;
+	private JLabel lblArrows;
+	private JLabel lblTurnsTaken;
+	private JLabel lblSecretsObtained;
+	private JLabel lblWarnings;
+	private JLabel lblWarning;
+	private JLabel lblWarning_1;
+	private JLabel lblWarning_2;
 	
 	
 	
@@ -73,7 +83,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel(updateRequired);
 			}
 		});
-		buyArrow.setBounds(610, 13, 111, 25);
+		buyArrow.setBounds(651, 13, 111, 25);
 		add(buyArrow);
 		
 		JButton buySecret = new JButton("Buy Secret");
@@ -83,7 +93,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel(updateRequired);
 			}
 		});
-		buySecret.setBounds(610, 51, 111, 25);
+		buySecret.setBounds(651, 51, 111, 25);
 		add(buySecret);
 		
 		JButton shootArrow = new JButton("Shoot Arrow");
@@ -93,7 +103,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel(updateRequired);
 			}
 		});
-		shootArrow.setBounds(610, 91, 111, 25);
+		shootArrow.setBounds(651, 91, 111, 25);
 		add(shootArrow);
 		
 		//----------------------------------//
@@ -171,6 +181,46 @@ public class GamePanel extends JPanel implements UpdateScreen
 		canvas.setBounds(146, 46, 440, 410);
 		add(canvas);
 		
+		playerName = new JLabel();
+		playerName.setBounds(12, 17, 79, 16);
+		add(playerName);
+		
+		lblInventory = new JLabel("Inventory");
+		lblInventory.setBounds(12, 95, 56, 16);
+		add(lblInventory);
+		
+		lblCoins = new JLabel("Coins:");
+		lblCoins.setBounds(12, 119, 56, 16);
+		add(lblCoins);
+		
+		lblArrows = new JLabel("Arrows:");
+		lblArrows.setBounds(12, 134, 56, 16);
+		add(lblArrows);
+		
+		lblTurnsTaken = new JLabel("Turns Taken:");
+		lblTurnsTaken.setBounds(12, 55, 97, 16);
+		add(lblTurnsTaken);
+		
+		lblSecretsObtained = new JLabel("Secrets Obtained:");
+		lblSecretsObtained.setBounds(12, 188, 111, 16);
+		add(lblSecretsObtained);
+		
+		lblWarnings = new JLabel("WARNINGS");
+		lblWarnings.setBounds(677, 208, 68, 16);
+		add(lblWarnings);
+		
+		lblWarning = new JLabel("Warning 1");
+		lblWarning.setBounds(677, 237, 68, 16);
+		add(lblWarning);
+		
+		lblWarning_1 = new JLabel("Warning 2");
+		lblWarning_1.setBounds(677, 259, 68, 16);
+		add(lblWarning_1);
+		
+		lblWarning_2 = new JLabel("Warning 3");
+		lblWarning_2.setBounds(677, 278, 68, 16);
+		add(lblWarning_2);
+		
 		
 		
 		
@@ -203,6 +253,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	
 	public void updatePanel(String update)
 	{
+		playerName.setText(gui.getName());
 		System.out.println(update);
 		for(JButton b : moving)
 		{

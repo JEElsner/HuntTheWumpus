@@ -19,15 +19,23 @@ public class Lose extends JPanel implements UpdateScreen
 		lblYouLose.setBounds(180, 13, 92, 16);
 		add(lblYouLose);
 		
-		JButton btnMainMenu = new JButton("Main Menu");
+		JButton btnMainMenu = new JButton("CLICK HERE TO PLAY AGAIN");
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
 				guiObject.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
-		btnMainMenu.setBounds(164, 117, 97, 25);
+		btnMainMenu.setBounds(12, 262, 193, 25);
 		add(btnMainMenu);
+		
+		JButton button = new JButton("CLICK HERE TO STOP");
+		button.setBounds(245, 262, 193, 25);
+		add(button);
+		
+		JLabel lblYouHaveSuffered = new JLabel("You have suffered a terrible death. Thank you for playing!");
+		lblYouHaveSuffered.setBounds(47, 112, 360, 16);
+		add(lblYouHaveSuffered);
 
 	}
 	public void updatePanel(String update)

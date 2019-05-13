@@ -30,13 +30,14 @@ public class Player
 		return arrows;
 	}
 	
-	public int buyArrows()
+	public int buyArrows(boolean triviaCorrect)
 	{
 		coins--;
-		return 0;//if(trivia)
-		//{
-		// arrows++; 
-		//}
+		if(trivia)
+		{
+		 arrows++; 
+		}
+		return arrows;
 	}
 	
 	public int getCoins()

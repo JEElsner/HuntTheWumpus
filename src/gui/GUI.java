@@ -128,7 +128,7 @@ public class GUI
 		GUI g = new GUI(new Control());
 		
 		g.startGUI();
-		g.processControlUpdates(Arrays.asList(new Update(UpdateType.MOVE, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.UP_RIGHT})));
+		g.processControlUpdates(Arrays.asList(new Update(UpdateType.MOVE, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.DOWN})));
 	}
 	
 	public void startGUI()
@@ -144,6 +144,7 @@ public class GUI
 					try
 					{
 						mainWindow = new MainWindow(thisGUI);
+						mainWindow.setSize(1000, 800);
 						mainWindow.setVisible(true);
 					} catch (Exception e)
 					{

@@ -19,10 +19,10 @@ public class Trivia extends JPanel implements UpdateScreen
 	 * Create the panel.
 	 */
 	public Trivia(GUI guiObject)
-	{
-		setLayout(null);
-		
+	{		
 		gui = guiObject;
+		setLayout(null);
+		this.setSize(1000, 800);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.addActionListener(new ActionListener() {

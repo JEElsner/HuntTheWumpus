@@ -18,8 +18,8 @@ public class ForDebugging extends JPanel implements UpdateScreen
 	public ForDebugging(GUI guiObject)
 	{
 		gui = guiObject;
-		
 		setLayout(null);
+		this.setSize(1000, 800);
 		
 		JLabel lblForDebugging = new JLabel("For Debugging");
 		lblForDebugging.setBounds(185, 13, 105, 16);

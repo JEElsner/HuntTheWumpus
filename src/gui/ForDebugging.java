@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public class ForDebugging extends JPanel
+public class ForDebugging extends JPanel implements UpdateScreen
 {
 	private GUI gui;
 	
@@ -24,16 +24,6 @@ public class ForDebugging extends JPanel
 		JLabel lblForDebugging = new JLabel("For Debugging");
 		lblForDebugging.setBounds(185, 13, 105, 16);
 		add(lblForDebugging);
-		
-		JButton button = new JButton("Enter High Score");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				guiObject.mainWindow.changeView(GUI.highScoreNameEnter);
-			}
-		});
-		button.setBounds(161, 127, 129, 25);
-		add(button);
 		
 		JButton btnWin = new JButton("Win");
 		btnWin.addActionListener(new ActionListener() {
@@ -70,6 +60,7 @@ public class ForDebugging extends JPanel
 			public void actionPerformed(ActionEvent e) 
 			{
 				guiObject.mainWindow.changeView(GUI.titleScreen);
+				guiObject.mainWindow.menuScreen.updatePanel("HS");
 			}
 		});
 		btnMainMenu.setBounds(295, 228, 97, 25);
@@ -84,6 +75,11 @@ public class ForDebugging extends JPanel
 		btnTestNotify.setBounds(24, 243, 97, 25);
 		add(btnTestNotify);
 
+	}
+	
+	public void updatePanel(String update)
+	{
+		
 	}
 
 }

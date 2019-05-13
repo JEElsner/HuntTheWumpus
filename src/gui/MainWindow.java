@@ -1,7 +1,11 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.EventQueue;
+import java.util.ArrayList;
+
+import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,6 +30,12 @@ public class MainWindow extends JFrame
 	protected Lose loseScreen;
 	protected Win winScreen;
 	protected ForDebugging debug;
+	
+	
+	public GUI getGUI()
+	{
+		return guiObject;
+	}
 
 	/**
 	 * Create the frame.
@@ -40,7 +50,7 @@ public class MainWindow extends JFrame
 		triviaScreen = new Trivia(guiObject);
 		loseScreen = new Lose(guiObject);
 		winScreen = new Win(guiObject);
-		debug = new ForDebugging(guiObject);
+		debug = new ForDebugging(guiObject);		
 		
 		setTitle("Hunt The Wumpus");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,5 +79,8 @@ public class MainWindow extends JFrame
 	protected void changeView(String changeView)
 	{
 		layout.show(contentPane, changeView);
+		//String update = "";
+		//menuScreen.updatePanel();
+		//gameplayScreen.updatePanel(update);
 	}
 }

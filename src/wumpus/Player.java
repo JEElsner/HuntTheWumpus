@@ -19,10 +19,10 @@ public class Player
 	//constructor
 	public Player(int c, int a, int t, int s)
 	{
-		c = coins;
-		a = arrows;
-		t = turns;
-		s = score;
+		coins = c;
+		arrows = a;
+		turns = t;
+		score = s;
 	}
 	
 	public int getArrows()

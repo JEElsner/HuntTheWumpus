@@ -14,6 +14,7 @@ public class Win extends JPanel implements UpdateScreen
 	public Win(GUI guiObject)
 	{
 		setLayout(null);
+		this.setSize(1000, 800);
 		
 		JLabel lblYouWin = new JLabel("YOU WIN");
 		lblYouWin.setBounds(189, 32, 56, 16);

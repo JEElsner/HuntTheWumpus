@@ -14,6 +14,7 @@ public class Lose extends JPanel implements UpdateScreen
 	public Lose(GUI guiObject)
 	{
 		setLayout(null);
+		this.setSize(1000, 800);
 		
 		JLabel lblYouLose = new JLabel("YOU LOSE");
 		lblYouLose.setBounds(180, 13, 92, 16);
@@ -30,6 +31,11 @@ public class Lose extends JPanel implements UpdateScreen
 		add(btnMainMenu);
 		
 		JButton button = new JButton("CLICK HERE TO STOP");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		button.setBounds(245, 262, 193, 25);
 		add(button);
 		

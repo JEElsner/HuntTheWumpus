@@ -61,6 +61,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		gui = guiObject;
 		setLayout(null);
+		this.setSize(1000, 800);
 		
 		JLabel lblTitle = new JLabel("Game Panel");
 		lblTitle.setBounds(299, 0, 68, 16);

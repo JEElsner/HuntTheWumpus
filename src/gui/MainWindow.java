@@ -43,6 +43,7 @@ public class MainWindow extends JFrame
 	protected MainWindow(GUI guiObject)
 	{
 		this.guiObject = guiObject;
+		this.setResizable(false);
 		
 		menuScreen = new MainMenu(guiObject);
 		gameplayScreen = new GamePanel(guiObject);
@@ -50,7 +51,8 @@ public class MainWindow extends JFrame
 		triviaScreen = new Trivia(guiObject);
 		loseScreen = new Lose(guiObject);
 		winScreen = new Win(guiObject);
-		debug = new ForDebugging(guiObject);		
+		debug = new ForDebugging(guiObject);
+		
 		
 		setTitle("Hunt The Wumpus");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

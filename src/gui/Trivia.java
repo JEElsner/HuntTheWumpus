@@ -9,20 +9,20 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-public class Trivia extends JPanel
+public class Trivia extends JPanel implements UpdateScreen
 {
-	private JTextField txtEnterAnswersHere;
+	private JTextField answers;
+	private GUI gui;
 	/**
 	 * Create the panel.
 	 */
 	public Trivia(GUI guiObject)
-	{
+	{		
+		gui = guiObject;
 		setLayout(null);
-		
-		JLabel lblTrivia = new JLabel("Trivia");
-		lblTrivia.setBounds(364, 241, 56, 16);
-		add(lblTrivia);
+		this.setSize(1000, 800);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.addActionListener(new ActionListener() {
@@ -31,7 +31,7 @@ public class Trivia extends JPanel
 				guiObject.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
-		btnMainMenu.setBounds(323, 262, 97, 25);
+		btnMainMenu.setBounds(341, 262, 97, 25);
 		add(btnMainMenu);
 		
 		JPanel panel = new JPanel();
@@ -40,23 +40,42 @@ public class Trivia extends JPanel
 		add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblQuestionsWillGo = new JLabel("Questions will go here");
-		lblQuestionsWillGo.setBounds(6, 18, 197, 176);
-		panel.add(lblQuestionsWillGo);
-		lblQuestionsWillGo.setBackground(Color.WHITE);
+		JLabel question = new JLabel("Questions will go here");
+		question.setHorizontalAlignment(SwingConstants.CENTER);
+		question.setBounds(12, 30, 191, 164);
+		panel.add(question);
+		question.setBackground(Color.WHITE);
 		
-		txtEnterAnswersHere = new JTextField();
-		txtEnterAnswersHere.setBounds(206, 42, 244, 141);
-		add(txtEnterAnswersHere);
-		txtEnterAnswersHere.setColumns(10);
+		answers = new JTextField();
+		answers.setBounds(206, 13, 244, 170);
+		add(answers);
+		answers.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Stats on what questions are needed");
-		lblNewLabel.setBounds(4, 189, 235, 98);
-		add(lblNewLabel);
+		JLabel questionStats = new JLabel("You are attempting to *****");
+		questionStats.setBounds(4, 189, 235, 25);
+		add(questionStats);
 		
-		JLabel lblTrivaAnswersHere = new JLabel("Triva Answers Here");
-		lblTrivaAnswersHere.setBounds(215, 13, 136, 16);
-		add(lblTrivaAnswersHere);
+		JButton submit = new JButton("Submit Answer");
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gui.setAnswer(submit.getText());
+			}
+		});
+		submit.setBounds(319, 196, 119, 25);
+		add(submit);
+		
+		JLabel lblYouMustAnswer = new JLabel("You must answer **** correctly");
+		lblYouMustAnswer.setBounds(4, 212, 235, 25);
+		add(lblYouMustAnswer);
+		
+		JLabel lblInsertCurrentStats = new JLabel("Insert Current Stats on questions right");
+		lblInsertCurrentStats.setBounds(4, 250, 235, 16);
+		add(lblInsertCurrentStats);
 
+	}
+	
+	public void updatePanel(String update)
+	{
+		
 	}
 }

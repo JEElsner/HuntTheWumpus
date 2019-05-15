@@ -19,10 +19,10 @@ public class Player
 	//constructor
 	public Player(int c, int a, int t, int s)
 	{
-		c = coins;
-		a = arrows;
-		t = turns;
-		s = score;
+		coins = c;
+		arrows = a;
+		turns = t;
+		score = s;
 	}
 	
 	public int getArrows()
@@ -30,13 +30,14 @@ public class Player
 		return arrows;
 	}
 	
-	public int buyArrows()
+	public int buyArrows(boolean triviaCorrect)
 	{
 		coins--;
-		return 0;//if(trivia)
-		//{
-		// arrows++; 
-		//}
+		if(trivia)
+		{
+		 arrows++; 
+		}
+		return arrows;
 	}
 	
 	public int getCoins()

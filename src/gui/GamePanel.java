@@ -56,9 +56,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JLabel lblTurnsTaken;
 	private JLabel lblSecretsObtained;
 	private JLabel lblWarnings;
-	private JLabel warn1;
-	private JLabel warn2;
-	private JLabel warn3;
+	private JTextPane warnings;
 	
 	
 	
@@ -221,29 +219,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 		lblWarnings.setBounds(677, 208, 68, 16);
 		add(lblWarnings);
 		
-		
-		
-/*		warn1 = new JLabel("");
-		warn1.setBounds(677, 237, 68, 16);
-		add(warn1);
-		
-		warn2 = new JLabel("");
-		warn2.setBounds(677, 259, 68, 16);
-		add(warn2);
-		
-		warn3 = new JLabel("");
-		warn3.setBounds(677, 278, 68, 16);
-		add(warn3);*/
-		
 		JTextArea secrets = new JTextArea();
 		secrets.setEditable(false);
 		secrets.setText("secret 1\nSecret 2\na\na\na\na\na\na\na\na\na\na\na\na");
 		secrets.setBounds(12, 205, 97, 162);
 		add(secrets);
 		
-		JTextPane warnings = new JTextPane();
+		warnings = new JTextPane();
 		warnings.setEditable(false);
-		warnings.setBounds(677, 225, 158, 85);
+		warnings.setBounds(677, 225, 158, 57);
 		add(warnings);
 		
 		
@@ -285,7 +269,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		lblCoins.setText("Coins: " + gui.getCoins());
 		lblArrows.setText("Arrows: " + gui.getArrows());
 		
-		
+		warnings.setText(gui.displayBWarn() +  gui.displayPWarn() + gui.displayWWarn());
 		
 		for(JButton b : moving)
 		{

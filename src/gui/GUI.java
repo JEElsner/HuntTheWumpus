@@ -246,14 +246,17 @@ public class GUI
 	
 	public String displayBWarn()
 	{
+		if(bats == 0 && pits == 0 && wumpus == 0)
+			return "Nothing nearby!";
+		
 		if(bats > 0)
 		{
 			if(bats == 1)
-				return "Bats nearby";
+				return "Bats nearby!\n";
 			if(bats == 2)
-				return "Several bats nearby";	
+				return "Several bats nearby!\n";	
 		}
-		return null;
+		return "";
 	}
 	
 	public String displayPWarn()
@@ -261,20 +264,20 @@ public class GUI
 		if(pits > 0)
 		{
 			if(pits == 1)
-				return "I feel a draft";
+				return "I feel a draft!\n";
 			if(pits == 2)
-				return "It's really windy in here";	
+				return "It's really windy in here!\n";	
 		}
-		return null;
+		return "";
 	}
 	
 	public String displayWWarn()
 	{
 		if(wumpus == 1)
 		{
-			return "I smell a Wumpus!";
+			return "I smell a Wumpus!!";
 		}
-		return null;
+		return "";
 	}
 	
 	public void checkEncounter()
@@ -371,7 +374,7 @@ public class GUI
 	// Process updates from the control worker thread
 	// Thread: EDT
 	public void processControlUpdates(List<Update> updates)
-	{	
+	{
 		for(Update update : updates)
 		{
 			switch(update.getType())

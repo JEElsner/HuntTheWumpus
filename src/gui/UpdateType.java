@@ -56,19 +56,19 @@ public enum UpdateType
 	// Updates that are likely for GUI only
 
 	/* To GUI: Warnings that there are pits near the room the player is in
-	 * Object: int number of pits in surrounding rooms
+	 * Object: int number of pits in surrounding rooms **If 0 there are not pits
 	 */
 	PIT_WARNING(Void.class, Integer.class),
 	
 	/* To GUI: Warnings that there are bats near the room the player is in
-	 * Object: int number of bats in surrounding rooms
+	 * Object: int number of bats in surrounding rooms **If 0 there are not bats
 	 */
 	BAT_WARNING(Void.class, Integer.class),
 	
 	/* To GUI: Warnings that the wumpus is near the player
-	 * Object: None
+	 * Object: int number, 1 if wumpus is nearby and 0 if not
 	 */
-	WUMPUS_WARNING(Void.class, Void.class),
+	WUMPUS_WARNING(Void.class, Integer.class),
 	
 	/* To Control:
 	 * -------------

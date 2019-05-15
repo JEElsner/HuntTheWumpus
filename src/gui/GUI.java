@@ -21,6 +21,10 @@ public class GUI
 	public static final String easterEgg = "Easter Egg?";
 	public static final String debugging = "Debug";
 	
+	private int pits = 0;
+	private int bats = 0;
+	private int wumpus = 0;
+	
 	private static String hs1N;
 	private static String hs2N;
 	private static String hs3N;
@@ -49,6 +53,36 @@ public class GUI
 		this.doors = doors;
 	}
 	
+	public int getBats()
+	{
+		return bats;
+	}
+
+	public void setBats(int numofBat)
+	{
+		this.bats = numofBat;
+	}
+
+	public int getPits()
+	{
+		return pits;
+	}
+
+	public void setPits(int numOfPit)
+	{
+		this.pits = numOfPit;
+	}
+	
+	public int getWumpus()
+	{
+		return wumpus;
+	}
+	
+	public void setWumpus(int w)
+	{
+		this.wumpus = w;
+	}
+
 	public int getArrows()
 	{
 		return arrows;
@@ -210,6 +244,39 @@ public class GUI
 		//Ideally I get a separate program with the room's GUI coded and then just run that GUI here
 	}
 	
+	public String displayBWarn()
+	{
+		if(bats > 0)
+		{
+			if(bats == 1)
+				return "Bats nearby";
+			if(bats == 2)
+				return "Several bats nearby";	
+		}
+		return null;
+	}
+	
+	public String displayPWarn()
+	{
+		if(pits > 0)
+		{
+			if(pits == 1)
+				return "I feel a draft";
+			if(pits == 2)
+				return "It's really windy in here";	
+		}
+		return null;
+	}
+	
+	public String displayWWarn()
+	{
+		if(wumpus == 1)
+		{
+			return "I smell a Wumpus!";
+		}
+		return null;
+	}
+	
 	public void checkEncounter()
 	{
 		//Get from Game Control the location and return whatever message based on location
@@ -313,18 +380,35 @@ public class GUI
 			{
 			case MOVE:
 				doors = (MovementDirection[]) update.getData();
+				this.mainWindow.gameplayScreen.updatePanel("new game");
 				break;
 				
 			case PURCHASE_ARROW:
 				setArrows((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("arrows");
 				break;
 			
 			case GET_COINS:
 				setCoins((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("coins");
 				break;
 				
 			case GET_PLAYER_SCORE:
 				setCurrentScore((int) update.getData());
+				break;
+				
+			case PIT_WARNING:
+				setPits((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("pits");
+				break;
+			
+			case BAT_WARNING:
+				setBats((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("bats");
+				break;
+				
+			case WUMPUS_WARNING:
+				this.mainWindow.gameplayScreen.updatePanel("wumpus");
 				break;
 				
 			default:

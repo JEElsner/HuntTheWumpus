@@ -28,6 +28,7 @@ import javax.swing.UIManager;
 import wumpus.MovementDirection;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
+import javax.swing.JTextPane;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
@@ -55,9 +56,9 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JLabel lblTurnsTaken;
 	private JLabel lblSecretsObtained;
 	private JLabel lblWarnings;
-	private JLabel lblWarning;
-	private JLabel lblWarning_1;
-	private JLabel lblWarning_2;
+	private JLabel warn1;
+	private JLabel warn2;
+	private JLabel warn3;
 	
 	
 	
@@ -220,23 +221,30 @@ public class GamePanel extends JPanel implements UpdateScreen
 		lblWarnings.setBounds(677, 208, 68, 16);
 		add(lblWarnings);
 		
-		lblWarning = new JLabel("Warning 1");
-		lblWarning.setBounds(677, 237, 68, 16);
-		add(lblWarning);
 		
-		lblWarning_1 = new JLabel("Warning 2");
-		lblWarning_1.setBounds(677, 259, 68, 16);
-		add(lblWarning_1);
 		
-		lblWarning_2 = new JLabel("Warning 3");
-		lblWarning_2.setBounds(677, 278, 68, 16);
-		add(lblWarning_2);
+/*		warn1 = new JLabel("");
+		warn1.setBounds(677, 237, 68, 16);
+		add(warn1);
+		
+		warn2 = new JLabel("");
+		warn2.setBounds(677, 259, 68, 16);
+		add(warn2);
+		
+		warn3 = new JLabel("");
+		warn3.setBounds(677, 278, 68, 16);
+		add(warn3);*/
 		
 		JTextArea secrets = new JTextArea();
 		secrets.setEditable(false);
 		secrets.setText("secret 1\nSecret 2\na\na\na\na\na\na\na\na\na\na\na\na");
 		secrets.setBounds(12, 205, 97, 162);
 		add(secrets);
+		
+		JTextPane warnings = new JTextPane();
+		warnings.setEditable(false);
+		warnings.setBounds(677, 225, 158, 85);
+		add(warnings);
 		
 		
 		
@@ -270,11 +278,14 @@ public class GamePanel extends JPanel implements UpdateScreen
 	
 	public void updatePanel(String update)
 	{
+		
 		playerName.setText(gui.getName());
 		System.out.println(update);
 		
 		lblCoins.setText("Coins: " + gui.getCoins());
 		lblArrows.setText("Arrows: " + gui.getArrows());
+		
+		
 		
 		for(JButton b : moving)
 		{
@@ -317,5 +328,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			}
 				
 		}
+	
+		
 	}
 }

@@ -1,11 +1,13 @@
 package gui;
 
-import javax.swing.JPanel; 
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JToggleButton;
+import javax.swing.ScrollPaneConstants;
 
 import java.awt.Graphics;
 
@@ -24,6 +26,8 @@ import java.awt.SystemColor;
 import javax.swing.UIManager;
 
 import wumpus.MovementDirection;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
@@ -114,6 +118,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP));
 			}
 		});
 		moveUp.setBounds(311, 46, 97, 25);
@@ -123,6 +128,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveUpRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_RIGHT));
 			}
 		});
 		moveUpRight.setBounds(489, 91, 97, 25);
@@ -132,6 +138,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveUpLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_LEFT));
 			}
 		});
 		moveUpLeft.setBounds(151, 104, 97, 25);
@@ -141,6 +148,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN));
 			}
 		});
 		moveDown.setBounds(321, 431, 97, 25);
@@ -150,6 +158,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveDownRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_RIGHT));
 			}
 		});
 		moveDownRight.setBounds(476, 383, 110, 25);
@@ -159,6 +168,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveDownLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_LEFT));
 			}
 		});
 		moveDownLeft.setBounds(151, 383, 97, 25);
@@ -222,6 +232,12 @@ public class GamePanel extends JPanel implements UpdateScreen
 		lblWarning_2.setBounds(677, 278, 68, 16);
 		add(lblWarning_2);
 		
+		JTextArea secrets = new JTextArea();
+		secrets.setEditable(false);
+		secrets.setText("secret 1\nSecret 2\na\na\na\na\na\na\na\na\na\na\na\na");
+		secrets.setBounds(12, 205, 97, 162);
+		add(secrets);
+		
 		
 		
 		
@@ -256,6 +272,10 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		playerName.setText(gui.getName());
 		System.out.println(update);
+		
+		lblCoins.setText("Coins: " + gui.getCoins());
+		lblArrows.setText("Arrows: " + gui.getArrows());
+		
 		for(JButton b : moving)
 		{
 			b.setVisible(false);

@@ -27,6 +27,12 @@ public class GUI
 	private static String hs4N;
 	private static String hs5N;
 	
+	//----Variables for Gameplay----//
+	private int arrows;
+	private int coins;
+	private int currentScore;
+	//------------------------------//
+	
 	private String name;
 	private String answer;
 	
@@ -43,6 +49,36 @@ public class GUI
 		this.doors = doors;
 	}
 	
+	public int getArrows()
+	{
+		return arrows;
+	}
+
+	public void setArrows(int arrows)
+	{
+		this.arrows = arrows;
+	}
+
+	public int getCoins()
+	{
+		return coins;
+	}
+
+	public void setCoins(int coins)
+	{
+		this.coins = coins;
+	}
+
+	public int getCurrentScore()
+	{
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore)
+	{
+		this.currentScore = currentScore;
+	}
+
 	public String getHs1()
 	{
 		return hs1N;
@@ -277,6 +313,18 @@ public class GUI
 			{
 			case MOVE:
 				doors = (MovementDirection[]) update.getData();
+				break;
+				
+			case PURCHASE_ARROW:
+				setArrows((int) update.getData());
+				break;
+			
+			case GET_COINS:
+				setCoins((int) update.getData());
+				break;
+				
+			case GET_PLAYER_SCORE:
+				setCurrentScore((int) update.getData());
 				break;
 				
 			default:

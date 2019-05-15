@@ -41,9 +41,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JLabel lblSecretsObtained;
 	private JLabel lblWarnings;
 	private JTextPane warnings;
-	
-	
-	
+		
 	public GamePanel(GUI guiObject)
 	{
 		gui = guiObject;
@@ -213,12 +211,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		warnings.setEditable(false);
 		warnings.setBounds(677, 225, 158, 57);
 		add(warnings);
-		
-		
-		
-		
-		
-		
+				
 		updatePanel("Refresh");
 
 	}
@@ -248,7 +241,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		
 		playerName.setText(gui.getName());
-		System.out.println(update);
+		//System.out.println(update);
 		
 		lblCoins.setText("Coins: " + gui.getCoins());
 		lblArrows.setText("Arrows: " + gui.getArrows());

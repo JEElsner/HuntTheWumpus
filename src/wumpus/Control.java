@@ -24,57 +24,69 @@ import gui.UpdateType;
 
 public class Control extends SwingWorker<Void, Update>
 {	
+	
+	public static volatile boolean debugging = false;
+	
 	// Thread: Initial thread
 	public static void main(String[] args)
-	{
-		// Debug Code
-		
-		Scanner in = new Scanner(System.in);
-		System.out.println("To debug, type [debug], then the name of your class, otherwise, press enter.");
-		System.out.print("Debug an object? ");
-		String inputRecieved = "";
-		//inputRecieved = in.nextLine();
-		
-		// Check if the user wants to run debug code associated with each class
-		if(inputRecieved.startsWith("debug"))
-		{
-			// get the name of the class the user wanted to debug, which is the second word in the command
-			String clazz = inputRecieved.split("\\s")[1];
-			
-			// Find the desired class and debug it
-			if(clazz.equalsIgnoreCase("control"))
-			{
-				Control.debug();
-			}else if(clazz.equalsIgnoreCase("Cave"))
-			{
-				Cave.debug();
-			}else if(clazz.equalsIgnoreCase("GUI"))
-			{
-				GUI.debug();
-			}else if(clazz.equalsIgnoreCase("Map"))
-			{
-				Map.debug();
-			}else if(clazz.equalsIgnoreCase("Player"))
-			{
-				Player.debug();
-			}else if(clazz.equalsIgnoreCase("Trivia"))
-			{
-				Trivia.debug();
-			}
-			
-			// Close the scanner and exit, we were debugging, so we don't want to do anyting else
-			
-			in.close();
-			return;
-		} // End "debug" if
-		else
-			in.close(); // Close the scanner if we didn't debug
-		
-		// Actual Code
+	{	
+		// ============ Actual Code ================= //
 		
 		// Make a new control object and start it
 		controlObject = new Control();
 		controlObject.startControl();
+		
+		// ============ Debug Code ================== //
+		
+		Scanner in = new Scanner(System.in);
+		System.out.println("To debug, type [debug], then the name of your class, otherwise, press enter.");
+		
+		while (true)
+		{
+			String inputRecieved = in.nextLine();
+			// Check if the user wants to run debug code associated with each class
+			if (inputRecieved.startsWith("debug"))
+			{
+				// get the name of the class the user wanted to debug, which is the second word in the command
+				try
+				{
+					String clazz = inputRecieved.split("\\s")[1];
+
+					// Find the desired class and debug it
+					if (clazz.equalsIgnoreCase("control"))
+					{
+						Control.debug();
+					} else if (clazz.equalsIgnoreCase("Cave"))
+					{
+						Cave.debug();
+					} else if (clazz.equalsIgnoreCase("GUI"))
+					{
+						GUI.debug();
+					} else if (clazz.equalsIgnoreCase("Map"))
+					{
+						Map.debug();
+					} else if (clazz.equalsIgnoreCase("Player"))
+					{
+						Player.debug();
+					} else if (clazz.equalsIgnoreCase("Trivia"))
+					{
+						Trivia.debug();
+					}
+				} catch (IndexOutOfBoundsException ex)
+				{
+					// This happens semi-often, so this is a pretty bad catch, but it's debug, so I don't really care
+					
+					debugging = !debugging;
+					System.out.println("Debug Status: " + debugging);
+				}
+				
+				// End "debug" if
+			}else if(inputRecieved.equalsIgnoreCase("exit"))
+			{
+				in.close();
+				System.exit(0);
+			}
+		} // End debug while
 	}
 	
 	// Thread: Initial
@@ -156,13 +168,16 @@ public class Control extends SwingWorker<Void, Update>
 	protected Void doInBackground() throws Exception
 	{	
 		while(true)
-		{
+		{						
 			// IDK if all of this code, especially the Update handling, should
 			// occur within the synchronized block
 			synchronized(guiMessages)
-			{
+			{	
+				System.out.println("CONTROL START-SYNCH");
+				
 				try
 				{
+					System.out.println("CONTROL WAIT");
 					guiMessages.wait(); // Wait for a new update to be posted, then continue once notified
 				} catch (InterruptedException e)
 				{
@@ -170,7 +185,9 @@ public class Control extends SwingWorker<Void, Update>
 					// Maybe the GUI closing and exiting the program?
 					System.err.println("Control worker interrupted while waiting:");
 					e.printStackTrace();
-				}
+				} // End try for wait
+				
+				System.out.println("CONTROL AWAKE");
 				
 				// Look at all the unprocessed messages in the queue from the GUI
 				while(guiMessages.size() > 0)
@@ -227,14 +244,14 @@ public class Control extends SwingWorker<Void, Update>
 						default: // In case we get a bad update
 							// CHANGE change to be more durable
 							throw new IllegalArgumentException("Invalid Control Update: " + msg.getType());
-						}
+						} // End Switch
 					}catch(ClassCastException ex)
 					{
 						// In case we get a bad update
 						// This shouldn't happen because of the type checking when an Update is instantiated
 						System.err.println("Invalid data for Update: " + msg.getType().toString());
 						System.err.println(ex.getMessage());
-					}
+					} // End Catch
 					
 					// --- End of handling Update --- //
 					
@@ -242,16 +259,19 @@ public class Control extends SwingWorker<Void, Update>
 					// REVIEW necessary?
 					
 					guiMessages.remove(0); // Remove the update, since it has been processed
-				}
-			}
-		}
-	}
+				} // End while looping through guiMessages
+			} // End synchronized
+			
+			System.out.println("CONTROL END-SYNCH");
+		} // End while(true)
+	} // End doInBackground
 	
 	// Process results from the SwingWorker worker thread
 	// Thread: EDT
 	protected void process(List<Update> updates)
 	{
 		// Forward the processing to be handled by the GUI class
+		// Sue me, I'm lazy. Why do the work myself, when I can make Logan do it?
 		guiObject.processControlUpdates(updates);
 	}
 	
@@ -261,9 +281,12 @@ public class Control extends SwingWorker<Void, Update>
 	{
 		synchronized(guiMessages)
 		{
+			System.out.println("EDT START-SYNCH");
 			guiMessages.add(message);
 			guiMessages.notifyAll();
 		}
+		
+		System.out.println("EDT END-SYNCH");
 	}
 	
 	// Start a new game for the player to play
@@ -283,6 +306,10 @@ public class Control extends SwingWorker<Void, Update>
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println("Bat Rooms: " + mapObject.getBatRoom() + ", " + mapObject.getBatRoom2());
+		System.out.println("Pit Rooms: " + mapObject.getPitRoom() + ", " + mapObject.getPitRoom2());
+		System.out.println("Wumpus Room: " + mapObject.getWumpusRoom());
 		
 		publish(new Update(UpdateType.MOVE, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
 	}
@@ -325,12 +352,15 @@ public class Control extends SwingWorker<Void, Update>
 		// See if the Wumpus is in the room
 		if(room == mapObject.getWumpusRoom())
 		{
+			System.out.println("Found Wumpus");
 			foundWumpus();
 		}else if(room == mapObject.getPitRoom() || room == mapObject.getPitRoom2())
 		{	// See if the room has a pit, and make the player fall in
+			System.out.println("Found Pit");
 			foundPit();
 		}else if(room == mapObject.getBatRoom() || room == mapObject.getBatRoom2())
 		{	// See if the room has bats, and make the player get carried away by bats
+			System.out.println("Found Bat");
 			foundBats();
 		}
 	}
@@ -384,7 +414,9 @@ public class Control extends SwingWorker<Void, Update>
 		// Make the player answer trivia?
 		
 		// Move the player & bats, then run checks for a new room
-		mapObject.flyAway();
+		int playerRoom = mapObject.flyAway();
+		publish(new Update(UpdateType.MOVE, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
+		
 		checkForHazards();
 		checkForWarnings();
 	}
@@ -397,6 +429,8 @@ public class Control extends SwingWorker<Void, Update>
 		
 		// Move the player, then run checks for a new room
 		mapObject.fallIntoPit();
+		publish(new Update(UpdateType.MOVE, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
+		
 		checkForHazards();
 		checkForWarnings();
 	}

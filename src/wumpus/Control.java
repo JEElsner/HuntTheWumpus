@@ -11,6 +11,7 @@ package wumpus;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -31,7 +32,8 @@ public class Control extends SwingWorker<Void, Update>
 		Scanner in = new Scanner(System.in);
 		System.out.println("To debug, type [debug], then the name of your class, otherwise, press enter.");
 		System.out.print("Debug an object? ");
-		String inputRecieved = in.nextLine();
+		String inputRecieved = "";
+		//inputRecieved = in.nextLine();
 		
 		// Check if the user wants to run debug code associated with each class
 		if(inputRecieved.startsWith("debug"))
@@ -270,8 +272,19 @@ public class Control extends SwingWorker<Void, Update>
 	{
 		mapObject = new Map();
 		
-		// Create a new cave with different rooms and stuff
-		// Give the current room the player is in to the GUI
+		// Create a new player with 100 coins, 3 arrows, 0 turns, and 0 score
+		playerObject = new Player(100, 3, 0, 0);
+		
+		try
+		{
+			caveObject = new Cave();
+		} catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		publish(new Update(UpdateType.MOVE, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
 	}
 	
 	// Let's user see high scores
@@ -288,8 +301,10 @@ public class Control extends SwingWorker<Void, Update>
 	{
 		// TODO check if there is a door to the room the player wants to move to
 		
-		mapObject.movePlayer(dir); // Move the player to the new location
-		publish(new Update(UpdateType.MOVE, false)); // Pass new room & Warnings to GUI
+		int playerRoom = mapObject.movePlayer(dir); // Move the player to the new location
+		System.out.println(playerRoom);
+		
+		publish(new Update(UpdateType.MOVE, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
 		
 		// Run checks for a new room
 		checkForHazards();
@@ -410,7 +425,7 @@ public class Control extends SwingWorker<Void, Update>
 		// Use coin
 		// Ask trivia?
 		// tell player they've got another arrow
-		publish(new Update(UpdateType.PURCHASE_ARROW, false, -1)); // return new number of arrows
+		publish(new Update(UpdateType.PURCHASE_ARROW, false, playerObject.buyArrows(true))); // return new number of arrows
 	}
 	
 	// The player shoots an arrow
@@ -421,6 +436,8 @@ public class Control extends SwingWorker<Void, Update>
 		// Ask map if we hit the wumpus
 		// If so, win game
 		// If not, how many arrows left?
+		
+		publish(new Update(UpdateType.ARROW_MISS, false));
 	}
 	
 	// The player kills the wumpus

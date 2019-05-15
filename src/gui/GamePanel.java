@@ -280,7 +280,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		
 		playerName.setText(gui.getName());
-		System.out.println(update);
+		//System.out.println(update);
 		
 		lblCoins.setText("Coins: " + gui.getCoins());
 		lblArrows.setText("Arrows: " + gui.getArrows());

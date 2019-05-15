@@ -371,9 +371,7 @@ public class GUI
 	// Process updates from the control worker thread
 	// Thread: EDT
 	public void processControlUpdates(List<Update> updates)
-	{
-		System.out.print("Yeah");
-		
+	{	
 		for(Update update : updates)
 		{
 			switch(update.getType())

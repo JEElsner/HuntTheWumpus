@@ -183,7 +183,31 @@ public enum UpdateType
 	/* To GUI: Notify the GUI the arrow did not hit anything
 	 * Objects: int number of arrows left
 	 */
-	ARROW_MISS(Void.class, Integer.class)
+	ARROW_MISS(Void.class, Integer.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify of need for coins
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Notify the GUI of current coin total
+	 * Objects:
+	 */
+	GET_COINS(Void.class, Integer.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify of need for current player score
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Notify the GUI of current player score
+	 * Objects:
+	 */
+	GET_PLAYER_SCORE(Void.class, Integer.class)
 	
 	; // <---- Hey there's a semi-colon here! Yay!
 	

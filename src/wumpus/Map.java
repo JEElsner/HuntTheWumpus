@@ -3,6 +3,8 @@ package wumpus;
 
 import static wumpus.MovementDirection.*;
 
+import java.util.ArrayList;
+
 public class Map
 {
 	public int getStartingRoom()
@@ -171,6 +173,40 @@ public class Map
 	{
 		int newRoom = neighbors[room - 1][dir.ordinal()];
 		return newRoom;
+	}
+	
+	public static MovementDirection getDirection(int room, int room2)
+	{
+		int[] possible = getNeighbors(room);
+		for(int i = 0; i < 6; i++)
+		{
+			if (possible[i] == room2)
+			{
+				return MovementDirection.values()[i];
+			}
+		}
+		
+		return null;
+	}
+	
+	public static MovementDirection[] getDirections(int room, int[] neighbors)
+	{
+		ArrayList<MovementDirection> Directions = new ArrayList<MovementDirection>();
+		
+		for(int nearbyRoom : neighbors)
+		{
+			if(getDirection(room, nearbyRoom) == null)
+			{
+				continue;
+			}
+			
+			else
+			{
+				Directions.add(getDirection(room, nearbyRoom));
+			}
+		}
+		
+		return Directions.toArray(new MovementDirection[0]);
 	}
 
 	/*public static int getNearbyRoom2(int room, MovementDirection dir)

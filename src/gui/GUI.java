@@ -2,9 +2,11 @@ package gui;
 
 import java.awt.EventQueue;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.List;
 
 import wumpus.Control;
+import wumpus.MovementDirection;
 
 public class GUI
 {
@@ -18,7 +20,134 @@ public class GUI
 	public static final String PlayAgain = "Play Again";
 	public static final String easterEgg = "Easter Egg?";
 	public static final String debugging = "Debug";
-	public static String name;
+	
+	private static String hs1N;
+	private static String hs2N;
+	private static String hs3N;
+	private static String hs4N;
+	private static String hs5N;
+	
+	//----Variables for Gameplay----//
+	private int arrows;
+	private int coins;
+	private int currentScore;
+	//------------------------------//
+	
+	private String name;
+	private String answer;
+	
+	private MovementDirection[] doors = new MovementDirection[3];
+	
+
+	public MovementDirection[] getDoors()
+	{
+		return doors;
+	}
+
+	public void setDoors(MovementDirection[] doors)
+	{
+		this.doors = doors;
+	}
+	
+	public int getArrows()
+	{
+		return arrows;
+	}
+
+	public void setArrows(int arrows)
+	{
+		this.arrows = arrows;
+	}
+
+	public int getCoins()
+	{
+		return coins;
+	}
+
+	public void setCoins(int coins)
+	{
+		this.coins = coins;
+	}
+
+	public int getCurrentScore()
+	{
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore)
+	{
+		this.currentScore = currentScore;
+	}
+
+	public String getHs1()
+	{
+		return hs1N;
+	}
+
+	public void setHs1(String hs1)
+	{
+		GUI.hs1N = hs1;
+	}
+
+	public String getHs2()
+	{
+		return hs2N;
+	}
+
+	public void setHs2(String hs2)
+	{
+		GUI.hs2N = hs2;
+	}
+
+	public String getHs3()
+	{
+		return hs3N;
+	}
+
+	public void setHs3(String hs3)
+	{
+		GUI.hs3N = hs3;
+	}
+
+	public String getHs4()
+	{
+		return hs4N;
+	}
+
+	public void setHs4(String hs4)
+	{
+		GUI.hs4N = hs4;
+	}
+
+	public String getHs5()
+	{
+		return hs5N;
+	}
+
+	public void setHs5(String hs5)
+	{
+		GUI.hs5N = hs5;
+	}
+
+	public void setName(String n)
+	{
+		name = n;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+
+	public String getAnswer()
+	{
+		return answer;
+	}
+
+	public void setAnswer(String answer)
+	{
+		this.answer = answer;
+	}
 	
 	// The GUI that displays the game
 	protected MainWindow mainWindow;
@@ -32,7 +161,10 @@ public class GUI
 	
 	public static void debug()
 	{
-		new GUI(new Control()).startGUI();
+		GUI g = new GUI(new Control());
+		
+		g.startGUI();
+		g.processControlUpdates(Arrays.asList(new Update(UpdateType.MOVE, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.DOWN})));
 	}
 	
 	public void startGUI()
@@ -48,6 +180,7 @@ public class GUI
 					try
 					{
 						mainWindow = new MainWindow(thisGUI);
+						mainWindow.setSize(1000, 800);
 						mainWindow.setVisible(true);
 					} catch (Exception e)
 					{
@@ -121,10 +254,6 @@ public class GUI
 		return "" + name + ": " + score;
 	}
 	
-	public void name(String n)
-	{
-		name = n;
-	}
 	
 	public void betweenGames()
 	{
@@ -144,6 +273,7 @@ public class GUI
 		//Reads what room/direction you want to move
 		//U, UR, UL, DR, DL ***No Stay option
 		//Move accordingly
+		
 	}
 	
 	public void shootArrow()
@@ -175,7 +305,33 @@ public class GUI
 	// Thread: EDT
 	public void processControlUpdates(List<Update> updates)
 	{
+		System.out.print("Yeah");
 		
+		for(Update update : updates)
+		{
+			switch(update.getType())
+			{
+			case MOVE:
+				doors = (MovementDirection[]) update.getData();
+				break;
+				
+			case PURCHASE_ARROW:
+				setArrows((int) update.getData());
+				break;
+			
+			case GET_COINS:
+				setCoins((int) update.getData());
+				break;
+				
+			case GET_PLAYER_SCORE:
+				setCurrentScore((int) update.getData());
+				break;
+				
+			default:
+				System.err.println("Unhandled update type: " + update.getType());
+				break;
+			}
+		}
 	}
 	
 	// Notify the Control Object when it needs to respond to a GUI event
@@ -184,4 +340,7 @@ public class GUI
 	{
 		controller.sendMessage(update);
 	}
+
+
+
 }

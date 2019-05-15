@@ -172,6 +172,20 @@ public class Map
 		int newRoom = neighbors[room - 1][dir.ordinal()];
 		return newRoom;
 	}
+	
+	public static MovementDirection getDirection(int room, int room2)
+	{
+		int[] possible = getNeighbors(room);
+		for(int i = 0; i < 6; i++)
+		{
+			if (possible[i] == room2)
+			{
+				return MovementDirection.values()[i];
+			}
+		}
+		
+		return null;
+	}
 
 	/*public static int getNearbyRoom2(int room, MovementDirection dir)
 	{

@@ -197,7 +197,7 @@ public class Map
 		{
 			if(getDirection(room, nearbyRoom) == null)
 			{
-				break;
+				continue;
 			}
 			
 			else

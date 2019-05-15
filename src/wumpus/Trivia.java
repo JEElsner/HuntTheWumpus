@@ -11,6 +11,7 @@ public class Trivia
 	private static String questions[]=new String[101];
 	private static String answers[]=new String[101];
 	private static boolean asked[]=new boolean[101];
+	private static int toAsk=1;
  
 	
 	//Reads the set of 100 questions and answers from two files 
@@ -51,22 +52,23 @@ public class Trivia
 			asked[i]=false; //at the start, no question was asked
 	}
 	
+	public static String getQuestion()
+	{
+		toAsk++;
+		return questions[toAsk-1];
+	}
 	
 	//Method used to check if given answer is corrrect(guess)
-	//takes in the question number - i
 	//Assign asked value to true because it was asked
-	public static boolean answer(int i,String guess)
+	public static boolean answer(String guess)
 	{
-		if(guess.equals(answers[i]))
-		{
-			asked[i]=true;
+		asked[toAsk]=true;
+		if(guess.equals(answers[toAsk]))
 			return true;
-		}
-		{
-			asked[i]=true;
-			return true;
-		}
+		return false;
+		
 	}
+	
 	
 	public static void debug()
 	{
@@ -78,9 +80,14 @@ public class Trivia
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(answer(1,"False"))
+		
+		if(answer("False"))
 			System.out.println("Correct answer ");
 		else
 			System.out.println("Incorrect answer");	
+		
+		System.out.println();
+		
+		System.out.println(getQuestion());
 	}
 }

@@ -5,16 +5,18 @@ import java.util.Scanner;
 
 	public class Cave{
 		
-		private static int[][] cave=new int[30][7];
+		private int[][] cave=new int[30][7];
+		private int version=1;
 		
 		// 2D array representing room connections
 		// 1-6 column indexes represent 6 designated directions
 		public Cave() throws FileNotFoundException
 		{
 			int i=0,j=0;
-			int ver=(int)(Math.random()*5);
 			File qlist=new File("C:\\Users\\sn390603\\Desktop\\mapOne.txt");
+			
 			Scanner qreader=new Scanner(qlist);
+	
 			while(qreader.hasNextInt()&&(i<30))
 			{
 				  cave[i][j]=qreader.nextInt();
@@ -26,6 +28,8 @@ import java.util.Scanner;
 				}
 			}
 			qreader.close();
+			
+			version++;
 		}
 		
 		//Prints a list of the built cave for debugging purposes 
@@ -40,8 +44,6 @@ import java.util.Scanner;
 					System.out.print(cave[i][j]+" ");
 				System.out.println();
 			} 
-			
-			System.out.println(cave[0][0]+" "+cave[0][1]);
 			
 		}
 		

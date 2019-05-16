@@ -53,7 +53,7 @@ public class Update
 		this.data = data;
 		this.forControl = forControl;
 		
-		System.out.println("\t" + toString());
+		System.out.println("UPDATE: " + toString());
 	}
 	
 	// Another Constructor that takes no data

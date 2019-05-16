@@ -161,11 +161,8 @@ public class Control extends SwingWorker<Void, Update>
 			// occur within the synchronized block
 			synchronized(guiMessages)
 			{	
-				System.out.println("CONTROL START-SYNCH");
-				
 				try
 				{
-					System.out.println("CONTROL WAIT");
 					guiMessages.wait(); // Wait for a new update to be posted, then continue once notified
 				} catch (InterruptedException e)
 				{
@@ -174,8 +171,6 @@ public class Control extends SwingWorker<Void, Update>
 					System.err.println("Control worker interrupted while waiting:");
 					e.printStackTrace();
 				} // End try for wait
-				
-				System.out.println("CONTROL AWAKE");
 				
 				// Look at all the unprocessed messages in the queue from the GUI
 				while(guiMessages.size() > 0)
@@ -250,8 +245,6 @@ public class Control extends SwingWorker<Void, Update>
 					guiMessages.remove(0); // Remove the update, since it has been processed
 				} // End while looping through guiMessages
 			} // End synchronized
-			
-			System.out.println("CONTROL END-SYNCH");
 		} // End while(true)
 	} // End doInBackground
 	
@@ -293,12 +286,9 @@ public class Control extends SwingWorker<Void, Update>
 	{
 		synchronized(guiMessages)
 		{
-			System.out.println("EDT START-SYNCH");
 			guiMessages.add(message);
 			guiMessages.notifyAll();
 		}
-		
-		System.out.println("EDT END-SYNCH");
 	}
 	
 	// Start a new game for the player to play
@@ -347,7 +337,7 @@ public class Control extends SwingWorker<Void, Update>
 		// TODO check if there is a door to the room the player wants to move to
 		
 		int playerRoom = mapObject.movePlayer(dir); // Move the player to the new location
-		System.out.println(playerRoom);
+		System.out.println("Room: " + playerRoom);
 		
 		publish(new Update(UpdateType.MOVE, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
 		

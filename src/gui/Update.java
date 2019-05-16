@@ -37,10 +37,10 @@ public class Update
 				// If the data isn't null, it has a type, which should match the type for UpdateType
 				
 				if(!type.getDataType(forControl).isInstance(data)) // Check whether the types match
-					throw new IllegalArgumentException("Invalid data for UpdateType " + type + ": " + data.getClass().getSimpleName());
+					throw new IllegalArgumentException("Invalid data for UpdateType " + type + " -> " + (forControl ? "CONTROL" : "GUI") + ": " + data.getClass().getSimpleName());
 			}else if(type.getDataType(forControl) != Void.class) // If the data is null, make sure that the UpdateType doesn't pass data
 			{
-				throw new IllegalArgumentException("Non-null data expected for UpdateType: " + type);
+				throw new IllegalArgumentException("Non-null data expected for UpdateType: " + type + " -> " + (forControl ? "CONTROL" : "GUI"));
 			}
 		}catch(IllegalArgumentException ex)
 		{

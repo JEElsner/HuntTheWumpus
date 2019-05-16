@@ -198,7 +198,7 @@ public class GUI
 		GUI g = new GUI(new Control());
 		
 		g.startGUI();
-		g.processControlUpdates(Arrays.asList(new Update(UpdateType.MOVE, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.DOWN})));
+		g.processControlUpdates(Arrays.asList(new Update(UpdateType.NEW_DOORS, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.DOWN})));
 	}
 	
 	public void startGUI()
@@ -379,7 +379,7 @@ public class GUI
 		{
 			switch(update.getType())
 			{
-			case MOVE:
+			case NEW_DOORS:
 				doors = (MovementDirection[]) update.getData();
 				this.mainWindow.gameplayScreen.updatePanel("new game");
 				break;

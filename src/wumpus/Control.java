@@ -11,7 +11,6 @@ package wumpus;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
@@ -318,8 +317,9 @@ public class Control extends SwingWorker<Void, Update>
 		System.out.println("Pit Rooms: " + mapObject.getPitRoom() + ", " + mapObject.getPitRoom2());
 		System.out.println("Wumpus Room: " + mapObject.getWumpusRoom());*/
 		
-		// Publish the first move update to the GUI so that the user knows which directions they can move out of the starting room
-		publish(new Update(UpdateType.MOVE, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
+		// Publish the first Updates to tell the GUI where the player is and where they can move
+		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
+		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
 	}
 	
 	// Let's user see high scores
@@ -339,7 +339,8 @@ public class Control extends SwingWorker<Void, Update>
 		int playerRoom = mapObject.movePlayer(dir); // Move the player to the new location
 		System.out.println("Room: " + playerRoom);
 		
-		publish(new Update(UpdateType.MOVE, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
+		publish(new Update(UpdateType.MOVE, false, playerRoom));
+		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
 		
 		// Run checks for a new room
 		checkForHazards();
@@ -408,7 +409,8 @@ public class Control extends SwingWorker<Void, Update>
 		
 		// Move the player & bats, then run checks for a new room
 		int playerRoom = mapObject.flyAway();
-		publish(new Update(UpdateType.MOVE, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
+		publish(new Update(UpdateType.MOVE, false, playerRoom));
+		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
 		
 		checkForHazards();
 		checkForWarnings();
@@ -422,7 +424,8 @@ public class Control extends SwingWorker<Void, Update>
 		
 		// Move the player, then run checks for a new room
 		mapObject.fallIntoPit();
-		publish(new Update(UpdateType.MOVE, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
+		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
+		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
 		
 		checkForHazards();
 		checkForWarnings();

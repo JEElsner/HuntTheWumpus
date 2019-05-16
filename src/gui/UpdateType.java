@@ -14,6 +14,7 @@ public enum UpdateType
 	// REVIEW, some of the information below needs to be corrected, go over with Logan
 	
 	// Updates that could either be for the GUI or Control
+	
 	DEBUG(Object.class, Object.class), // You know, debug
 
 	/* To Control:
@@ -130,7 +131,6 @@ public enum UpdateType
 	 */
 	ENCOUNTER_WUMPUS(Void.class, String.class),
 	
-	// Updates that are likely for Control only
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify of Movement and Direction
@@ -138,11 +138,25 @@ public enum UpdateType
 	 * 
 	 * To GUI:
 	 * ------------
+	 * Purpose: Tells the GUI the player has moved rooms
+	 * Objects: int index of new room
+	 */
+	MOVE(MovementDirection.class, Integer.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: N/A
+	 * Objects: N/A
+	 * 
+	 * To GUI:
+	 * ------------
 	 * Purpose: Notify the gui it is the player's turn to move
 	 * Objects: Directions the player can move to get out of the new room
 	 * 			the 0th index will contain the direction from which the player came
 	 */
-	MOVE(MovementDirection.class, MovementDirection[].class), // The user requested the player move, the data should be the MovementDirection enum
+	NEW_DOORS(Void.class, MovementDirection[].class), // The user requested the player move, the data should be the MovementDirection enum
+	
+	// Updates that are likely for Control only
 	
 	/* To Control:
 	 * -------------

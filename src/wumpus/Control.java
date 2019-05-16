@@ -355,7 +355,7 @@ public class Control extends SwingWorker<Void, Update>
 		checkForHazards();
 		checkForWarnings();
 		
-		// mapObject.moveWumpus(); // TODO tell wumpus he can move
+		mapObject.moveWumpus(); // TODO tell wumpus he can move
 	}
 	
 	/* Check whether the player's current room has any hazards in it, and handle them

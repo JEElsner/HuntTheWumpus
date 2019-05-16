@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -207,7 +208,8 @@ public class Control extends SwingWorker<Void, Update>
 						{
 						case DEBUG:
 							System.out.println("Recieved debug update from GUI: " + msg.getData().toString());
-							break;
+							throw new Exception("Test exception");
+							//break;
 							
 						case NEW_GAME: // A new game has started
 							newGame();
@@ -265,6 +267,29 @@ public class Control extends SwingWorker<Void, Update>
 			System.out.println("CONTROL END-SYNCH");
 		} // End while(true)
 	} // End doInBackground
+	
+	/* Runs on the EDT when doInBackground() finishes on the worker thread.
+	 * 
+	 * In this case, it is mostly used to catch exceptions that occur in doInBackground()
+	 * (non-Javadoc)
+	 * @see javax.swing.SwingWorker#done()
+	 */
+	protected void done()
+	{
+		try
+		{
+			get();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+			System.exit(1); // CHANGE to fail softer when this happens. Right now, I just want to know if this exception is called, so I want it to fail hard
+		} catch (ExecutionException e)
+		{
+			System.err.println("EXCEPTION in doInBackground():");
+			e.getCause().printStackTrace();
+			System.exit(1); // REVIEW if an error occurs, and the background task ends, the program can't continue, so it should fail hard
+		}
+	}
 	
 	// Process results from the SwingWorker worker thread
 	// Thread: EDT

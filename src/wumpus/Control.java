@@ -377,15 +377,12 @@ public class Control extends SwingWorker<Void, Update>
 		// See if the Wumpus is in the room
 		if(room == mapObject.getWumpusRoom())
 		{
-			System.out.println("Found Wumpus");
 			foundWumpus();
 		}else if(room == mapObject.getPitRoom() || room == mapObject.getPitRoom2())
 		{	// See if the room has a pit, and make the player fall in
-			System.out.println("Found Pit");
 			foundPit();
 		}else if(room == mapObject.getBatRoom() || room == mapObject.getBatRoom2())
 		{	// See if the room has bats, and make the player get carried away by bats
-			System.out.println("Found Bat");
 			foundBats();
 		}
 	}
@@ -402,20 +399,9 @@ public class Control extends SwingWorker<Void, Update>
 		int pitWarnings = mapObject.CheckForPits();
 		
 		// Handle the warnings appropriately
-		if(batWarnings > 0)
-		{
-			publish(new Update(UpdateType.BAT_WARNING, false, batWarnings));
-		}
-		
-		if(pitWarnings > 0)
-		{
-			publish(new Update(UpdateType.PIT_WARNING, false, pitWarnings));
-		}
-		
-		if(mapObject.CheckForWumpus())
-		{
-			publish(new Update(UpdateType.WUMPUS_WARNING, false));
-		}
+		publish(new Update(UpdateType.BAT_WARNING, false, batWarnings));
+		publish(new Update(UpdateType.PIT_WARNING, false, pitWarnings));
+		publish(new Update(UpdateType.WUMPUS_WARNING, false, mapObject.CheckForWumpus() ? 1 : 0));
 	}
 	
 	// The player enters the same room as the Wumpus

@@ -29,22 +29,31 @@ public class Update
 	 */
 	public Update(UpdateType type, boolean forControl, Object data)
 	{
-		// Check whether the data passed is of the right type for the UpdateType
-		if(data != null)
+		try // It's kind of weird that we have to catch the exceptions that we throw, but that's the only way they show up
 		{
-			// If the data isn't null, it has a type, which should match the type for UpdateType
-			
-			if(!type.getDataType(forControl).isInstance(data)) // Check whether the types match
-				throw new IllegalArgumentException("Invalid data for UpdateType " + type + ": " + data.getClass().getSimpleName());
-		}else if(type.getDataType(forControl) != Void.class) // If the data is null, make sure that the UpdateType doesn't pass data
+			// Check whether the data passed is of the right type for the UpdateType
+			if(data != null)
+			{
+				// If the data isn't null, it has a type, which should match the type for UpdateType
+				
+				if(!type.getDataType(forControl).isInstance(data)) // Check whether the types match
+					throw new IllegalArgumentException("Invalid data for UpdateType " + type + ": " + data.getClass().getSimpleName());
+			}else if(type.getDataType(forControl) != Void.class) // If the data is null, make sure that the UpdateType doesn't pass data
+			{
+				throw new IllegalArgumentException("Non-null data expected for UpdateType: " + type);
+			}
+		}catch(IllegalArgumentException ex)
 		{
-			throw new IllegalArgumentException("Non-null data expected for UpdateType: " + type);
+			ex.printStackTrace();
+			return;
 		}
 		
 		// Set the values for the fields
 		this.type = type;
 		this.data = data;
 		this.forControl = forControl;
+		
+		System.out.println("\t" + toString());
 	}
 	
 	// Another Constructor that takes no data
@@ -87,5 +96,10 @@ public class Update
 	public boolean isForGUI()
 	{
 		return !(forControl);
+	}
+	
+	public String toString()
+	{
+		return type.toString() + " -> " + (forControl ? "CONTROL" : "GUI");
 	}
 }

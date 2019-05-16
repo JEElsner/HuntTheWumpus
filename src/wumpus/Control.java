@@ -143,19 +143,6 @@ public class Control extends SwingWorker<Void, Update>
 		
 		SwingUtilities.invokeLater(this::execute); // Begin the worker thread to support the GUI in the background
 		// I'm pretty sure SwingWorker.execute() must be called on the EDT, so hence the invokeLater
-		
-		try
-		{
-			caveObject = new Cave();
-		} catch (FileNotFoundException e)
-		{
-			System.err.println("Built-in cave file not found.");
-			
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-			System.exit(1);
-		}
 	}
 	
 	/* Processes updates from the GUI & EDT
@@ -318,11 +305,12 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void newGame()
 	{
-		mapObject = new Map();
+		mapObject = new Map(); // Create a new map with new pit, bat, and wumpus locations
 		
 		// Create a new player with 100 coins, 3 arrows, 0 turns, and 0 score
 		playerObject = new Player(100, 3, 0, 0);
 		
+		// Create a new cave with different doors
 		try
 		{
 			caveObject = new Cave();
@@ -332,10 +320,15 @@ public class Control extends SwingWorker<Void, Update>
 			e.printStackTrace();
 		}
 		
-		System.out.println("Bat Rooms: " + mapObject.getBatRoom() + ", " + mapObject.getBatRoom2());
-		System.out.println("Pit Rooms: " + mapObject.getPitRoom() + ", " + mapObject.getPitRoom2());
-		System.out.println("Wumpus Room: " + mapObject.getWumpusRoom());
+		// Create a new trivia object to keep track of trivia questions to be asked and answered
+		triviaObject = new Trivia();
 		
+		// Debug / Cheat information
+		/*System.out.println("Bat Rooms: " + mapObject.getBatRoom() + ", " + mapObject.getBatRoom2());
+		System.out.println("Pit Rooms: " + mapObject.getPitRoom() + ", " + mapObject.getPitRoom2());
+		System.out.println("Wumpus Room: " + mapObject.getWumpusRoom());*/
+		
+		// Publish the first move update to the GUI so that the user knows which directions they can move out of the starting room
 		publish(new Update(UpdateType.MOVE, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
 	}
 	
@@ -344,7 +337,7 @@ public class Control extends SwingWorker<Void, Update>
 	// Don't have a score object yet, so I define and use a generic for now :P
 	public <Score> Score[] getScores()
 	{
-		return null;
+		return null; // TODO Huh, this generic guy is still around. That's pretty bad, we should get to removing him soon.
 	}
 	
 	// Move the player
@@ -362,7 +355,6 @@ public class Control extends SwingWorker<Void, Update>
 		checkForHazards();
 		checkForWarnings();
 		
-		// TODO Warn about wumpus. What did I want to do here?
 		// mapObject.moveWumpus(); // TODO tell wumpus he can move
 	}
 	

@@ -1,29 +1,18 @@
 package gui;
 
-import javax.swing.JPanel; 
+import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JToggleButton;
-
 import java.awt.Graphics;
 
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-
-import java.awt.Choice;
 import java.awt.Color;
-import java.awt.Button;
-import java.awt.Label;
 import java.awt.Polygon;
 import java.awt.Canvas;
-import javax.swing.SwingConstants;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
-
 import wumpus.MovementDirection;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
@@ -51,12 +40,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JLabel lblTurnsTaken;
 	private JLabel lblSecretsObtained;
 	private JLabel lblWarnings;
-	private JLabel lblWarning;
-	private JLabel lblWarning_1;
-	private JLabel lblWarning_2;
-	
-	
-	
+	private JTextPane warnings;
+		
 	public GamePanel(GUI guiObject)
 	{
 		gui = guiObject;
@@ -114,6 +99,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP));
 			}
 		});
 		moveUp.setBounds(311, 46, 97, 25);
@@ -123,6 +109,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveUpRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_RIGHT));
 			}
 		});
 		moveUpRight.setBounds(489, 91, 97, 25);
@@ -132,6 +119,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveUpLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_LEFT));
 			}
 		});
 		moveUpLeft.setBounds(151, 104, 97, 25);
@@ -141,6 +129,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN));
 			}
 		});
 		moveDown.setBounds(321, 431, 97, 25);
@@ -150,6 +139,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveDownRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_RIGHT));
 			}
 		});
 		moveDownRight.setBounds(476, 383, 110, 25);
@@ -159,6 +149,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moveDownLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
+				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_LEFT));
 			}
 		});
 		moveDownLeft.setBounds(151, 383, 97, 25);
@@ -210,23 +201,17 @@ public class GamePanel extends JPanel implements UpdateScreen
 		lblWarnings.setBounds(677, 208, 68, 16);
 		add(lblWarnings);
 		
-		lblWarning = new JLabel("Warning 1");
-		lblWarning.setBounds(677, 237, 68, 16);
-		add(lblWarning);
+		JTextArea secrets = new JTextArea();
+		secrets.setEditable(false);
+		secrets.setText("secret 1\nSecret 2\na\na\na\na\na\na\na\na\na\na\na\na");
+		secrets.setBounds(12, 205, 97, 162);
+		add(secrets);
 		
-		lblWarning_1 = new JLabel("Warning 2");
-		lblWarning_1.setBounds(677, 259, 68, 16);
-		add(lblWarning_1);
-		
-		lblWarning_2 = new JLabel("Warning 3");
-		lblWarning_2.setBounds(677, 278, 68, 16);
-		add(lblWarning_2);
-		
-		
-		
-		
-		
-		
+		warnings = new JTextPane();
+		warnings.setEditable(false);
+		warnings.setBounds(677, 225, 158, 57);
+		add(warnings);
+				
 		updatePanel("Refresh");
 
 	}
@@ -254,8 +239,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 	
 	public void updatePanel(String update)
 	{
+		
 		playerName.setText(gui.getName());
-		System.out.println(update);
+		//System.out.println(update);
+		
+		lblCoins.setText("Coins: " + gui.getCoins());
+		lblArrows.setText("Arrows: " + gui.getArrows());
+		
+		warnings.setText(gui.displayBWarn() +  gui.displayPWarn() + gui.displayWWarn());
+		
 		for(JButton b : moving)
 		{
 			b.setVisible(false);
@@ -297,5 +289,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			}
 				
 		}
+	
+		
 	}
 }

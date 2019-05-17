@@ -14,6 +14,7 @@ public enum UpdateType
 	// REVIEW, some of the information below needs to be corrected, go over with Logan
 	
 	// Updates that could either be for the GUI or Control
+	
 	DEBUG(Object.class, Object.class), // You know, debug
 
 	/* To Control:
@@ -56,19 +57,19 @@ public enum UpdateType
 	// Updates that are likely for GUI only
 
 	/* To GUI: Warnings that there are pits near the room the player is in
-	 * Object: int number of pits in surrounding rooms
+	 * Object: int number of pits in surrounding rooms **If 0 there are not pits
 	 */
 	PIT_WARNING(Void.class, Integer.class),
 	
 	/* To GUI: Warnings that there are bats near the room the player is in
-	 * Object: int number of bats in surrounding rooms
+	 * Object: int number of bats in surrounding rooms **If 0 there are not bats
 	 */
 	BAT_WARNING(Void.class, Integer.class),
 	
 	/* To GUI: Warnings that the wumpus is near the player
-	 * Object: None
+	 * Object: int number, 1 if wumpus is nearby and 0 if not
 	 */
-	WUMPUS_WARNING(Void.class, Void.class),
+	WUMPUS_WARNING(Void.class, Integer.class),
 	
 	/* To Control:
 	 * -------------
@@ -130,7 +131,6 @@ public enum UpdateType
 	 */
 	ENCOUNTER_WUMPUS(Void.class, String.class),
 	
-	// Updates that are likely for Control only
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify of Movement and Direction
@@ -138,11 +138,25 @@ public enum UpdateType
 	 * 
 	 * To GUI:
 	 * ------------
+	 * Purpose: Tells the GUI the player has moved rooms
+	 * Objects: int index of new room
+	 */
+	MOVE(MovementDirection.class, Integer.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: N/A
+	 * Objects: N/A
+	 * 
+	 * To GUI:
+	 * ------------
 	 * Purpose: Notify the gui it is the player's turn to move
 	 * Objects: Directions the player can move to get out of the new room
 	 * 			the 0th index will contain the direction from which the player came
 	 */
-	MOVE(MovementDirection.class, MovementDirection[].class), // The user requested the player move, the data should be the MovementDirection enum
+	NEW_DOORS(Void.class, MovementDirection[].class), // The user requested the player move, the data should be the MovementDirection enum
+	
+	// Updates that are likely for Control only
 	
 	/* To Control:
 	 * -------------
@@ -183,7 +197,31 @@ public enum UpdateType
 	/* To GUI: Notify the GUI the arrow did not hit anything
 	 * Objects: int number of arrows left
 	 */
-	ARROW_MISS(Void.class, Integer.class)
+	ARROW_MISS(Void.class, Integer.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify of need for coins
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Notify the GUI of current coin total
+	 * Objects:
+	 */
+	GET_COINS(Void.class, Integer.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify of need for current player score
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Notify the GUI of current player score
+	 * Objects:
+	 */
+	GET_PLAYER_SCORE(Void.class, Integer.class)
 	
 	; // <---- Hey there's a semi-colon here! Yay!
 	

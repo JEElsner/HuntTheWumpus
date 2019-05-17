@@ -21,11 +21,21 @@ public class GUI
 	public static final String easterEgg = "Easter Egg?";
 	public static final String debugging = "Debug";
 	
+	private int pits = 0;
+	private int bats = 0;
+	private int wumpus = 0;
+	
 	private static String hs1N;
 	private static String hs2N;
 	private static String hs3N;
 	private static String hs4N;
 	private static String hs5N;
+	
+	//----Variables for Gameplay----//
+	private int arrows;
+	private int coins;
+	private int currentScore;
+	//------------------------------//
 	
 	private String name;
 	private String answer;
@@ -43,6 +53,66 @@ public class GUI
 		this.doors = doors;
 	}
 	
+	public int getBats()
+	{
+		return bats;
+	}
+
+	public void setBats(int numofBat)
+	{
+		this.bats = numofBat;
+	}
+
+	public int getPits()
+	{
+		return pits;
+	}
+
+	public void setPits(int numOfPit)
+	{
+		this.pits = numOfPit;
+	}
+	
+	public int getWumpus()
+	{
+		return wumpus;
+	}
+	
+	public void setWumpus(int w)
+	{
+		this.wumpus = w;
+	}
+
+	public int getArrows()
+	{
+		return arrows;
+	}
+
+	public void setArrows(int arrows)
+	{
+		this.arrows = arrows;
+	}
+
+	public int getCoins()
+	{
+		return coins;
+	}
+
+	public void setCoins(int coins)
+	{
+		this.coins = coins;
+	}
+
+	public int getCurrentScore()
+	{
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore)
+	{
+		this.currentScore = currentScore;
+	}
+
 	public String getHs1()
 	{
 		return hs1N;
@@ -128,7 +198,7 @@ public class GUI
 		GUI g = new GUI(new Control());
 		
 		g.startGUI();
-		g.processControlUpdates(Arrays.asList(new Update(UpdateType.MOVE, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.DOWN})));
+		g.processControlUpdates(Arrays.asList(new Update(UpdateType.NEW_DOORS, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.DOWN})));
 	}
 	
 	public void startGUI()
@@ -172,6 +242,42 @@ public class GUI
 	public void displayRoom()
 	{
 		//Ideally I get a separate program with the room's GUI coded and then just run that GUI here
+	}
+	
+	public String displayBWarn()
+	{
+		if(bats == 0 && pits == 0 && wumpus == 0)
+			return "Nothing nearby!";
+		
+		if(bats > 0)
+		{
+			if(bats == 1)
+				return "Bats nearby!\n";
+			if(bats == 2)
+				return "Several bats nearby!\n";	
+		}
+		return "";
+	}
+	
+	public String displayPWarn()
+	{
+		if(pits > 0)
+		{
+			if(pits == 1)
+				return "I feel a draft!\n";
+			if(pits == 2)
+				return "It's really windy in here!\n";	
+		}
+		return "";
+	}
+	
+	public String displayWWarn()
+	{
+		if(wumpus == 1)
+		{
+			return "I smell a Wumpus!!";
+		}
+		return "";
 	}
 	
 	public void checkEncounter()
@@ -269,14 +375,41 @@ public class GUI
 	// Thread: EDT
 	public void processControlUpdates(List<Update> updates)
 	{
-		System.out.print("Yeah");
-		
 		for(Update update : updates)
 		{
 			switch(update.getType())
 			{
-			case MOVE:
+			case NEW_DOORS:
 				doors = (MovementDirection[]) update.getData();
+				this.mainWindow.gameplayScreen.updatePanel("new game");
+				break;
+				
+			case PURCHASE_ARROW:
+				setArrows((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("arrows");
+				break;
+			
+			case GET_COINS:
+				setCoins((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("coins");
+				break;
+				
+			case GET_PLAYER_SCORE:
+				setCurrentScore((int) update.getData());
+				break;
+				
+			case PIT_WARNING:
+				setPits((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("pits");
+				break;
+			
+			case BAT_WARNING:
+				setBats((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("bats");
+				break;
+				
+			case WUMPUS_WARNING:
+				this.mainWindow.gameplayScreen.updatePanel("wumpus");
 				break;
 				
 			default:

@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -23,56 +24,69 @@ import gui.UpdateType;
 
 public class Control extends SwingWorker<Void, Update>
 {	
+	
+	public static volatile boolean debugging = false;
+	
 	// Thread: Initial thread
 	public static void main(String[] args)
-	{
-		// Debug Code
-		
-		Scanner in = new Scanner(System.in);
-		System.out.println("To debug, type [debug], then the name of your class, otherwise, press enter.");
-		System.out.print("Debug an object? ");
-		String inputRecieved = in.nextLine();
-		
-		// Check if the user wants to run debug code associated with each class
-		if(inputRecieved.startsWith("debug"))
-		{
-			// get the name of the class the user wanted to debug, which is the second word in the command
-			String clazz = inputRecieved.split("\\s")[1];
-			
-			// Find the desired class and debug it
-			if(clazz.equalsIgnoreCase("control"))
-			{
-				Control.debug();
-			}else if(clazz.equalsIgnoreCase("Cave"))
-			{
-				Cave.debug();
-			}else if(clazz.equalsIgnoreCase("GUI"))
-			{
-				GUI.debug();
-			}else if(clazz.equalsIgnoreCase("Map"))
-			{
-				Map.debug();
-			}else if(clazz.equalsIgnoreCase("Player"))
-			{
-				Player.debug();
-			}else if(clazz.equalsIgnoreCase("Trivia"))
-			{
-				Trivia.debug();
-			}
-			
-			// Close the scanner and exit, we were debugging, so we don't want to do anyting else
-			
-			in.close();
-			return;
-		} // End "debug" if
-		else
-			in.close(); // Close the scanner if we didn't debug
-		
-		// Actual Code
+	{	
+		// ============ Actual Code ================= //
 		
 		// Make a new control object and start it
 		controlObject = new Control();
 		controlObject.startControl();
+		
+		// ============ Debug Code ================== //
+		
+		Scanner in = new Scanner(System.in);
+		System.out.println("To debug, type [debug], then the name of your class, otherwise, press enter.");
+		
+		while (true)
+		{
+			String inputRecieved = in.nextLine();
+			// Check if the user wants to run debug code associated with each class
+			if (inputRecieved.startsWith("debug"))
+			{
+				// get the name of the class the user wanted to debug, which is the second word in the command
+				try
+				{
+					String clazz = inputRecieved.split("\\s")[1];
+
+					// Find the desired class and debug it
+					if (clazz.equalsIgnoreCase("control"))
+					{
+						Control.debug();
+					} else if (clazz.equalsIgnoreCase("Cave"))
+					{
+						Cave.debug();
+					} else if (clazz.equalsIgnoreCase("GUI"))
+					{
+						GUI.debug();
+					} else if (clazz.equalsIgnoreCase("Map"))
+					{
+						Map.debug();
+					} else if (clazz.equalsIgnoreCase("Player"))
+					{
+						Player.debug();
+					} else if (clazz.equalsIgnoreCase("Trivia"))
+					{
+						Trivia.debug();
+					}
+				} catch (IndexOutOfBoundsException ex)
+				{
+					// This happens semi-often, so this is a pretty bad catch, but it's debug, so I don't really care
+					
+					debugging = !debugging;
+					System.out.println("Debug Status: " + debugging);
+				}
+				
+				// End "debug" if
+			}else if(inputRecieved.equalsIgnoreCase("exit"))
+			{
+				in.close();
+				System.exit(0);
+			}
+		} // End debug while
 	}
 	
 	// Thread: Initial
@@ -128,19 +142,6 @@ public class Control extends SwingWorker<Void, Update>
 		
 		SwingUtilities.invokeLater(this::execute); // Begin the worker thread to support the GUI in the background
 		// I'm pretty sure SwingWorker.execute() must be called on the EDT, so hence the invokeLater
-		
-		try
-		{
-			caveObject = new Cave();
-		} catch (FileNotFoundException e)
-		{
-			System.err.println("Built-in cave file not found.");
-			
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-			System.exit(1);
-		}
 	}
 	
 	/* Processes updates from the GUI & EDT
@@ -154,11 +155,11 @@ public class Control extends SwingWorker<Void, Update>
 	protected Void doInBackground() throws Exception
 	{	
 		while(true)
-		{
+		{						
 			// IDK if all of this code, especially the Update handling, should
 			// occur within the synchronized block
 			synchronized(guiMessages)
-			{
+			{	
 				try
 				{
 					guiMessages.wait(); // Wait for a new update to be posted, then continue once notified
@@ -168,7 +169,7 @@ public class Control extends SwingWorker<Void, Update>
 					// Maybe the GUI closing and exiting the program?
 					System.err.println("Control worker interrupted while waiting:");
 					e.printStackTrace();
-				}
+				} // End try for wait
 				
 				// Look at all the unprocessed messages in the queue from the GUI
 				while(guiMessages.size() > 0)
@@ -188,7 +189,8 @@ public class Control extends SwingWorker<Void, Update>
 						{
 						case DEBUG:
 							System.out.println("Recieved debug update from GUI: " + msg.getData().toString());
-							break;
+							throw new Exception("Test exception");
+							//break;
 							
 						case NEW_GAME: // A new game has started
 							newGame();
@@ -225,14 +227,14 @@ public class Control extends SwingWorker<Void, Update>
 						default: // In case we get a bad update
 							// CHANGE change to be more durable
 							throw new IllegalArgumentException("Invalid Control Update: " + msg.getType());
-						}
+						} // End Switch
 					}catch(ClassCastException ex)
 					{
 						// In case we get a bad update
 						// This shouldn't happen because of the type checking when an Update is instantiated
 						System.err.println("Invalid data for Update: " + msg.getType().toString());
 						System.err.println(ex.getMessage());
-					}
+					} // End Catch
 					
 					// --- End of handling Update --- //
 					
@@ -240,8 +242,31 @@ public class Control extends SwingWorker<Void, Update>
 					// REVIEW necessary?
 					
 					guiMessages.remove(0); // Remove the update, since it has been processed
-				}
-			}
+				} // End while looping through guiMessages
+			} // End synchronized
+		} // End while(true)
+	} // End doInBackground
+	
+	/* Runs on the EDT when doInBackground() finishes on the worker thread.
+	 * 
+	 * In this case, it is mostly used to catch exceptions that occur in doInBackground()
+	 * (non-Javadoc)
+	 * @see javax.swing.SwingWorker#done()
+	 */
+	protected void done()
+	{
+		try
+		{
+			get();
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+			System.exit(1); // CHANGE to fail softer when this happens. Right now, I just want to know if this exception is called, so I want it to fail hard
+		} catch (ExecutionException e)
+		{
+			System.err.println("EXCEPTION in doInBackground():");
+			e.getCause().printStackTrace();
+			System.exit(1); // REVIEW if an error occurs, and the background task ends, the program can't continue, so it should fail hard
 		}
 	}
 	
@@ -250,6 +275,7 @@ public class Control extends SwingWorker<Void, Update>
 	protected void process(List<Update> updates)
 	{
 		// Forward the processing to be handled by the GUI class
+		// Sue me, I'm lazy. Why do the work myself, when I can make Logan do it?
 		guiObject.processControlUpdates(updates);
 	}
 	
@@ -268,10 +294,32 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void newGame()
 	{
-		mapObject = new Map();
+		mapObject = new Map(); // Create a new map with new pit, bat, and wumpus locations
 		
-		// Create a new cave with different rooms and stuff
-		// Give the current room the player is in to the GUI
+		// Create a new player with 100 coins, 3 arrows, 0 turns, and 0 score
+		playerObject = new Player(100, 3, 0, 0);
+		
+		// Create a new cave with different doors
+		try
+		{
+			caveObject = new Cave();
+		} catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// Create a new trivia object to keep track of trivia questions to be asked and answered
+		triviaObject = new Trivia();
+		
+		// Debug / Cheat information
+		/*System.out.println("Bat Rooms: " + mapObject.getBatRoom() + ", " + mapObject.getBatRoom2());
+		System.out.println("Pit Rooms: " + mapObject.getPitRoom() + ", " + mapObject.getPitRoom2());
+		System.out.println("Wumpus Room: " + mapObject.getWumpusRoom());*/
+		
+		// Publish the first Updates to tell the GUI where the player is and where they can move
+		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
+		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
 	}
 	
 	// Let's user see high scores
@@ -279,7 +327,7 @@ public class Control extends SwingWorker<Void, Update>
 	// Don't have a score object yet, so I define and use a generic for now :P
 	public <Score> Score[] getScores()
 	{
-		return null;
+		return null; // TODO Huh, this generic guy is still around. That's pretty bad, we should get to removing him soon.
 	}
 	
 	// Move the player
@@ -288,15 +336,17 @@ public class Control extends SwingWorker<Void, Update>
 	{
 		// TODO check if there is a door to the room the player wants to move to
 		
-		mapObject.movePlayer(dir); // Move the player to the new location
-		publish(new Update(UpdateType.MOVE, false)); // Pass new room & Warnings to GUI
+		int playerRoom = mapObject.movePlayer(dir); // Move the player to the new location
+		System.out.println("Room: " + playerRoom);
+		
+		publish(new Update(UpdateType.MOVE, false, playerRoom));
+		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
 		
 		// Run checks for a new room
 		checkForHazards();
 		checkForWarnings();
 		
-		// TODO Warn about wumpus. What did I want to do here?
-		// mapObject.moveWumpus(); // TODO tell wumpus he can move
+		mapObject.moveWumpus(); // TODO tell wumpus he can move
 	}
 	
 	/* Check whether the player's current room has any hazards in it, and handle them
@@ -332,20 +382,9 @@ public class Control extends SwingWorker<Void, Update>
 		int pitWarnings = mapObject.CheckForPits();
 		
 		// Handle the warnings appropriately
-		if(batWarnings > 0)
-		{
-			publish(new Update(UpdateType.BAT_WARNING, false, batWarnings));
-		}
-		
-		if(pitWarnings > 0)
-		{
-			publish(new Update(UpdateType.PIT_WARNING, false, pitWarnings));
-		}
-		
-		if(mapObject.CheckForWumpus())
-		{
-			publish(new Update(UpdateType.WUMPUS_WARNING, false));
-		}
+		publish(new Update(UpdateType.BAT_WARNING, false, batWarnings));
+		publish(new Update(UpdateType.PIT_WARNING, false, pitWarnings));
+		publish(new Update(UpdateType.WUMPUS_WARNING, false, mapObject.CheckForWumpus() ? 1 : 0));
 	}
 	
 	// The player enters the same room as the Wumpus
@@ -369,7 +408,10 @@ public class Control extends SwingWorker<Void, Update>
 		// Make the player answer trivia?
 		
 		// Move the player & bats, then run checks for a new room
-		mapObject.flyAway();
+		int playerRoom = mapObject.flyAway();
+		publish(new Update(UpdateType.MOVE, false, playerRoom));
+		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
+		
 		checkForHazards();
 		checkForWarnings();
 	}
@@ -382,6 +424,9 @@ public class Control extends SwingWorker<Void, Update>
 		
 		// Move the player, then run checks for a new room
 		mapObject.fallIntoPit();
+		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
+		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
+		
 		checkForHazards();
 		checkForWarnings();
 	}
@@ -410,7 +455,7 @@ public class Control extends SwingWorker<Void, Update>
 		// Use coin
 		// Ask trivia?
 		// tell player they've got another arrow
-		publish(new Update(UpdateType.PURCHASE_ARROW, false, -1)); // return new number of arrows
+		publish(new Update(UpdateType.PURCHASE_ARROW, false, playerObject.buyArrows(true))); // return new number of arrows
 	}
 	
 	// The player shoots an arrow
@@ -421,6 +466,8 @@ public class Control extends SwingWorker<Void, Update>
 		// Ask map if we hit the wumpus
 		// If so, win game
 		// If not, how many arrows left?
+		
+		publish(new Update(UpdateType.ARROW_MISS, false));
 	}
 	
 	// The player kills the wumpus

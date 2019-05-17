@@ -1,101 +1,101 @@
-1. True or false? The fastest land animal in the world is the zebra. False (it is the cheetah)
-2. How many bones do sharks have in their bodies?0
-3. True or false? Yogurt is produced by bacterial fermentation of milk. True
-4. What is the name of the part of the human skeleton which protects our brain? The skull
-5. Is the compound ‘HCl’ an acid or base? An acid (hydrochloric acid)
-6. What country has a maple leaf on their national flag? Canada
-7. What country is home to the Great Barrier Reef? Australia
-8. Tapas and paella are dishes that originated in what country? Spain
-9. What famous scientist was awarded the 1921 Nobel Prize in Physics for his work on theoretical physics? Albert Einstein
-10. The fear of what animal is known as ‘arachnophobia’? Spiders
-11. Pure water has a pH level of a around? 7
-12.The molten rock that comes from a volcano after it has erupted is known as what? Lava
-13.  What country was the first to land a man on the moon? USA
-14. What is the largest country (by size and population) in South America? Brazil
-15. In what country is the Yangtze River found? China
-16. What is the name of the long pipe that shifts food from the back of your throat down to your stomach? The esophagus
-17. True or false? Your ears are important when it comes to staying balanced. True
-18. The outside layer of skin on the human body is called the? Epidermis
-19. What is the name of the largest ocean on earth? The Pacific Ocean
-20. 2What are the two main metals in the earth’s core? Iron and nickel
-21. Which is hotter, the center of the earth or surface of the sun? The center of the earth What country has the second largest population in the world? India
-22. In what country would you find the cities Glasgow and Edinburgh? Scotland
-23. The shape of DNA is known as? A double helix
-24. The flow of blood through your heart and around your body is called? Circulation
-25. The bones around your chest that protect organs such as the heart are called what?Ribs
-26. What do you call molten rock before it has erupted? Magma
-27. What do you call it after it has erupted? Lav
-28. The Great Barrier Reef is found off the coast of which country? Australia
-29. What type of animal is the largest primate in the world? The Gorilla
-30. Is a shark a fish or a mammal? A fish
-31. What is the most recognizable feature of a hedgehog’s appearance? Their spines of spiky hair.
-32. True of false? Snakes have slimy skin.False – Snake skin is smooth and dry.
-33. What food makes up nearly all (around 99%) of a Giant Panda’s diet? Bamboo
-34. True or false? Mice live for up to 10 years.False – Captive mice live for up to 2 and a half years while wild mice only live for an average of around 4 months.
-35. In terms of land area, what is the largest country in the world? Russia
-36. What country was known as Ceylon until 1972? Sri Lanka
-37. In what country would you find the cities Ankara and Istanbul? Turkey
+1. True or false? The fastest land animal in the world is the zebra. 
+2. How many bones do sharks have in their bodies?
+3. True or false? Yogurt is produced by bacterial fermentation of milk. 
+4. What is the name of the part of the human skeleton which protects our brain? 
+5. Is the compound ‘HCl’ an acid or base? 
+6. What country has a maple leaf on their national flag? 
+7. What country is home to the Great Barrier Reef? 
+8. Tapas and paella are dishes that originated in what country? 
+9. What famous scientist was awarded the 1921 Nobel Prize in Physics for his work on theoretical physics? 
+10. The fear of what animal is known as ‘arachnophobia’? 
+11. Pure water has a pH level of a around? 
+12.The molten rock that comes from a volcano after it has erupted is known as what? 
+13.  What country was the first to land a man on the moon? 
+14. What is the largest country (by size and population) in South America?
+15. In what country is the Yangtze River found? 
+16. What is the name of the long pipe that shifts food from the back of your throat down to your stomach? 
+17. True or false? Your ears are important when it comes to staying balanced. 
+18. The outside layer of skin on the human body is called the? 
+19. What is the name of the largest ocean on earth? 
+20. 2What are the two main metals in the earth’s core? 
+21. Which is hotter, the center of the earth or surface of the sun? 
+22. In what country would you find the cities Glasgow and Edinburgh?
+23. The shape of DNA is known as? 
+24. The flow of blood through your heart and around your body is called? 
+25. The bones around your chest that protect organs such as the heart are called what?
+26. What do you call molten rock before it has erupted? 
+27. What do you call it after it has erupted?
+28. The Great Barrier Reef is found off the coast of which country?
+29. What type of animal is the largest primate in the world? 
+30. Is a shark a fish or a mammal? 
+31. What is the most recognizable feature of a hedgehog’s appearance? 
+32. True of false? Snakes have slimy skin.
+33. What food makes up nearly all (around 99%) of a Giant Panda’s diet? 
+34. True or false? Mice live for up to 10 years.
+35. In terms of land area, what is the largest country in the world?
+36. What country was known as Ceylon until 1972? 
+37. In what country would you find the cities Ankara and Istanbul? 
 38. Mount Fuji is the highest mountain in what country? Japan
-39. What is the only continent on earth where Giraffes live in the wild? Africa
-40. How many pairs of wings does a bee have? 2
-41. How many lungs does the human body have? 2
-42. Another name for your voice box is the? Larynx
-43. The two holes in your nose are called? Nostrils
-44. True or false? Owls are far-sighted, meaning that anything within a few inches of their eyes can’t be seen properly.True
-45. What is the human body’s biggest organ? The skin
-46. The innermost part of bones contains what? Bone marrow
-47. True or false? An adult human body has over 500 bones. False (there are 206)
-48. True or false? Rabbits are born blind.True
-49. What is the most recognizable physical feature of the male lion? Its mane
-50. What is the name of an adult female horse? A mar
-51. What are baby goats called? Kid
-52. What is the name of the long appendage that hangs from an elephants face? A trunk
-53. True or false? DNA is the shortened form of the term ‘Deoxyribonucleic acid’? True
-54. The highest mountain on earth is? Mount Everest
-55. Adidas and Volkswagen are companies from what ountry?Germany
-56. Zurich is the largest city in what country? Switzerland
-57. In what country is the Great Pyramid of Giza found? Egypt
-58. What is the name of the phobia that involves an abnormal fear of spiders?Arachnophobia
-59. What is the largest type of ‘big cat’ in the world?The tiger, weighing up to 300 kilograms (660 pounds).
-60. True or false? Crocodiles have no sweat glands so they use their mouths to release heat.True – They often sleep with their mouth open to cool down.
-61. True or false? Dogs are herbivores. False – They are omnivores
-62. What is the 7th element on the periodic table of elements? Nitrogen
-63. In what country would you find the cities Lyon and Marseille? France
-64. Leonardo da Vinci was born in what country? Italy
-65. What is the tallest animal in the world?The giraffe – The average height is around 5 metres (16ft) and the tallest on record stood nearly 6 metres (20 ft) tall.
-66. The muscles found in the front of your thighs are known as what? Quadriceps
-67. True or false? The two chambers at the bottom of your heart are called ventricles. True
-68. Is a dolphin a mammal? Yes
-69. What is the largest land animal in the world?The elephant – The largest on record weighed around 12,000 kilograms! (26,000 lb).
-70. Your tongue is home to special structures that allow you to experience tastes such as sour, sweet, bitter and salty, what is their name? Taste buds
-71. The bones that make up your spine are called what? Vertebrae
-72. What do you call a person who studies rocks? A geologist
-73. Name the three time periods of the dinosaurs.Triassic, Jurassic and Cretaceous
-74. A ‘doe’ is what kind of animal?A female deer.
-75. True or false? Cougar’s are herbivores.False – They are carnivores.
-76. Groups of lions are known as what? Prides
-77. True or false? The Grand Canyon is around 10000 feet (3000 meters) deep. False – 5000 feet (1500 meters)
-78. What is the name of the deepest location in the world’s oceans? Mariana Trench
-79. Over a long period of time while under extreme heat and pressure, graphite turns into which precious mineral? Diamond
-80. Are butterflies insects?True – Yes
-81. What are female elephants called? Cows
-82. True or false? Bats are mammals. True
-83. Do stalactites rise from the floor or hang from the ceiling of limestone caves? Hang from the ceiling
-Cascade’, ‘horsetail’, ‘plunge’ and ‘tieed’ are types of what? Waterfall
-84. Someone who studies earthquakes is known as a what? Seismologist
+39. What is the only continent on earth where Giraffes live in the wild?
+40. How many pairs of wings does a bee have? 
+41. How many lungs does the human body have? 
+42. Another name for your voice box is the? 
+43. The two holes in your nose are called? 
+44. True or false? Owls are far-sighted, meaning that anything within a few inches of their eyes can’t be seen properly.
+45. What is the human body’s biggest organ? 
+46. The innermost part of bones contains what? 
+47. True or false? An adult human body has over 500 bones. 
+48. True or false? Rabbits are born blind.
+49. What is the most recognizable physical feature of the male lion? 
+50. What is the name of an adult female horse? 
+51. What are baby goats called? 
+52. What is the name of the long appendage that hangs from an elephants face? 
+53. True or false? DNA is the shortened form of the term ‘Deoxyribonucleic acid’? 
+54. The highest mountain on earth is? 
+55. Adidas and Volkswagen are companies from what ountry?
+56. Zurich is the largest city in what country?
+57. In what country is the Great Pyramid of Giza found? 
+58. What is the name of the phobia that involves an abnormal fear of spiders?
+59. What is the largest type of ‘big cat’ in the world?
+60. True or false? Crocodiles have no sweat glands so they use their mouths to release heat.
+61. True or false? Dogs are herbivores. 
+62. What is the 7th element on the periodic table of elements? 
+63. In what country would you find the cities Lyon and Marseille? 
+64. Leonardo da Vinci was born in what country? 
+65. What is the tallest animal in the world?
+66. The muscles found in the front of your thighs are known as what?
+67. True or false? The two chambers at the bottom of your heart are called ventricles.
+68. Is a dolphin a mammal?
+69. What is the largest land animal in the world?
+70. Your tongue is home to special structures that allow you to experience tastes such as sour, sweet, bitter and salty, what is their name? 
+71. The bones that make up your spine are called what? 
+72. What do you call a person who studies rocks? 
+73. Name the three time periods of the dinosaurs.
+74. A ‘doe’ is what kind of animal?
+75. True or false? Cougar’s are herbivores.
+76. Groups of lions are known as what? 
+77. True or false? The Grand Canyon is around 10000 feet (3000 meters) deep. 
+78. What is the name of the deepest location in the world’s oceans? 
+79. Over a long period of time while under extreme heat and pressure, graphite turns into which precious mineral? 
+80. Are butterflies insects?
+81. What are female elephants called? 
+82. True or false? Bats are mammals.
+83. Do stalactites rise from the floor or hang from the ceiling of limestone caves? 
+Cascade’, ‘horsetail’, ‘plunge’ and ‘tieed’ are types of what? 
+84. Someone who studies earthquakes is known as a what? 
 85. What substance are nails made of? Kerati
 86. How many legs does a spider have? 8
-87. The crocodile species is believed to have been around for how long? 2 million years or 200 million years? 200 million years
-88. What is the name of the biggest part of the human brain? The cerebrum
-89. The colored part of the human eye that controls how much light passes through the pupil is called the?Iris
-90. What is the name of the layer of earth’s atmosphere that absorbs the majority of the potentially damaging ultraviolet light from the sun?The ozone layer
-91. What is the name of the closest star to the earth? The sun
-92. True or false? Frogs are cold blooded animals. True
-93. What is the name of the element with the chemical symbol ‘He’? Helium
-94. The kiwi is a flightless bird that lives in what country? New Zealand
-95. In what country would you find the islands Santorini and Mykonos? Greece
-96. In what country was Nelson Mandela born?South Africa
-97. The mass of the earth is made up mostly of which two elements? Iron (32%) and oxygen (30%)
-98. What is the second most common gas found in the air we breathe? Oxygen (21%)
-99. What is the biggest planet in our solar system? Jupiter
-100. What is the chemical symbol for the element oxygen? O
+87. The crocodile species is believed to have been around for how long? 2 million years or 200 million years? 
+88. What is the name of the biggest part of the human brain? 
+89. The colored part of the human eye that controls how much light passes through the pupil is called the?
+90. What is the name of the layer of earth’s atmosphere that absorbs the majority of the potentially damaging ultraviolet light from the sun?
+91. What is the name of the closest star to the earth? 
+92. True or false? Frogs are cold blooded animals. 
+93. What is the name of the element with the chemical symbol ‘He’? 
+94. The kiwi is a flightless bird that lives in what country? 
+95. In what country would you find the islands Santorini and Mykonos? 
+96. In what country was Nelson Mandela born?
+97. The mass of the earth is made up mostly of which two elements? 
+98. What is the second most common gas found in the air we breathe?
+99. What is the biggest planet in our solar system? 
+100. What is the chemical symbol for the element oxygen? 

@@ -79,6 +79,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 				gui.setName(plyrName.getText());
 				gui.mainWindow.changeView(GUI.gameplay);
 				gui.mainWindow.gameplayScreen.updatePanel("name");
+				gui.notifyControl(new Update(UpdateType.NEW_GAME, true));
 			}
 		});
 		btnNewgame.setBounds(358, 104, 97, 25);

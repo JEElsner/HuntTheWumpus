@@ -56,7 +56,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				guiObject.mainWindow.changeView(GUI.titleScreen);
+				gui.mainWindow.changeView(GUI.titleScreen);
+				
 			}
 		});
 		btnMainMenu.setBounds(12, 481, 97, 25);
@@ -65,7 +66,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		JButton buyArrow = new JButton("Buy Arrow");
 		buyArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiObject.mainWindow.changeView(GUI.trivia);
+				gui.mainWindow.triviaScreen.updatePanel("q");
+				gui.mainWindow.changeView(GUI.trivia);
 				updatePanel(updateRequired);
 			}
 		});
@@ -75,7 +77,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		JButton buySecret = new JButton("Buy Secret");
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiObject.mainWindow.changeView(GUI.trivia);
+				gui.mainWindow.triviaScreen.updatePanel("q");
+				gui.mainWindow.changeView(GUI.trivia);
 				updatePanel(updateRequired);
 			}
 		});

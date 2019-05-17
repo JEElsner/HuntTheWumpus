@@ -15,6 +15,9 @@ public class Trivia extends JPanel implements UpdateScreen
 {
 	private JTextField answers;
 	private GUI gui;
+	
+	private JLabel question;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -40,7 +43,7 @@ public class Trivia extends JPanel implements UpdateScreen
 		add(panel);
 		panel.setLayout(null);
 		
-		JLabel question = new JLabel("Questions will go here");
+		question = new JLabel("Questions will go here");
 		question.setHorizontalAlignment(SwingConstants.CENTER);
 		question.setBounds(12, 30, 191, 164);
 		panel.add(question);
@@ -76,6 +79,6 @@ public class Trivia extends JPanel implements UpdateScreen
 	
 	public void updatePanel(String update)
 	{
-		
+		question.setText(gui.getQuestion());
 	}
 }

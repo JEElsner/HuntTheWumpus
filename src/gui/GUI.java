@@ -39,6 +39,7 @@ public class GUI
 	
 	private String name;
 	private String answer;
+	private String question;
 	
 	private MovementDirection[] doors = new MovementDirection[3];
 	
@@ -51,6 +52,16 @@ public class GUI
 	public void setDoors(MovementDirection[] doors)
 	{
 		this.doors = doors;
+	}
+	
+	public String getQuestion()
+	{
+		return question;
+	}
+	
+	public void setQuestion(String q)
+	{
+		this.question = q;
 	}
 	
 	public int getBats()
@@ -410,6 +421,10 @@ public class GUI
 				
 			case WUMPUS_WARNING:
 				this.mainWindow.gameplayScreen.updatePanel("wumpus");
+				break;
+				
+			case GET_TRIVIA:
+				setQuestion((String) update.getData());
 				break;
 				
 			default:

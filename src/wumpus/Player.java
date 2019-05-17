@@ -30,12 +30,18 @@ public class Player
 		return arrows;
 	}
 	
+	public int shootArrows()
+	{
+		arrows--;
+		return arrows;
+	}
+	
 	public int buyArrows(boolean triviaCorrect)
 	{
 		coins--;
 		if(trivia)
 		{
-		 arrows++; 
+			arrows++; 
 		}
 		return arrows;
 	}
@@ -57,7 +63,8 @@ public class Player
 	
 	public int finalScore()
 	{
-		return (100 - turns + coins + (10 * arrows));
+		score = (100 - turns + coins + (10 * arrows));
+		return score;
 	}
 	
 	public void loseCoins()

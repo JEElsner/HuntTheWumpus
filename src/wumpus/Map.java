@@ -209,55 +209,6 @@ public class Map
 		return Directions.toArray(new MovementDirection[0]);
 	}
 
-	/*public static int getNearbyRoom2(int room, MovementDirection dir)
-	{
-		int newRoom = room;
-		if (dir == DOWN)
-		{
-			newRoom += 6;
-			if (newRoom > MAX_ROOM_NUMBER)
-			{
-				newRoom -= MAX_ROOM_NUMBER;
-			}
-		}
-
-		else if (dir == UP)
-		{
-			newRoom -= 6;
-			if (newRoom < 0)
-			{
-				newRoom += MAX_ROOM_NUMBER;
-			}
-		}
-		
-		else if(newRoom % 2 == 1)
-		{
-			if (dir == UP_RIGHT)
-			{
-				newRoom -= 5;
-				if(newRoom < 0)
-				{
-					newRoom += MAX_ROOM_NUMBER;
-				}
-			}
-			
-			else if (dir == DOWN_RIGHT)
-			{
-				newRoom++;
-				if(newRoom > MAX_ROOM_NUMBER)
-				{
-					newRoom -= MAX_ROOM_NUMBER;
-				}
-			}
-			
-			else if (dir == DOWN_LEFT)
-			{
-				newRoom -= 1;
-			}
-		}
-
-	} */
-
 	public boolean shootArrow(MovementDirection dir)
 	{
 		if (WumpusRoom == getNearbyRoom(PlayerRoom, dir))

@@ -129,11 +129,13 @@ public class HighScore
 			buffer.newLine();
 			buffer.write(scores.get(8));
 			buffer.newLine();
-			buffer.write(List.get(9));
+			buffer.write(names.get(9));
 			buffer.newLine();
-			buffer.write(List.get(9));
+			buffer.write(scores.get(9));
 			buffer.newLine();
 			buffer.close();
+			
+			
 		}
 		// index of where the number starts to the end, check to see if the highscore they just got  is greater than the other highscores
 		catch(IOException e)
@@ -144,6 +146,10 @@ public class HighScore
 	
 	public static ArrayList<String> returnHighscore ()
 	{
+		for(int i = 0; i < 10; i++)
+		{
+			List.add(i, names.get(i) + "  -  " + scores.get(i));
+		}
 		return List;
 	}
 	

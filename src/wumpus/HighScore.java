@@ -82,6 +82,24 @@ public class HighScore
 		}
 	}
 	
+	public void addScore(String n, int s)
+	{
+		for(int i = 0; i < scores.size(); i++)
+		{
+			if( s >= scores.get(i) )
+			{
+				scores.add(i,s);
+				names.add(i, n);
+			}
+		}
+		
+		if(names.size() == 11 && scores.size() == 11)
+		{
+			names.remove(10);
+			scores.remove(10);
+		}
+	}
+	
 	public void writeFile()
 	{
 		File fileObj = new File("test.txt");

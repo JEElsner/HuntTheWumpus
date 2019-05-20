@@ -90,6 +90,7 @@ public class HighScore
 			{
 				scores.add(i,s);
 				names.add(i, n);
+				break;
 			}
 		}
 		

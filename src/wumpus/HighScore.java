@@ -49,7 +49,8 @@ public class HighScore
 	public void readFile(File fileObj)
 	{
 		boolean isScore = false;
-		int count = 0;
+		int ScoreCount = 0;
+		int NameCount = 0;
 		try 
 		{
 			FileReader fil = new FileReader ("test.text");
@@ -57,19 +58,16 @@ public class HighScore
 			String line = "";
 			while((line = buff.readLine()) != null)
 			{	
-				while(count <= 8)
-				{
 					if(isScore)
 					{
-						scores.add(count, Integer.parseInt(line));
-						count++;
+						scores.add(ScoreCount, Integer.parseInt(line));
+						ScoreCount++;
 					}
 					else
 					{
-						names.add(count, line);
-						count++;
+						names.add(NameCount, line);
+						NameCount++;
 					}
-				}
 				
 				System.out.println(line); 
 				isScore = !isScore;

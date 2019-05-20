@@ -11,6 +11,10 @@ import java.io.BufferedWriter;
 public class HighScore
 {
 	private int score;
+	private static ArrayList<String> List = new ArrayList<String>();
+	private static ArrayList<Integer> scores = new ArrayList<Integer>();
+	private static ArrayList<String> names = new ArrayList<String>();
+			
 	
 	public static void debug()
 	{
@@ -39,37 +43,95 @@ public class HighScore
 	public static void main(String[] args)
 	{
 		
+		
+	}
+	
+	public void readFile(File fileObj)
+	{
+		boolean isScore = false;
+		int count = 0;
+		try 
+		{
+			FileReader fil = new FileReader ("test.text");
+			BufferedReader buff = new BufferedReader(fil);
+			String line = "";
+			while((line = buff.readLine()) != null)
+			{	
+				while(count <= 8)
+				{
+					if(isScore)
+					{
+						scores.add(count, Integer.parseInt(line));
+						count++;
+					}
+					else
+					{
+						names.add(count, line);
+						count++;
+					}
+				}
+				
+				System.out.println(line); 
+				isScore = !isScore;
+			}
+	
+			buff.close(); 			
+		}
+		
+		catch(IOException e)
+		{
+			System.out.println("A write error has occured");
+		}
+	}
+	
+	public void writeFile()
+	{
 		File fileObj = new File("test.txt");
-		System.out.println(fileObj.getAbsolutePath());
-		
-		ArrayList<String> List = new ArrayList<String>();
-		
+		System.out.println(fileObj.getAbsolutePath());		
 		
 		
 		try
 		{
 			FileWriter file = new FileWriter("test.text");
-			BufferedWriter buffer = new BufferedWriter(file);
-			
-			
-			
-			buffer.write(List.get(0));
+			BufferedWriter buffer = new BufferedWriter(file);	
+						
+			buffer.write(names.get(0));
 			buffer.newLine();
-			buffer.write(List.get(1));
+			buffer.write(scores.get(0));
 			buffer.newLine();
-			buffer.write(List.get(2));
+			buffer.write(names.get(1));
 			buffer.newLine();
-			buffer.write(List.get(3));
+			buffer.write(scores.get(1));
 			buffer.newLine();
-			buffer.write(List.get(4));
+			buffer.write(names.get(2));
 			buffer.newLine();
-			buffer.write(List.get(5));
+			buffer.write(scores.get(2));
 			buffer.newLine();
-			buffer.write(List.get(6));
+			buffer.write(names.get(3));
 			buffer.newLine();
-			buffer.write(List.get(7));
+			buffer.write(scores.get(3));
 			buffer.newLine();
-			buffer.write(List.get(8));
+			buffer.write(names.get(4));
+			buffer.newLine();
+			buffer.write(scores.get(4));
+			buffer.newLine();
+			buffer.write(names.get(5));
+			buffer.newLine();
+			buffer.write(scores.get(5));
+			buffer.newLine();
+			buffer.write(names.get(6));
+			buffer.newLine();
+			buffer.write(scores.get(6));
+			buffer.newLine();
+			buffer.write(names.get(7));
+			buffer.newLine();
+			buffer.write(scores.get(7));
+			buffer.newLine();
+			buffer.write(names.get(8));
+			buffer.newLine();
+			buffer.write(scores.get(8));
+			buffer.newLine();
+			buffer.write(List.get(9));
 			buffer.newLine();
 			buffer.write(List.get(9));
 			buffer.newLine();
@@ -80,21 +142,6 @@ public class HighScore
 		{
 			System.out.println("A write error has occured");
 		}
-	}
-	
-	public void readFile(File fileObj)
-	{
-		try 
-		{
-			FileReader fil = new FileReader ("test.text");
-			BufferedReader buff = new BufferedReader(fil);
-			String line = "";
-			while((line = buff.readLine()) != null)
-			{	System.out.println( line );         }
-	
-			buff.close(); 
-			
-		} 
 	}
 	
 	public static ArrayList<String> returnHighscore ()

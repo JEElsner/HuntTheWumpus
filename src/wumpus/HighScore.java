@@ -42,11 +42,12 @@ public class HighScore
 	
 	public static void main(String[] args)
 	{
-		
+		File dir = new File("test.text");
+		readFile(dir);
 		
 	}
 	
-	public void readFile(File fileObj)
+	public static void readFile(File fileObj)
 	{
 		boolean isScore = false;
 		int ScoreCount = 0;
@@ -69,7 +70,7 @@ public class HighScore
 						NameCount++;
 					}
 				
-				System.out.println(line); 
+				System.out.println(); 
 				isScore = !isScore;
 			}
 	

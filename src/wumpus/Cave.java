@@ -1,27 +1,40 @@
 package wumpus;
 
 import java.io.FileNotFoundException;
+
 import java.io.InputStream;
 import java.util.Scanner;
+import java.io.*;
 
 public class Cave
 {
 
 	private static int[][] cave = new int[30][7];
+	public static int version=0;
 
 	// 2D array representing room connections
 	// 1-6 column indexes represent 6 designated directions
 	public Cave() throws FileNotFoundException
 	{
 		int i = 0, j = 0;
-		int ver = (int) (Math.random() * 5);
+		int version=(int)(Math.random()*5+1);
 		
 		InputStream caveFile = getClass().getResourceAsStream("/res/mapOne.txt");
 		
-		Scanner qreader = new Scanner(caveFile);
-		while (qreader.hasNextInt() && (i < 30))
+		if(version==2)
+		caveFile = getClass().getResourceAsStream("/res/mapTwo.txt");
+		if(version==3)
+		caveFile = getClass().getResourceAsStream("/res/mapThree.txt");
+		if(version==4)
+		caveFile = getClass().getResourceAsStream("/res/mapFour.txt");
+		if(version==5)
+		caveFile = getClass().getResourceAsStream("/res/mapFive.txt");
+		
+		Scanner reader = new Scanner(caveFile);
+
+		while (reader.hasNextInt() && (i < 30))
 		{
-			cave[i][j] = qreader.nextInt();
+			cave[i][j] = reader.nextInt();
 			j++;
 			if (j == 6)
 			{
@@ -29,7 +42,39 @@ public class Cave
 				j = 0;
 			}
 		}
-		qreader.close();
+		reader.close();
+	}
+	
+	
+	//Constructor that lets us select a specific cave: 1 to 5
+	public Cave(int ver) throws FileNotFoundException
+	{
+		int i = 0, j = 0;
+		
+		InputStream caveFile = getClass().getResourceAsStream("/res/mapOne.txt");
+		
+		if(ver==2)
+		caveFile = getClass().getResourceAsStream("/res/mapTwo.txt");
+		if(ver==3)
+		caveFile = getClass().getResourceAsStream("/res/mapThree.txt");
+		if(ver==4)
+		caveFile = getClass().getResourceAsStream("/res/mapFour.txt");
+		if(ver==5)
+		caveFile = getClass().getResourceAsStream("/res/mapFive.txt");
+		
+		Scanner reader = new Scanner(caveFile);
+
+		while (reader.hasNextInt() && (i < 30))
+		{
+			cave[i][j] = reader.nextInt();
+			j++;
+			if (j == 6)
+			{
+				i++;
+				j = 0;
+			}
+		}
+		reader.close();
 	}
 
 	// Prints a list of the built cave for debugging purposes
@@ -44,8 +89,6 @@ public class Cave
 				System.out.print(cave[i][j] + " ");
 			System.out.println();
 		}
-
-		System.out.println(cave[0][0] + " " + cave[0][1]);
 
 	}
 

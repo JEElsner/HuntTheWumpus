@@ -42,7 +42,7 @@ public class HighScore
 	
 	public static void main(String[] args)
 	{
-		File dir = new File("test.text");
+		File dir = new File("src/wumpus/test.text");
 		readFile(dir);
 		
 	}
@@ -54,7 +54,7 @@ public class HighScore
 		int NameCount = 0;
 		try 
 		{
-			FileReader fil = new FileReader ("test.text");
+			FileReader fil = new FileReader ("src/wumpus/test.text");
 			BufferedReader buff = new BufferedReader(fil);
 			String line = "";
 			while((line = buff.readLine()) != null)
@@ -104,55 +104,23 @@ public class HighScore
 	
 	public void writeFile()
 	{
-		File fileObj = new File("test.txt");
+		File fileObj = new File("src/wumpus/test.text");
 		System.out.println(fileObj.getAbsolutePath());		
 		
 		
 		try
 		{
-			FileWriter file = new FileWriter("test.text");
+			FileWriter file = new FileWriter("src/wumpus/test.text");
 			BufferedWriter buffer = new BufferedWriter(file);	
-						
-			buffer.write(names.get(0));
-			buffer.newLine();
-			buffer.write(scores.get(0));
-			buffer.newLine();
-			buffer.write(names.get(1));
-			buffer.newLine();
-			buffer.write(scores.get(1));
-			buffer.newLine();
-			buffer.write(names.get(2));
-			buffer.newLine();
-			buffer.write(scores.get(2));
-			buffer.newLine();
-			buffer.write(names.get(3));
-			buffer.newLine();
-			buffer.write(scores.get(3));
-			buffer.newLine();
-			buffer.write(names.get(4));
-			buffer.newLine();
-			buffer.write(scores.get(4));
-			buffer.newLine();
-			buffer.write(names.get(5));
-			buffer.newLine();
-			buffer.write(scores.get(5));
-			buffer.newLine();
-			buffer.write(names.get(6));
-			buffer.newLine();
-			buffer.write(scores.get(6));
-			buffer.newLine();
-			buffer.write(names.get(7));
-			buffer.newLine();
-			buffer.write(scores.get(7));
-			buffer.newLine();
-			buffer.write(names.get(8));
-			buffer.newLine();
-			buffer.write(scores.get(8));
-			buffer.newLine();
-			buffer.write(names.get(9));
-			buffer.newLine();
-			buffer.write(scores.get(9));
-			buffer.newLine();
+				
+			for(int i = 0; i < 10; i++)
+			{
+				buffer.write(names.get(i));
+				buffer.newLine();
+				buffer.write(scores.get(i));
+				buffer.newLine();
+			}
+		
 			buffer.close();
 			
 			

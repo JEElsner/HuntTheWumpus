@@ -1,11 +1,13 @@
 package gui;
 
 import java.awt.EventQueue;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
 import wumpus.Control;
+import wumpus.Map;
 import wumpus.MovementDirection;
 
 public class GUI
@@ -206,10 +208,37 @@ public class GUI
 	
 	public static void debug()
 	{
-		GUI g = new GUI(new Control());
-		
-		g.startGUI();
-		g.processControlUpdates(Arrays.asList(new Update(UpdateType.NEW_DOORS, false, new MovementDirection[] {MovementDirection.UP, MovementDirection.UP_LEFT, MovementDirection.DOWN})));
+		try
+		{
+			Field controlObject = Control.class.getDeclaredField("controlObject");
+			Field mapObject = Control.class.getDeclaredField("mapObject");
+			
+			controlObject.setAccessible(true);
+			mapObject.setAccessible(true);
+			
+			Map map = (Map) mapObject.get(controlObject.get(null));
+			
+			Field batRoom = Map.class.getDeclaredField("BatRoom");
+			batRoom.setAccessible(true);
+			
+			batRoom.set(map, 2);
+		} catch (NoSuchFieldException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void startGUI()
@@ -423,10 +452,33 @@ public class GUI
 				this.mainWindow.gameplayScreen.updatePanel("wumpus");
 				break;
 				
+			case ENCOUNTER_BAT:
+				setQuestion((String) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("bats");
+				this.mainWindow.changeView(trivia);
+				break;
+				
+			case ENCOUNTER_PIT:
+				setQuestion((String) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("pits");
+				this.mainWindow.changeView(trivia);
+				break;
+				
+			case ENCOUNTER_WUMPUS:
+				setQuestion((String) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("wumpus");
+				this.mainWindow.changeView(trivia);
+				break;
+				
 			case GET_TRIVIA:
 				setQuestion((String) update.getData());
 				break;
 				
+			case MOVE:
+				break;
+				
+			case SHOOT_ARROW:
+				break;
 			default:
 				System.err.println("Unhandled update type: " + update.getType());
 				break;

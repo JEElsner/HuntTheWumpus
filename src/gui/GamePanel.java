@@ -13,6 +13,7 @@ import java.awt.Canvas;
 import wumpus.MovementDirection;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.JList;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
@@ -31,6 +32,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JButton moveDownLeft;
 	
 	private GUI gui;
+	
+	private JButton buyArrow;
+	private JButton buySecret;
+	
+	private JButton[] shooting = new JButton[3];
+	private MovementDirection[] shootingDirection = new MovementDirection[3];
+	private JLabel chooseDirection;
+	private JButton optOne;
+	private JButton optTwo;
+	private JButton optThree;
 	
 	private JButton[] moving = new JButton[6];
 	private JLabel playerName;
@@ -63,9 +74,10 @@ public class GamePanel extends JPanel implements UpdateScreen
 		btnMainMenu.setBounds(12, 481, 97, 25);
 		add(btnMainMenu);
 		
-		JButton buyArrow = new JButton("Buy Arrow");
+		buyArrow = new JButton("Buy Arrow");
 		buyArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				gui.mainWindow.triviaScreen.updatePanel("q");
 				gui.mainWindow.changeView(GUI.trivia);
 				updatePanel(updateRequired);
@@ -74,7 +86,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buyArrow.setBounds(651, 13, 111, 25);
 		add(buyArrow);
 		
-		JButton buySecret = new JButton("Buy Secret");
+		buySecret = new JButton("Buy Secret");
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.mainWindow.triviaScreen.updatePanel("q");
@@ -89,11 +101,59 @@ public class GamePanel extends JPanel implements UpdateScreen
 		shootArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateRequired = "shoot";
-				updatePanel(updateRequired);
+				updateShooting();
 			}
 		});
-		shootArrow.setBounds(651, 91, 111, 25);
+		shootArrow.setBounds(651, 89, 111, 25);
 		add(shootArrow);
+		
+		chooseDirection = new JLabel("Choose a direction to shoot");
+		chooseDirection.setBounds(651, 147, 158, 16);
+		add(chooseDirection);
+		
+		optOne = new JButton("");
+		optOne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection[0]));
+				shoot();
+				updatePanel("Shooting");
+			}
+		});
+		optOne.setBounds(651, 176, 111, 25);
+		add(optOne);
+		
+		optTwo = new JButton("");
+		optTwo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection[1]));
+				shoot();
+				updatePanel("Shooting");
+			}
+		});
+		optTwo.setBounds(651, 204, 111, 25);
+		add(optTwo);
+		
+		optThree = new JButton("");
+		optThree.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection[2]));
+				shoot();
+				updatePanel("Shooting");
+			}
+		});
+		optThree.setBounds(651, 232, 111, 25);
+		add(optThree);
+		
+		shooting[0] = optOne;
+		shooting[1] = optTwo;
+		shooting[2] = optThree;
+		
+		chooseDirection.setVisible(false);
+		
+		for(JButton b : shooting)
+		{
+			b.setVisible(false);
+		}
 		
 		//----------------------------------//
 		//--------Movement Buttons----------//
@@ -201,7 +261,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(lblSecretsObtained);
 		
 		lblWarnings = new JLabel("WARNINGS");
-		lblWarnings.setBounds(677, 208, 68, 16);
+		lblWarnings.setBounds(677, 383, 68, 16);
 		add(lblWarnings);
 		
 		JTextArea secrets = new JTextArea();
@@ -212,8 +272,10 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		warnings = new JTextPane();
 		warnings.setEditable(false);
-		warnings.setBounds(677, 225, 158, 57);
+		warnings.setBounds(677, 399, 158, 57);
 		add(warnings);
+		
+
 				
 		updatePanel("Refresh");
 
@@ -238,6 +300,73 @@ public class GamePanel extends JPanel implements UpdateScreen
 			}
 			g.drawPolygon(h);
 		}
+	}
+	
+	public void shoot()
+	{
+		chooseDirection.setVisible(false);
+		
+		for(JButton b : shooting)
+		{
+			b.setVisible(false);
+		}
+		
+		//TODO Add handler for if it hits or not
+	}
+	
+	public void updateShooting()
+	{
+		for(int i = 0; i < shooting.length; i++)
+		{
+			MovementDirection[] md = gui.getDoors();
+				if(md[i] == null)
+					continue;
+				
+				if(md[i].equals(MovementDirection.UP))
+				{
+					shooting[i].setText("Up");
+					shootingDirection[i] = MovementDirection.UP;
+				}
+				
+				if(md[i].equals(MovementDirection.UP_RIGHT))
+				{
+					shooting[i].setText("Up Right");
+					shootingDirection[i] = MovementDirection.UP_RIGHT;
+				}
+				
+				if(md[i].equals(MovementDirection.UP_LEFT))
+				{
+					shooting[i].setText("Up Left");
+					shootingDirection[i] = MovementDirection.UP_LEFT;
+				}
+				
+				if(md[i].equals(MovementDirection.DOWN))
+				{
+					shooting[i].setText("Down");
+					shootingDirection[i] = MovementDirection.DOWN;
+				}
+				
+				if(md[i].equals(MovementDirection.DOWN_RIGHT))
+				{
+					shooting[i].setText("Down Right");
+					shootingDirection[i] = MovementDirection.DOWN_RIGHT;
+				}
+				
+				if(md[i].equals(MovementDirection.DOWN_LEFT))
+				{
+					shooting[i].setText("Down Left");
+					shootingDirection[i] = MovementDirection.DOWN_LEFT;
+				}
+					
+		}
+		
+		chooseDirection.setVisible(true);
+		
+		for(JButton b : shooting)
+		{
+			b.setVisible(true);
+		}
+		
 	}
 	
 	public void updatePanel(String update)

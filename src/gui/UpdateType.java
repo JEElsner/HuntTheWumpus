@@ -192,7 +192,7 @@ public enum UpdateType
 	 * Purpose: Notify the GUI the user has shot an arrow
 	 * Objects:
 	 */
-	SHOOT_ARROW(Void.class, Void.class), // The user requested an arrow is shot, the data should be the MovementDirection enum
+	SHOOT_ARROW(MovementDirection.class, Void.class), // The user requested an arrow is shot, the data should be the MovementDirection enum
 	
 	/* To GUI: Notify the GUI the arrow did not hit anything
 	 * Objects: int number of arrows left

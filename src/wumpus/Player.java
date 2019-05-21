@@ -38,12 +38,17 @@ public class Player
 	
 	public int buyArrows(boolean triviaCorrect)
 	{
-		coins--;
-		if(trivia)
+		if(coins > 1)
 		{
-			arrows++; 
+				coins--;
+				if(trivia)
+				{
+					arrows++; 
+				}
+			return arrows;
 		}
-		return arrows;
+		return 0;
+	
 	}
 	
 	public int getCoins()

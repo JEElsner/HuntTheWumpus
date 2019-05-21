@@ -36,6 +36,7 @@ public class GUI
 	//----Variables for Gameplay----//
 	private int arrows;
 	private int coins;
+	private int turns;
 	private int currentScore;
 	//------------------------------//
 	
@@ -124,6 +125,16 @@ public class GUI
 	public void setCurrentScore(int currentScore)
 	{
 		this.currentScore = currentScore;
+	}
+
+	public int getTurns()
+	{
+		return turns;
+	}
+
+	public void setTurns(int turns)
+	{
+		this.turns = turns;
 	}
 
 	public String getHs1()
@@ -434,6 +445,10 @@ public class GUI
 				this.mainWindow.gameplayScreen.updatePanel("coins");
 				break;
 				
+			case GET_NUM_OF_TURNS:
+				setTurns((int) update.getData());
+				break;
+				
 			case GET_PLAYER_SCORE:
 				setCurrentScore((int) update.getData());
 				break;
@@ -479,6 +494,13 @@ public class GUI
 				
 			case SHOOT_ARROW:
 				break;
+				
+			case ARROW_MISS:
+				this.mainWindow.gameplayScreen.miss();
+			case GET_ARROWS:
+				setArrows((int) update.getData());
+				break;
+				
 			default:
 				System.err.println("Unhandled update type: " + update.getType());
 				break;

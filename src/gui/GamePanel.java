@@ -42,14 +42,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JButton optOne;
 	private JButton optTwo;
 	private JButton optThree;
+	private JLabel miss;
 	
 	private JButton[] moving = new JButton[6];
 	private JLabel playerName;
-	private JLabel lblInventory;
-	private JLabel lblCoins;
-	private JLabel lblArrows;
-	private JLabel lblTurnsTaken;
-	private JLabel lblSecretsObtained;
+	private JLabel inventory;
+	private JLabel coins;
+	private JLabel arrows;
+	private JLabel turnsTaken;
+	private JLabel secretsObtained;
 	private JLabel lblWarnings;
 	private JTextPane warnings;
 		
@@ -101,6 +102,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		shootArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateRequired = "shoot";
+				clear();
 				updateShooting();
 			}
 		});
@@ -240,25 +242,25 @@ public class GamePanel extends JPanel implements UpdateScreen
 		playerName.setBounds(12, 17, 79, 16);
 		add(playerName);
 		
-		lblInventory = new JLabel("Inventory");
-		lblInventory.setBounds(12, 95, 56, 16);
-		add(lblInventory);
+		inventory = new JLabel("Inventory");
+		inventory.setBounds(12, 95, 56, 16);
+		add(inventory);
 		
-		lblCoins = new JLabel("Coins:");
-		lblCoins.setBounds(12, 119, 56, 16);
-		add(lblCoins);
+		coins = new JLabel("Coins:");
+		coins.setBounds(12, 119, 56, 16);
+		add(coins);
 		
-		lblArrows = new JLabel("Arrows:");
-		lblArrows.setBounds(12, 134, 56, 16);
-		add(lblArrows);
+		arrows = new JLabel("Arrows:");
+		arrows.setBounds(12, 134, 56, 16);
+		add(arrows);
 		
-		lblTurnsTaken = new JLabel("Turns Taken:");
-		lblTurnsTaken.setBounds(12, 55, 97, 16);
-		add(lblTurnsTaken);
+		turnsTaken = new JLabel("Turns Taken:");
+		turnsTaken.setBounds(12, 55, 97, 16);
+		add(turnsTaken);
 		
-		lblSecretsObtained = new JLabel("Secrets Obtained:");
-		lblSecretsObtained.setBounds(12, 188, 111, 16);
-		add(lblSecretsObtained);
+		secretsObtained = new JLabel("Secrets Obtained:");
+		secretsObtained.setBounds(12, 188, 111, 16);
+		add(secretsObtained);
 		
 		lblWarnings = new JLabel("WARNINGS");
 		lblWarnings.setBounds(677, 383, 68, 16);
@@ -275,11 +277,20 @@ public class GamePanel extends JPanel implements UpdateScreen
 		warnings.setBounds(677, 399, 158, 57);
 		add(warnings);
 		
+		miss = new JLabel("Oh no! You missed!");
+		miss.setBounds(651, 127, 127, 16);
+		miss.setVisible(false);
+		add(miss);
+		
 
 				
 		updatePanel("Refresh");
 
 	}
+	
+	//------------------------------------------//
+	//-----This is where the methods start------//
+	//------------------------------------------//
 	
 	private class MyCanvas extends Canvas
 	{
@@ -311,7 +322,17 @@ public class GamePanel extends JPanel implements UpdateScreen
 			b.setVisible(false);
 		}
 		
-		//TODO Add handler for if it hits or not
+		//TODO Add handler if it hits
+	}
+	
+	public void miss()
+	{
+		miss.setVisible(true);
+	}
+	
+	public void clear()
+	{
+		miss.setVisible(false);
 	}
 	
 	public void updateShooting()
@@ -369,14 +390,22 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 	}
 	
+	public void updatePlayerData()
+	{
+		gui.notifyControl(new Update(UpdateType.GET_ARROWS, true));
+		gui.notifyControl(new Update(UpdateType.GET_COINS, true));
+		gui.notifyControl(new Update(UpdateType.GET_NUM_OF_TURNS, true));
+	}
+	
 	public void updatePanel(String update)
 	{
 		
 		playerName.setText(gui.getName());
 		//System.out.println(update);
 		
-		lblCoins.setText("Coins: " + gui.getCoins());
-		lblArrows.setText("Arrows: " + gui.getArrows());
+		turnsTaken.setText("Turns Taken: " + gui.getTurns());
+		coins.setText("Coins: " + gui.getCoins());
+		arrows.setText("Arrows: " + gui.getArrows());
 		
 		warnings.setText(gui.displayBWarn() +  gui.displayPWarn() + gui.displayWWarn());
 		

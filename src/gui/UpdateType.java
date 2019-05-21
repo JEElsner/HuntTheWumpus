@@ -221,7 +221,31 @@ public enum UpdateType
 	 * Purpose: Notify the GUI of current player score
 	 * Objects:
 	 */
-	GET_PLAYER_SCORE(Void.class, Integer.class)
+	GET_PLAYER_SCORE(Void.class, Integer.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify of need for number of turns
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Notify the GUI of number of turns
+	 * Objects:
+	 */
+	GET_NUM_OF_TURNS(Void.class, Integer.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify of need for arrows
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Notify the GUI of arrows
+	 * Objects:
+	 */
+	GET_ARROWS(Void.class, Integer.class)
 	
 	; // <---- Hey there's a semi-colon here! Yay!
 	

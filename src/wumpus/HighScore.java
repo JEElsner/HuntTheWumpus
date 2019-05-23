@@ -42,9 +42,11 @@ public class HighScore
 	
 	public static void main(String[] args)
 	{
-		File dir = new File("src/wumpus/test.text");
+		File dir = new File("src/wumpus/test.text");	
+		setDefault();
+		addScore("DAD", 420420);
+		writeFile();
 		readFile(dir);
-		
 	}
 	
 	public static void readFile(File fileObj)
@@ -63,14 +65,14 @@ public class HighScore
 					{
 						scores.add(ScoreCount, Integer.parseInt(line));
 						ScoreCount++;
+						System.out.println(line);
 					}
 					else
 					{
 						names.add(NameCount, line);
 						NameCount++;
+						System.out.println(line);
 					}
-				
-				System.out.println(); 
 				isScore = !isScore;
 			}
 	
@@ -83,7 +85,7 @@ public class HighScore
 		}
 	}
 	
-	public void addScore(String n, int s)
+	public static void addScore(String n, int s)
 	{
 		for(int i = 0; i < scores.size(); i++)
 		{
@@ -102,7 +104,24 @@ public class HighScore
 		}
 	}
 	
-	public void writeFile()
+	public static void setDefault()
+	{
+		for(int i = 0; i < 10; i++)
+		{
+			scores.add(000000);
+		}
+		names.add("AAA");
+		names.add("BBB");
+		names.add("CCC");
+		names.add("DDD");
+		names.add("EEE");
+		names.add("FFF");
+		names.add("GGG");
+		names.add("HHH");
+		names.add("III");
+		names.add("JJJ");
+	}
+	public static void writeFile()
 	{
 		File fileObj = new File("src/wumpus/test.text");
 		System.out.println(fileObj.getAbsolutePath());		
@@ -117,9 +136,10 @@ public class HighScore
 			{
 				buffer.write(names.get(i));
 				buffer.newLine();
-				buffer.write(scores.get(i));
+				buffer.write("" + scores.get(i));
 				buffer.newLine();
 			}
+			
 		
 			buffer.close();
 			

@@ -277,7 +277,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		JTextArea secrets = new JTextArea();
 		secrets.setEditable(false);
 		secrets.setText("secret 1\nSecret 2\na\na\na\na\na\na\na\na\na\na\na\na");
-		secrets.setBounds(12, 205, 97, 162);
+		secrets.setBounds(12, 205, 97, 162); // TODO we're gonna need a lot more room for secrets
 		add(secrets);
 		
 		warnings = new JTextPane();
@@ -343,6 +343,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		miss.setVisible(false);
 	}
 	
+	// FIXME This is utterly borked when there are fewer than three doors from a room
 	public void updateShooting()
 	{
 		for(int i = 0; i < shooting.length; i++)

@@ -173,6 +173,10 @@ public class Control extends SwingWorker<Void, Update>
 		
 		SwingUtilities.invokeLater(this::execute); // Begin the worker thread to support the GUI in the background
 		// I'm pretty sure SwingWorker.execute() must be called on the EDT, so hence the invokeLater
+		
+		// Read the high scores and send them to the GUI
+		HighScore.readFile(null);
+		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}
 	
 	/* Processes updates from the GUI & EDT
@@ -257,6 +261,8 @@ public class Control extends SwingWorker<Void, Update>
 						case SHOOT_ARROW: // The player has shot an arrow
 							shootArrow((MovementDirection) msg.getData());
 							break;
+							
+						// TODO Deal with the closing of the GUI and saving of high scores
 							
 						default: // In case we get a bad update
 							// CHANGE change to be more durable
@@ -544,9 +550,14 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void endGame(boolean wumpusKilled)
 	{
+		/* TODO Add tracking of player name in Player, and use update to transmit name */
+		HighScore.addScore("Stevo", playerObject.finalScore());
+		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
 			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore())); // Pass high scores?
 		else // The the wumpus wasn't killed the game is lost
 			publish(new Update(UpdateType.DISPLAY_LOSE, false, playerObject.finalScore())); // Pass high scores?
+		
+		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}
 }

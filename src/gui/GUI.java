@@ -29,6 +29,7 @@ public class GUI
 	
 	private int score;
 	
+	// Brother, use arrays!
 	private static String hs1N;
 	private static String hs2N;
 	private static String hs3N;
@@ -485,6 +486,7 @@ public class GUI
 				
 			case GET_NUM_OF_TURNS:
 				setTurns((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("turns");
 				break;
 				
 			case GET_PLAYER_SCORE:
@@ -542,6 +544,7 @@ public class GUI
 				this.mainWindow.gameplayScreen.miss();
 			case GET_ARROWS:
 				setArrows((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("arrows");
 				break;
 				
 			case DISPLAY_WIN:

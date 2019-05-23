@@ -255,7 +255,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(inventory);
 		
 		coins = new JLabel("Coins:");
-		coins.setBounds(12, 119, 56, 16);
+		coins.setBounds(12, 119, 79, 16);
 		add(coins);
 		
 		arrows = new JLabel("Arrows:");

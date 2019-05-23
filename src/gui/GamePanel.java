@@ -45,6 +45,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JLabel miss;
 	
 	private JButton[] moving = new JButton[6];
+	private JLabel yourRoom;
 	private JLabel playerName;
 	private JLabel inventory;
 	private JLabel coins;
@@ -59,6 +60,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		gui = guiObject;
 		setLayout(null);
 		this.setSize(1000, 800);
+		
 		
 		JLabel lblTitle = new JLabel("Game Panel");
 		lblTitle.setBounds(299, 0, 68, 16);
@@ -159,6 +161,10 @@ public class GamePanel extends JPanel implements UpdateScreen
 			b.setVisible(false);
 		}
 		
+		yourRoom = new JLabel("Current Room: ");
+		yourRoom.setBounds(299, 232, 133, 16);
+		add(yourRoom);
+		
 		//----------------------------------//
 		//--------Movement Buttons----------//
 		//----------------------------------//
@@ -253,7 +259,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(coins);
 		
 		arrows = new JLabel("Arrows:");
-		arrows.setBounds(12, 134, 56, 16);
+		arrows.setBounds(12, 134, 79, 16);
 		add(arrows);
 		
 		turnsTaken = new JLabel("Turns Taken:");
@@ -399,6 +405,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		playerName.setText(gui.getName());
 		System.out.println(update);
 		
+		yourRoom.setText("Current Room: " + gui.getCurrentRoom());
 		turnsTaken.setText("Turns Taken: " + gui.getTurns());
 		coins.setText("Coins: " + gui.getCoins());
 		arrows.setText("Arrows: " + gui.getArrows());

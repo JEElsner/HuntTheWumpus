@@ -54,6 +54,18 @@ public enum UpdateType
 	 */
 	GET_TRIVIA(String.class, String.class),
 	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify to give Control the user answer and check if correct
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Giving the GUI a boolean for is correct
+	 * Objects: Boolean if is correct
+	 */
+	GIVE_ANSWER(String.class, boolean.class),
+	
 	// Updates that are likely for GUI only
 
 	/* To GUI: Warnings that there are pits near the room the player is in
@@ -105,7 +117,7 @@ public enum UpdateType
 	 * Purpose: Notify the GUI to tell user they've encountered a bat
 	 * Objects: String trivia question
 	 */
-	ENCOUNTER_BAT(Void.class, String.class),
+	ENCOUNTER_BAT(Void.class, Void.class),
 	
 	/* To Control:
 	 * -------------

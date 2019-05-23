@@ -58,25 +58,26 @@ public class Trivia extends JPanel implements UpdateScreen
 		answers.setColumns(10);
 		
 		encounter = new JLabel("You are attempting to *****");
-		encounter.setBounds(4, 189, 235, 25);
+		encounter.setBounds(4, 189, 273, 25);
 		add(encounter);
 		
 		JButton submit = new JButton("Submit Answer");
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.setAnswer(submit.getText());
+				gui.notifyControl(new Update(UpdateType.GIVE_ANSWER, true, gui.getAnswer()));
 				updatePanel("Submitted");
 			}
 		});
-		submit.setBounds(319, 196, 119, 25);
+		submit.setBounds(319, 196, 131, 25);
 		add(submit);
 		
 		numNeeded = new JLabel("You must answer **** correctly");
-		numNeeded.setBounds(4, 212, 235, 25);
+		numNeeded.setBounds(4, 212, 273, 25);
 		add(numNeeded);
 		
 		answeredStats = new JLabel("Insert Current Stats on questions right");
-		answeredStats.setBounds(4, 250, 235, 16);
+		answeredStats.setBounds(4, 250, 255, 16);
 		add(answeredStats);
 
 	}
@@ -94,21 +95,21 @@ public class Trivia extends JPanel implements UpdateScreen
 		if(update.equals("wumpus"));
 		{
 			encounter.setText("You have to escape the Wumpus!");
-			numNeeded.setText("You must answer 3 out of 5 questions correctly to escape!");
+			numNeeded.setText("You must answer 3 out of 5 questions correctly");
 			//TODO print out / handle how many questions are answered and how many are needed
 		}
 		
 		if(update.equals("arrows"));
 		{
 			encounter.setText("You are trying to buy some more arrows");
-			numNeeded.setText("You must answer 2 out of 3 questions correctly to get them!");
+			numNeeded.setText("You must answer 2 out of 3 questions correctly");
 			//TODO print out / handle how many questions are answered and how many are needed
 		}
 		
 		if(update.equals("secret"));
 		{
 			encounter.setText("You are trying to buy a secret");
-			numNeeded.setText("You must answer 2 out of 3 questions correctly to get it!");
+			numNeeded.setText("You must answer 2 out of 3 questions correctly");
 			//TODO print out / handle how many questions are answered and how many are needed
 		}
 	}

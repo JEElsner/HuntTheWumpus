@@ -27,6 +27,8 @@ public class GUI
 	private int bats = 0;
 	private int wumpus = 0;
 	
+	private int score;
+	
 	private static String hs1N;
 	private static String hs2N;
 	private static String hs3N;
@@ -43,9 +45,21 @@ public class GUI
 	private String name;
 	private String answer;
 	private String question;
+	private boolean isCorrect;
 	
 	private MovementDirection[] doors = new MovementDirection[3];
+	private int currentRoom;
 	
+
+	public int getScore()
+	{
+		return score;
+	}
+
+	public void setScore(int score)
+	{
+		this.score = score;
+	}
 
 	public MovementDirection[] getDoors()
 	{
@@ -57,6 +71,16 @@ public class GUI
 		this.doors = doors;
 	}
 	
+	public int getCurrentRoom()
+	{
+		return currentRoom;
+	}
+
+	public void setCurrentRoom(int currentRoom)
+	{
+		this.currentRoom = currentRoom;
+	}
+
 	public String getQuestion()
 	{
 		return question;
@@ -67,6 +91,16 @@ public class GUI
 		this.question = q;
 	}
 	
+	public boolean isCorrect()
+	{
+		return isCorrect;
+	}
+
+	public void setCorrect(boolean isCorrect)
+	{
+		this.isCorrect = isCorrect;
+	}
+
 	public int getBats()
 	{
 		return bats;
@@ -435,6 +469,10 @@ public class GUI
 				this.mainWindow.gameplayScreen.updatePanel("new game");
 				break;
 				
+			case MOVE:
+				setCurrentRoom((int) update.getData());
+				break;
+				
 			case PURCHASE_ARROW:
 				setArrows((int) update.getData());
 				this.mainWindow.gameplayScreen.updatePanel("arrows");
@@ -455,16 +493,17 @@ public class GUI
 				
 			case PIT_WARNING:
 				setPits((int) update.getData());
-				this.mainWindow.gameplayScreen.updatePanel("pits");
+				this.mainWindow.gameplayScreen.updatePanel("pitsWarn");
 				break;
 			
 			case BAT_WARNING:
 				setBats((int) update.getData());
-				this.mainWindow.gameplayScreen.updatePanel("bats");
+				this.mainWindow.gameplayScreen.updatePanel("batsWarn");
 				break;
 				
 			case WUMPUS_WARNING:
-				this.mainWindow.gameplayScreen.updatePanel("wumpus");
+				setWumpus((int) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("wumpusWarn");
 				break;
 				
 			case ENCOUNTER_BAT:
@@ -476,7 +515,7 @@ public class GUI
 				
 			case ENCOUNTER_PIT:
 				setQuestion((String) update.getData());
-				this.mainWindow.gameplayScreen.updatePanel("pits");
+				//this.mainWindow.gameplayScreen.updatePanel("pits");
 				this.mainWindow.triviaScreen.updatePanel("pits");
 				this.mainWindow.changeView(trivia);
 				break;
@@ -492,7 +531,8 @@ public class GUI
 				setQuestion((String) update.getData());
 				break;
 				
-			case MOVE:
+			case GIVE_ANSWER:
+				setCorrect((boolean) update.getData());
 				break;
 				
 			case SHOOT_ARROW:
@@ -502,6 +542,16 @@ public class GUI
 				this.mainWindow.gameplayScreen.miss();
 			case GET_ARROWS:
 				setArrows((int) update.getData());
+				break;
+				
+			case DISPLAY_WIN:
+				this.setScore((int) update.getData());
+				this.mainWindow.changeView(WinScreen);
+				break;
+			
+			case DISPLAY_LOSE:
+				this.setScore((int) update.getData());
+				this.mainWindow.changeView(WinScreen);
 				break;
 				
 			default:

@@ -326,7 +326,20 @@ public class Map
 		}
 		return false;
 	}
-
+	
+	/* public boolean CheckForWumpus2()
+	{
+		for(int i = 0; i < 6; i ++)
+		{
+			for (MovementDirection dir : MovementDirection.values())
+			{
+				if (WumpusRoom == getNearbyRoom(PlayerRoom, dir))
+					return true;
+				
+			}
+		}
+		
+	}  */
 	public void fallIntoPit() // returns the Player Room Number, or -1 if lost?
 	{
 		PlayerRoom = 1;

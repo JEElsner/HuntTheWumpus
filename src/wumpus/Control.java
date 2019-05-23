@@ -10,6 +10,7 @@
 package wumpus;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -92,7 +93,35 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Initial
 	public static void debug()
 	{
-		System.out.println("Debug test".contains(null));
+		Field control;
+		try
+		{
+			control = Control.class.getDeclaredField("controlObject");
+			control.setAccessible(true);
+			
+			Control controlObj = (Control) control.get(null);
+			
+			for(int i = 0; i < 1000; i++)
+				controlObj.playerObject.buyArrows(true);
+			
+			System.out.println(controlObj.playerObject.getArrows());
+		} catch (NoSuchFieldException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	// Game Objects //
@@ -305,7 +334,7 @@ public class Control extends SwingWorker<Void, Update>
 			caveObject = new Cave();
 		} catch (FileNotFoundException e)
 		{
-			// TODO Auto-generated catch block
+			System.err.println("Error creating new cave: ");
 			e.printStackTrace();
 		}
 		
@@ -346,7 +375,7 @@ public class Control extends SwingWorker<Void, Update>
 		checkForHazards();
 		checkForWarnings();
 		
-		mapObject.moveWumpus(); // TODO tell wumpus he can move
+		mapObject.moveWumpus();
 	}
 	
 	/* Check whether the player's current room has any hazards in it, and handle them
@@ -461,13 +490,13 @@ public class Control extends SwingWorker<Void, Update>
 	// The player shoots an arrow
 	// Thread: Worker
 	private void shootArrow(MovementDirection dir)
-	{
-		// TODO Implement Shoot Arrow
-		// Ask map if we hit the wumpus
-		// If so, win game
-		// If not, how many arrows left?
+	{	
+		playerObject.shootArrows();
 		
-		publish(new Update(UpdateType.ARROW_MISS, false));
+		if(Map.getNearbyRoom(mapObject.getPlayerRoom(), dir) == mapObject.getWumpusRoom())
+			killedWumpus();
+		else
+			publish(new Update(UpdateType.ARROW_MISS, false, playerObject.getArrows()));
 	}
 	
 	// The player kills the wumpus

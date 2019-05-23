@@ -17,6 +17,9 @@ public class Trivia extends JPanel implements UpdateScreen
 	private GUI gui;
 	
 	private JLabel question;
+	private JLabel numNeeded;
+	private JLabel answeredStats;
+	private JLabel encounter;
 	
 	/**
 	 * Create the panel.
@@ -54,31 +57,59 @@ public class Trivia extends JPanel implements UpdateScreen
 		add(answers);
 		answers.setColumns(10);
 		
-		JLabel questionStats = new JLabel("You are attempting to *****");
-		questionStats.setBounds(4, 189, 235, 25);
-		add(questionStats);
+		encounter = new JLabel("You are attempting to *****");
+		encounter.setBounds(4, 189, 235, 25);
+		add(encounter);
 		
 		JButton submit = new JButton("Submit Answer");
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.setAnswer(submit.getText());
+				updatePanel("Submitted");
 			}
 		});
 		submit.setBounds(319, 196, 119, 25);
 		add(submit);
 		
-		JLabel lblYouMustAnswer = new JLabel("You must answer **** correctly");
-		lblYouMustAnswer.setBounds(4, 212, 235, 25);
-		add(lblYouMustAnswer);
+		numNeeded = new JLabel("You must answer **** correctly");
+		numNeeded.setBounds(4, 212, 235, 25);
+		add(numNeeded);
 		
-		JLabel lblInsertCurrentStats = new JLabel("Insert Current Stats on questions right");
-		lblInsertCurrentStats.setBounds(4, 250, 235, 16);
-		add(lblInsertCurrentStats);
+		answeredStats = new JLabel("Insert Current Stats on questions right");
+		answeredStats.setBounds(4, 250, 235, 16);
+		add(answeredStats);
 
 	}
 	
 	public void updatePanel(String update)
 	{
 		question.setText(gui.getQuestion());
+		if(update.equals("pits"));
+		{
+			encounter.setText("You have to escape the pit!");
+			numNeeded.setText("You must answer 2 out of 3 questions correctly to escape!");
+			//TODO print out / handle how many questions are answered and how many are needed
+		}
+		
+		if(update.equals("wumpus"));
+		{
+			encounter.setText("You have to escape the Wumpus!");
+			numNeeded.setText("You must answer 3 out of 5 questions correctly to escape!");
+			//TODO print out / handle how many questions are answered and how many are needed
+		}
+		
+		if(update.equals("arrows"));
+		{
+			encounter.setText("You are trying to buy some more arrows");
+			numNeeded.setText("You must answer 2 out of 3 questions correctly to get them!");
+			//TODO print out / handle how many questions are answered and how many are needed
+		}
+		
+		if(update.equals("secret"));
+		{
+			encounter.setText("You are trying to buy a secret");
+			numNeeded.setText("You must answer 2 out of 3 questions correctly to get it!");
+			//TODO print out / handle how many questions are answered and how many are needed
+		}
 	}
 }

@@ -80,6 +80,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent e) {
 				
 				gui.mainWindow.triviaScreen.updatePanel("q");
+				gui.mainWindow.triviaScreen.updatePanel("arrows");
 				gui.mainWindow.changeView(GUI.trivia);
 				updatePanel(updateRequired);
 			}
@@ -91,6 +92,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.mainWindow.triviaScreen.updatePanel("q");
+				gui.mainWindow.triviaScreen.updatePanel("secret");
 				gui.mainWindow.changeView(GUI.trivia);
 				updatePanel(updateRequired);
 			}
@@ -389,19 +391,13 @@ public class GamePanel extends JPanel implements UpdateScreen
 		}
 		
 	}
-	
-	public void updatePlayerData()
-	{
-		gui.notifyControl(new Update(UpdateType.GET_ARROWS, true));
-		gui.notifyControl(new Update(UpdateType.GET_COINS, true));
-		gui.notifyControl(new Update(UpdateType.GET_NUM_OF_TURNS, true));
-	}
+
 	
 	public void updatePanel(String update)
 	{
 		
 		playerName.setText(gui.getName());
-		//System.out.println(update);
+		System.out.println(update);
 		
 		turnsTaken.setText("Turns Taken: " + gui.getTurns());
 		coins.setText("Coins: " + gui.getCoins());

@@ -468,20 +468,23 @@ public class GUI
 				break;
 				
 			case ENCOUNTER_BAT:
-				setQuestion((String) update.getData());
-				this.mainWindow.gameplayScreen.updatePanel("bats");
-				this.mainWindow.changeView(trivia);
+//				setQuestion((String) update.getData());
+//				this.mainWindow.gameplayScreen.updatePanel("bats");
+//				this.mainWindow.triviaScreen.updatePanel("bats");
+//				this.mainWindow.changeView(trivia);
 				break;
 				
 			case ENCOUNTER_PIT:
 				setQuestion((String) update.getData());
 				this.mainWindow.gameplayScreen.updatePanel("pits");
+				this.mainWindow.triviaScreen.updatePanel("pits");
 				this.mainWindow.changeView(trivia);
 				break;
 				
 			case ENCOUNTER_WUMPUS:
 				setQuestion((String) update.getData());
 				this.mainWindow.gameplayScreen.updatePanel("wumpus");
+				this.mainWindow.triviaScreen.updatePanel("wumpus");
 				this.mainWindow.changeView(trivia);
 				break;
 				

@@ -496,7 +496,12 @@ public class Control extends SwingWorker<Void, Update>
 		if(Map.getNearbyRoom(mapObject.getPlayerRoom(), dir) == mapObject.getWumpusRoom())
 			killedWumpus();
 		else
+		{
 			publish(new Update(UpdateType.ARROW_MISS, false, playerObject.getArrows()));
+			
+			if(playerObject.getArrows() == 0 && playerObject.getCoins() == 0)
+				endGame(false);
+		}
 	}
 	
 	// The player kills the wumpus
@@ -514,8 +519,8 @@ public class Control extends SwingWorker<Void, Update>
 	public void endGame(boolean wumpusKilled)
 	{
 		if(wumpusKilled) // If the wumpus was killed, the game is won
-			publish(new Update(UpdateType.DISPLAY_WIN, false)); // Pass high scores?
+			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore())); // Pass high scores?
 		else // The the wumpus wasn't killed the game is lost
-			publish(new Update(UpdateType.DISPLAY_LOSE, false)); // Pass high scores?
+			publish(new Update(UpdateType.DISPLAY_LOSE, false, playerObject.finalScore())); // Pass high scores?
 	}
 }

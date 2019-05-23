@@ -39,7 +39,7 @@ public enum UpdateType
 	 * Purpose: Notify the GUI to display high scores
 	 * Objects: Array of high scores
 	 */
-	GET_HIGH_SCORE(Void.class, ArrayList.class),
+	GET_HIGH_SCORE(Void.class, new ArrayList<String>().getClass()),
 	
 	/* To Control:
 	 * -------------

@@ -128,31 +128,20 @@ public class Map
 		neighbors[29] = new int[] { 24, 25, 1, 6, 5, 29 };
 	}
 
+	public static void main(String[] args)
+	{
+		Map m1 = new Map();
+		
+		m1.PlayerRoom = 1;
+		m1.WumpusRoom = 30;
+		
+		System.out.println(m1.CheckForWumpus2());		
+	}
+	
 	public static void debug()
 	{
 		Map m1 = new Map();
-		System.out.println(m1.WumpusRoom);
-		m1.isAwake = true;
-
-		m1.moveWumpus();
-		System.out.println(m1.WumpusRoom);
-
-		m1.moveWumpus();
-		System.out.println(m1.WumpusRoom);
-
-		m1.moveWumpus();
-		System.out.println(m1.WumpusRoom);
-
-		m1.moveWumpus();
-		System.out.println(m1.WumpusRoom);
-
-		m1.moveWumpus();
-		System.out.println(m1.WumpusRoom);
-
-		m1.moveWumpus();
-		System.out.println(m1.WumpusRoom);
 	}
-
 	public int getWumpusRoom()
 	{
 		return WumpusRoom;
@@ -174,38 +163,38 @@ public class Map
 		int newRoom = neighbors[room - 1][dir.ordinal()];
 		return newRoom;
 	}
-	
+
 	public static MovementDirection getDirection(int room, int room2)
 	{
 		int[] possible = getNeighbors(room);
-		for(int i = 0; i < 6; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			if (possible[i] == room2)
 			{
 				return MovementDirection.values()[i];
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public static MovementDirection[] getDirections(int room, int[] neighbors)
 	{
 		ArrayList<MovementDirection> Directions = new ArrayList<MovementDirection>();
-		
-		for(int nearbyRoom : neighbors)
+
+		for (int nearbyRoom : neighbors)
 		{
-			if(getDirection(room, nearbyRoom) == null)
+			if (getDirection(room, nearbyRoom) == null)
 			{
 				continue;
 			}
-			
+
 			else
 			{
 				Directions.add(getDirection(room, nearbyRoom));
 			}
 		}
-		
+
 		return Directions.toArray(new MovementDirection[0]);
 	}
 
@@ -326,20 +315,36 @@ public class Map
 		}
 		return false;
 	}
-	
-	/* public boolean CheckForWumpus2()
+
+	public boolean CheckForWumpus2()
 	{
-		for(int i = 0; i < 6; i ++)
+		int[] Neighbors = new int[6];
+
+		for (MovementDirection dir : MovementDirection.values())
+		{
+			if (WumpusRoom == getNearbyRoom(PlayerRoom, dir))
+			{
+				return true;
+			}
+		}
+
+		for (int x = 0; x < 6; x++)
+		{
+			Neighbors[x] = getNeighbors(PlayerRoom)[x];
+		}
+		for (int y = 0; y < 6; y++)
 		{
 			for (MovementDirection dir : MovementDirection.values())
 			{
-				if (WumpusRoom == getNearbyRoom(PlayerRoom, dir))
+				if (WumpusRoom == getNearbyRoom(Neighbors[y], dir))
+				{
 					return true;
-				
+				}
 			}
 		}
-		
-	}  */
+		return false;
+	}
+
 	public void fallIntoPit() // returns the Player Room Number, or -1 if lost?
 	{
 		PlayerRoom = 1;

@@ -115,12 +115,11 @@ public class Cave
 
 		} catch (FileNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		/*
-		 * try { read_map(); } catch (FileNotFoundException e) { // TODO Auto-generated
+		 * try { read_map(); } catch (FileNotFoundException e) {
 		 * catch block e.printStackTrace(); }
 		 */
 

@@ -104,22 +104,20 @@ public class Control extends SwingWorker<Void, Update>
 			for(int i = 0; i < 1000; i++)
 				controlObj.playerObject.buyArrows(true);
 			
+			controlObj.publish(new Update(UpdateType.GET_ARROWS, false, controlObj.playerObject.getArrows()));
+			
 			System.out.println(controlObj.playerObject.getArrows());
 		} catch (NoSuchFieldException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -171,6 +169,10 @@ public class Control extends SwingWorker<Void, Update>
 		
 		SwingUtilities.invokeLater(this::execute); // Begin the worker thread to support the GUI in the background
 		// I'm pretty sure SwingWorker.execute() must be called on the EDT, so hence the invokeLater
+		
+		// Read the high scores and send them to the GUI
+		HighScore.readFile(null);
+		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}
 	
 	/* Processes updates from the GUI & EDT
@@ -237,6 +239,9 @@ public class Control extends SwingWorker<Void, Update>
 							 */
 							break;
 							
+						case GIVE_ANSWER:
+							answerTrivia((String) msg.getData());
+							
 						case MOVE: // The player has moved
 							movePlayer((MovementDirection) msg.getData());
 							break;
@@ -252,6 +257,8 @@ public class Control extends SwingWorker<Void, Update>
 						case SHOOT_ARROW: // The player has shot an arrow
 							shootArrow((MovementDirection) msg.getData());
 							break;
+							
+						// TODO Deal with the closing of the GUI and saving of high scores
 							
 						default: // In case we get a bad update
 							// CHANGE change to be more durable
@@ -327,6 +334,9 @@ public class Control extends SwingWorker<Void, Update>
 		
 		// Create a new player with 100 coins, 3 arrows, 0 turns, and 0 score
 		playerObject = new Player(100, 3, 0, 0);
+		// Notify the GUI the number of coins and arrows has changed
+		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
+		publish(new Update(UpdateType.GET_ARROWS, false, playerObject.getArrows()));
 		
 		// Create a new cave with different doors
 		try
@@ -364,6 +374,10 @@ public class Control extends SwingWorker<Void, Update>
 	public void movePlayer(MovementDirection dir)
 	{
 		// TODO check if there is a door to the room the player wants to move to
+		
+		// Increment the number of turns the player has taken
+		playerObject.countTurns();
+		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
 		
 		int playerRoom = mapObject.movePlayer(dir); // Move the player to the new location
 		System.out.println("Room: " + playerRoom);
@@ -459,6 +473,19 @@ public class Control extends SwingWorker<Void, Update>
 		checkForHazards();
 		checkForWarnings();
 	}
+
+	/* Handles the answer a player gives for a Trivia question
+	 * 
+	 * Thread: Worker
+	 */
+	private void answerTrivia(String answer)
+	{
+		Trivia.answer(answer);
+		
+		// TODO check if enough trivia questions have been asked for the type of trivia event
+		// If so, do the reward of the event
+		// Otherwise, ask another trivia question
+	}
 	
 	/* Purchases a secret for the player, and tells the GUI what it is
 	 * 
@@ -491,7 +518,8 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	private void shootArrow(MovementDirection dir)
 	{	
-		playerObject.shootArrows();
+		// Make the player lose an arrow, and update the GUI
+		publish(new Update(UpdateType.SHOOT_ARROW, false, playerObject.shootArrows()));
 		
 		if(Map.getNearbyRoom(mapObject.getPlayerRoom(), dir) == mapObject.getWumpusRoom())
 			killedWumpus();
@@ -518,9 +546,14 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void endGame(boolean wumpusKilled)
 	{
+		/* TODO Add tracking of player name in Player, and use update to transmit name */
+		HighScore.addScore("Stevo", playerObject.finalScore());
+		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
 			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore())); // Pass high scores?
 		else // The the wumpus wasn't killed the game is lost
 			publish(new Update(UpdateType.DISPLAY_LOSE, false, playerObject.finalScore())); // Pass high scores?
+		
+		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}
 }

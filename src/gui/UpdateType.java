@@ -39,7 +39,7 @@ public enum UpdateType
 	 * Purpose: Notify the GUI to display high scores
 	 * Objects: Array of high scores
 	 */
-	GET_HIGH_SCORE(Void.class, ArrayList.class),
+	GET_HIGH_SCORE(Void.class, new ArrayList<String>().getClass()),
 	
 	/* To Control:
 	 * -------------
@@ -53,6 +53,18 @@ public enum UpdateType
 	 * Objects: String trivia question
 	 */
 	GET_TRIVIA(String.class, String.class),
+	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify to give Control the user answer and check if correct
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Giving the GUI a boolean for is correct
+	 * Objects: Boolean if is correct
+	 */
+	GIVE_ANSWER(String.class, boolean.class),
 	
 	// Updates that are likely for GUI only
 
@@ -105,7 +117,7 @@ public enum UpdateType
 	 * Purpose: Notify the GUI to tell user they've encountered a bat
 	 * Objects: String trivia question
 	 */
-	ENCOUNTER_BAT(Void.class, String.class),
+	ENCOUNTER_BAT(Void.class, Void.class),
 	
 	/* To Control:
 	 * -------------
@@ -190,9 +202,9 @@ public enum UpdateType
 	 * To GUI:
 	 * ------------
 	 * Purpose: Notify the GUI the user has shot an arrow
-	 * Objects:
+	 * Objects: integer number of arrows left
 	 */
-	SHOOT_ARROW(MovementDirection.class, Void.class), // The user requested an arrow is shot, the data should be the MovementDirection enum
+	SHOOT_ARROW(MovementDirection.class, Integer.class), // The user requested an arrow is shot, the data should be the MovementDirection enum
 	
 	/* To GUI: Notify the GUI the arrow did not hit anything
 	 * Objects: int number of arrows left

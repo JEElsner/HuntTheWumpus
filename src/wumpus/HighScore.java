@@ -59,6 +59,7 @@ public class HighScore
 		int NameCount = 0;
 		try
 		{
+			// TODO spcecify the location of the high scores file elsewhere
 			File scoresFile = new File("src/wumpus/test.text");
 
 			if (!scoresFile.exists())

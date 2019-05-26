@@ -99,7 +99,8 @@ public class HighScore
 
 		catch (IOException e)
 		{
-			System.out.println("A write error has occured");
+			System.err.println("Failed to read from high score file: ");
+			e.printStackTrace();
 		}
 	}
 
@@ -165,7 +166,8 @@ public class HighScore
 		// they just got is greater than the other highscores
 		catch (IOException e)
 		{
-			System.out.println("A write error has occured");
+			System.err.println("Failed to write to high score file:");
+			e.printStackTrace();
 		}
 	}
 

@@ -15,6 +15,10 @@ public class HighScore
 	private static ArrayList<String> List = new ArrayList<String>();
 	private static ArrayList<Integer> scores = new ArrayList<Integer>();
 	private static ArrayList<String> names = new ArrayList<String>();
+	
+	public static final String HIGH_SCORE_PATH = System.getProperty("user.dir") + File.separator + "scores.txt";
+	
+	// TODO Comment HighScore
 
 	public static void debug()
 	{
@@ -33,7 +37,7 @@ public class HighScore
 //			System.out.println("Folder not found.");
 //		}
 		
-		File dir = new File("src/wumpus/test.text");
+		File dir = new File(HIGH_SCORE_PATH);
 		readFile(dir);
 		writeFile();
 		addScore("DAD", 420420);
@@ -50,11 +54,12 @@ public class HighScore
 		int NameCount = 0;
 		try
 		{
-			// TODO spcecify the location of the high scores file elsewhere
-			File scoresFile = new File("src/wumpus/test.text");
+			File scoresFile = new File(HIGH_SCORE_PATH);
+			System.out.println("Reading High Scores from:\n" + scoresFile.getAbsolutePath());
 
 			if (!scoresFile.exists())
 			{
+				System.out.println("High Scores file does not exist. Creating...");
 				scoresFile.createNewFile();
 				setDefault();
 				return;
@@ -97,6 +102,8 @@ public class HighScore
 
 	public static void setDefault()
 	{
+		System.out.println("Populating Default Scores...");
+		
 		for (int i = 0; i < 10; i++)
 		{
 			scores.add(000000);
@@ -134,12 +141,12 @@ public class HighScore
 
 	public static void writeFile()
 	{
-		File fileObj = new File("src/wumpus/test.text");
-		System.out.println(fileObj.getAbsolutePath());
+		File fileObj = new File(HIGH_SCORE_PATH);
+		System.out.println("Saving High Scores to:\n" + fileObj.getAbsolutePath());
 
 		try
 		{
-			FileWriter file = new FileWriter("src/wumpus/test.text");
+			FileWriter file = new FileWriter(fileObj);
 			BufferedWriter buffer = new BufferedWriter(file);
 
 			for (int i = 0; i < 10; i++)

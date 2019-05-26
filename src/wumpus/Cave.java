@@ -8,18 +8,23 @@ import java.util.Scanner;
 public class Cave
 {
 
-	private static int[][] cave = new int[30][6];
-	public static int version=0;
+	private static int[][] cave = new int[30][6]; // FIXME Multiple objects should not be referencing static cave
+	public static int version=0; // REVIEW Unused
 
 	// 2D array representing room connections
 	// 1-6 column indexes represent 6 designated directions
 	public Cave() throws FileNotFoundException
 	{
+		// REVIEW Eliminate one constructor by calling this(random cave)
+		
 		int i = 0, j = 0;
 		int version=(int)(Math.random()*5+1);
 		
 		InputStream caveFile = getClass().getResourceAsStream("/res/mapOne.txt");
 		
+		System.out.println("Using Cave: " + version);
+		
+		// REVIEW Consider programmatic choosing of cave
 		if(version==2)
 		caveFile = getClass().getResourceAsStream("/res/mapTwo.txt");
 		if(version==3)
@@ -48,6 +53,8 @@ public class Cave
 	//Constructor that lets us select a specific cave: 1 to 5
 	public Cave(int ver) throws FileNotFoundException
 	{
+		System.out.println("Using Cave: " + ver);
+		
 		int i = 0, j = 0;
 		
 		InputStream caveFile = getClass().getResourceAsStream("/res/mapOne.txt");

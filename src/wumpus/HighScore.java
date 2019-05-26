@@ -11,7 +11,6 @@ import java.io.BufferedWriter;
 
 public class HighScore
 {
-	private int score;
 	private static ArrayList<String> List = new ArrayList<String>();
 	private static ArrayList<Integer> scores = new ArrayList<Integer>();
 	private static ArrayList<String> names = new ArrayList<String>();

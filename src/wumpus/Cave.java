@@ -4,12 +4,11 @@ import java.io.FileNotFoundException;
 
 import java.io.InputStream;
 import java.util.Scanner;
-import java.io.*;
 
 public class Cave
 {
 
-	private static int[][] cave = new int[30][7];
+	private static int[][] cave = new int[30][6];
 	public static int version=0;
 
 	// 2D array representing room connections
@@ -75,6 +74,63 @@ public class Cave
 			}
 		}
 		reader.close();
+	}
+	
+	// Constructor that lets us specify our own custom cave
+	public Cave(int[][] customCave) throws FileNotFoundException
+	{
+		this(); // Call default constructor to have a cave to fall back on if the custom cave is bad
+		
+		/* Check to make sure the custom cave meets a variety of constraints. If it does, set it to be the cave, otherwise, don't do anything more
+		 * 
+		 * Constraints:
+		 * 		* the cave is not null
+		 * 		* the cave is the right length
+		 *		* each room in the cave exists
+		 *		* each room in the cave has the right number of doors
+		 *		* each door in each room of the cave is a valid door
+		 */
+		VALIDITY_CHECK:
+		{
+			if(customCave == null)
+			{
+				System.err.print("Custom cave is null!");
+				break VALIDITY_CHECK;
+			}
+			
+			if(customCave.length != cave.length) // Compared to the length of the existing cave in case the length of the cave changes from the current spec
+			{
+				System.err.println("Custom cave of improper size: " + customCave.length);
+				break VALIDITY_CHECK;
+			}
+			
+			// Iterate through each room in the cave
+			for(int room = 0; room < customCave.length; room ++)
+			{
+				if(customCave[room] == null)
+				{
+					System.err.println("Custom cave room does not exist: " + room);
+				}
+				
+				if(customCave[room].length != cave[room].length) // Compared to the length of the room in the existing cave in case the length changes from the current spec
+				{
+					System.err.println("Custom cave room of improper size: Room: " + room + " Length: " + customCave[room].length);
+					break VALIDITY_CHECK;
+				}
+				
+				for(int door : customCave[room])
+				{
+					if(door < 0 || door > 30)
+					{
+						System.err.println("Custom cave has invalid door value in room: " + room);
+						break VALIDITY_CHECK;
+					}
+				}
+			}
+			
+			// Set the custom cave to be the actual cave
+			cave = customCave;
+		}
 	}
 
 	// Prints a list of the built cave for debugging purposes

@@ -71,6 +71,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		add(plyrName);
 		plyrName.setColumns(10);
 		
+		// TODO Implement Choosing a cave
 		JButton btnNewgame = new JButton("NewGame");
 		btnNewgame.addActionListener(new ActionListener()
 		{

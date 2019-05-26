@@ -29,7 +29,7 @@ public class GUI
 	
 	private int score;
 	
-	// Brother, use arrays!
+	// REVIEW Brother, use arrays!
 	private static String hs1N;
 	private static String hs2N;
 	private static String hs3N;

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -55,7 +57,14 @@ public class MainWindow extends JFrame
 		
 		
 		setTitle("Hunt The Wumpus");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		addWindowListener(new WindowAdapter()
+				{
+					public void windowClosing(WindowEvent e)
+					{
+						guiObject.notifyControl(new Update(UpdateType.WINDOW_CLOSING, true));
+					}
+				});
 		setBounds(200, 200, 550, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

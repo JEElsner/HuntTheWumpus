@@ -257,7 +257,14 @@ public enum UpdateType
 	 * Purpose: Notify the GUI of arrows
 	 * Objects:
 	 */
-	GET_ARROWS(Void.class, Integer.class)
+	GET_ARROWS(Void.class, Integer.class),
+	
+	/* To Control: Notify that the GUI is closing and the program should exit
+	 * Object: N/A
+	 * 
+	 * To GUI: N/A
+	 */
+	WINDOW_CLOSING(Void.class, Void.class),
 	
 	; // <---- Hey there's a semi-colon here! Yay!
 	

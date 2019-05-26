@@ -258,7 +258,9 @@ public class Control extends SwingWorker<Void, Update>
 							shootArrow((MovementDirection) msg.getData());
 							break;
 							
-						// TODO Deal with the closing of the GUI and saving of high scores
+						case WINDOW_CLOSING:
+							exitGame();
+							break;
 							
 						default: // In case we get a bad update
 							// CHANGE change to be more durable
@@ -359,14 +361,6 @@ public class Control extends SwingWorker<Void, Update>
 		// Publish the first Updates to tell the GUI where the player is and where they can move
 		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
-	}
-	
-	// Let's user see high scores
-	// Thread: Worker
-	// Don't have a score object yet, so I define and use a generic for now :P
-	public <Score> Score[] getScores()
-	{
-		return null; // TODO Huh, this generic guy is still around. That's pretty bad, we should get to removing him soon.
 	}
 	
 	// Move the player
@@ -558,5 +552,14 @@ public class Control extends SwingWorker<Void, Update>
 			publish(new Update(UpdateType.DISPLAY_LOSE, false, playerObject.finalScore())); // Pass high scores?
 		
 		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
+	}
+	
+	public void exitGame()
+	{
+		System.out.println("Writing high scores to file...");
+		HighScore.writeFile();
+		
+		System.out.println("Game Exiting, Goodbye. o/");
+		System.exit(0);
 	}
 }

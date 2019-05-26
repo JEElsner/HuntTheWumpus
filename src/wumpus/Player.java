@@ -59,6 +59,7 @@ public class Player
 	public void countTurns()
 	{
 		turns++;
+		coins++;
 	}
 	
 	public int getTurns()

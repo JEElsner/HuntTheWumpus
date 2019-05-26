@@ -375,9 +375,10 @@ public class Control extends SwingWorker<Void, Update>
 	{
 		// TODO check if there is a door to the room the player wants to move to
 		
-		// Increment the number of turns the player has taken
+		// Increment the number of turns the player has taken (and give the player another coin)
 		playerObject.countTurns();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
+		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
 		
 		int playerRoom = mapObject.movePlayer(dir); // Move the player to the new location
 		System.out.println("Room: " + playerRoom);
@@ -518,6 +519,8 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	private void shootArrow(MovementDirection dir)
 	{	
+		// FIXME The player presses the 'shoot arrow' button, moves, then presses a direction to shoot
+		
 		// Make the player lose an arrow, and update the GUI
 		publish(new Update(UpdateType.SHOOT_ARROW, false, playerObject.shootArrows()));
 		

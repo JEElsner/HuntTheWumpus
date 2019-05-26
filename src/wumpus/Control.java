@@ -370,6 +370,8 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void movePlayer(MovementDirection dir)
 	{
+		System.out.println("\n New Turn:\n------------------\n");
+		
 		// TODO check if there is a door to the room the player wants to move to
 		
 		// Increment the number of turns the player has taken (and give the player another coin)
@@ -465,6 +467,7 @@ public class Control extends SwingWorker<Void, Update>
 		publish(new Update(UpdateType.ENCOUNTER_PIT, false)); // Pass trivia questions with update?
 		
 		// Move the player, then run checks for a new room
+		// FIXME The Room doesn't update
 		mapObject.fallIntoPit();
 		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));

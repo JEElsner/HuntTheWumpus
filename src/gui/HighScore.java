@@ -12,6 +12,10 @@ import java.awt.event.KeyEvent;
 
 public class HighScore extends JPanel implements UpdateScreen
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6010109221506526438L;
 	private JTextField textField;
 	Scanner scan = new Scanner(System.in);
 	private GUI gui;

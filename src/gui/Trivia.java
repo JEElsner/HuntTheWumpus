@@ -2,7 +2,6 @@ package gui;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -15,6 +14,10 @@ public class Trivia extends JPanel implements UpdateScreen
 {
 	// REVIEW, Consider adding known secrets to this screen
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4776622282136822337L;
 	private JTextField answers;
 	private GUI gui;
 	

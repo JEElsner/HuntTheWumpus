@@ -13,10 +13,14 @@ import java.awt.Canvas;
 import wumpus.MovementDirection;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
-import javax.swing.JList;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1508960354336972743L;
+
 	/**
 	 * Create the panel.
 	 */
@@ -302,6 +306,11 @@ public class GamePanel extends JPanel implements UpdateScreen
 	
 	private class MyCanvas extends Canvas
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2733423041629501989L;
+
 		@Override
 		public void paint(Graphics g)
 		{
@@ -404,7 +413,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		
 		playerName.setText(gui.getName());
-		System.out.println(update);
+		System.out.println(update); // REVIEW Can we remove this, it prints a lot, and I don't think it tells us much
 		
 		yourRoom.setText("Current Room: " + gui.getCurrentRoom());
 		turnsTaken.setText("Turns Taken: " + gui.getTurns());

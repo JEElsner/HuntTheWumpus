@@ -9,6 +9,10 @@ import java.awt.event.ActionEvent;
 public class Lose extends JPanel implements UpdateScreen
 {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7047099827406529827L;
+	/**
 	 * Create the panel.
 	 */
 	public Lose(GUI guiObject)

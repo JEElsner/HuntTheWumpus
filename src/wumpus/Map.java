@@ -1,8 +1,6 @@
 // Brandon Conner
 package wumpus;
 
-import static wumpus.MovementDirection.*;
-
 import java.util.ArrayList;
 
 public class Map
@@ -140,7 +138,7 @@ public class Map
 	
 	public static void debug()
 	{
-		Map m1 = new Map();
+		//Map m1 = new Map();
 	}
 	public int getWumpusRoom()
 	{

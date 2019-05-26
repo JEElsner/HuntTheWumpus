@@ -3,7 +3,6 @@ package gui;
 import java.awt.EventQueue;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.List;
 
 import wumpus.Control;
@@ -464,7 +463,7 @@ public class GUI
 			{
 			case NEW_DOORS:
 				doors = (MovementDirection[]) update.getData();
-				this.mainWindow.gameplayScreen.updatePanel("new game");
+				this.mainWindow.gameplayScreen.updatePanel("new doors");
 				break;
 				
 			case MOVE:

@@ -9,6 +9,11 @@ import java.awt.event.ActionEvent;
 public class Win extends JPanel implements UpdateScreen
 {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1866960958992003815L;
+
+	/**
 	 * Create the panel.
 	 */
 	public Win(GUI guiObject)

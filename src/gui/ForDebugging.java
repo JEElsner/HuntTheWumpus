@@ -10,6 +10,10 @@ import javax.swing.JButton;
 
 public class ForDebugging extends JPanel implements UpdateScreen
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4880958291711912648L;
 	private GUI gui;
 	
 	/**

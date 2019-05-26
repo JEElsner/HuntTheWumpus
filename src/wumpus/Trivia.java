@@ -1,6 +1,5 @@
 package wumpus;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
@@ -46,9 +45,6 @@ public class Trivia
 		for (int j = 1; j <= 100; j++)
 			System.out.println(answers[j]);
 		areader.close();
-
-		for (int j = 1; i <= 100; i++)
-			asked[i] = false; // at the start, no question was asked
 	}
 
 	// Method used to check if given answer is corrrect(guess)

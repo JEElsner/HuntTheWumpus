@@ -5,17 +5,15 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
 
 public class MainMenu extends JPanel implements UpdateScreen
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6627299953571002199L;
 	/**
 	 * Create the panel.
 	 */

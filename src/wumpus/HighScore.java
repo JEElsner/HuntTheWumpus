@@ -18,30 +18,21 @@ public class HighScore
 
 	public static void debug()
 	{
-
-	}
-
-	// public static void main(String args[])
-	// {
-	// File dir = new File("data");
-	// if(dir.exists())
-	// {
-	// String[] files = dir.list();
-	// System.out.println(files.length + "files found...");
-	// for(int i = 0; i < files.length; i++)
-	// {
-	// System.out.println(files[i]);
-	// }
-
-	// }
-	// else
-	// {
-	// System.out.println("Folder not found.");
-	// }
-	// }
-
-	public static void main(String[] args) throws IOException
-	{
+//		File dir = new File("data");
+//		if (dir.exists())
+//		{
+//			String[] files = dir.list();
+//			System.out.println(files.length + "files found...");
+//			for (int i = 0; i < files.length; i++)
+//			{
+//				System.out.println(files[i]);
+//			}
+//
+//		} else
+//		{
+//			System.out.println("Folder not found.");
+//		}
+		
 		File dir = new File("src/wumpus/test.text");
 		readFile(dir);
 		writeFile();
@@ -49,7 +40,7 @@ public class HighScore
 		addScore("MOM", 111110);
 		addScore("COW", 928340);
 		writeFile();
-		readFile(dir);		
+		readFile(dir);
 	}
 
 	public static void readFile(File fileObj)

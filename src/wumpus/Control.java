@@ -72,6 +72,9 @@ public class Control extends SwingWorker<Void, Update>
 					} else if (clazz.equalsIgnoreCase("Trivia"))
 					{
 						Trivia.debug();
+					} else if(clazz.equalsIgnoreCase("high score") || clazz.equalsIgnoreCase("highscore"))
+					{
+						HighScore.debug();
 					}
 				} catch (IndexOutOfBoundsException ex)
 				{

@@ -13,6 +13,8 @@ import javax.swing.SwingConstants;
 
 public class Trivia extends JPanel implements UpdateScreen
 {
+	// REVIEW, Consider adding known secrets to this screen
+	
 	private JTextField answers;
 	private GUI gui;
 	

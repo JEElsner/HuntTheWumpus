@@ -437,7 +437,8 @@ public class Control extends SwingWorker<Void, Update>
 		// Make the player answer trivia
 		// If trivia correct, move wumpus
 		// If trivia incorrect, end game
-		// Tell the map the wumpus is awake
+		// TODO Tell the map the wumpus is awake
+		// TODO Notify GUI the wumpus is awake
 	}
 	
 	// The player enters a room with bats
@@ -496,6 +497,8 @@ public class Control extends SwingWorker<Void, Update>
 		// Ask trivia?
 		// Get secret
 		publish(new Update(UpdateType.PURCHASE_SECRET, false, "Secret"));
+		
+		// REVIEW What happens when we say the wumpus is within two rooms of the player, then the player moves? (or the wumpus for that matter?)
 	}
 
 	/* Method that purchases another arrow for the player using coins

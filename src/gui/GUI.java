@@ -12,6 +12,7 @@ import wumpus.MovementDirection;
 
 public class GUI
 {
+	// REVIEW Consider Renaming some GUI classes so there isn't any confusion between the class in the wumpus package (e.g. HighScore)
 	
 	public static final String titleScreen = "Title Screen";
 	public static final String highScoreNameEnter = "Enter Your High Score";

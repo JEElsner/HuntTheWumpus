@@ -66,6 +66,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		enterName.setBounds(290, 75, 106, 16);
 		add(enterName);
 		
+		// REVIEW Add Key listeners to components where pressing enter should start a new game or do something else
 		plyrName = new JTextField();
 		plyrName.setBounds(420, 72, 116, 22);
 		add(plyrName);
@@ -86,6 +87,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		btnNewgame.setBounds(358, 104, 97, 25);
 		add(btnNewgame);
 		
+		// REVIEW Consider using a JLIST?
 		highScore1 = new JLabel("1. " + gui.getHs1());
 		highScore1.setBounds(88, 184, 56, 16);
 		add(highScore1);

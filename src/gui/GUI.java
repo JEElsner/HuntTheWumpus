@@ -515,7 +515,7 @@ public class GUI
 				setQuestion((String) update.getData());
 				//this.mainWindow.gameplayScreen.updatePanel("pits");
 				this.mainWindow.triviaScreen.updatePanel("pits");
-				this.mainWindow.changeView(trivia);
+				this.mainWindow.changeView(trivia); // FIXME The screen doesn't change to trivia
 				break;
 				
 			case ENCOUNTER_WUMPUS:

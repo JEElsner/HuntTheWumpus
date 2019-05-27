@@ -104,12 +104,10 @@ public class Control extends SwingWorker<Void, Update>
 			
 			Control controlObj = (Control) control.get(null);
 			
-			for(int i = 0; i < 1000; i++)
-				controlObj.playerObject.buyArrows(true);
+			Field pitF = Map.class.getDeclaredField("WumpusRoom");
+			pitF.setAccessible(true);
 			
-			controlObj.publish(new Update(UpdateType.GET_ARROWS, false, controlObj.playerObject.getArrows()));
-			
-			System.out.println(controlObj.playerObject.getArrows());
+			pitF.setInt(controlObj.mapObject, 2);
 		} catch (NoSuchFieldException e)
 		{
 			e.printStackTrace();
@@ -447,9 +445,7 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void foundBats()
 	{
-		publish(new Update(UpdateType.ENCOUNTER_BAT, false)); // Pass trivia questions with update?
-		
-		// Make the player answer trivia?
+		publish(new Update(UpdateType.ENCOUNTER_BAT, false));
 		
 		// Move the player & bats, then run checks for a new room
 		int playerRoom = mapObject.flyAway();
@@ -464,10 +460,10 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void foundPit()
 	{
-		publish(new Update(UpdateType.ENCOUNTER_PIT, false)); // Pass trivia questions with update?
+		publish(new Update(UpdateType.ENCOUNTER_PIT, false)); // TODO Pass trivia questions with update
 		
 		// Move the player, then run checks for a new room
-		// FIXME The Room doesn't update
+		// FIXME The Room doesn't update on screen
 		mapObject.fallIntoPit();
 		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));

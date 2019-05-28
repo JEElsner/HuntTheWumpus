@@ -215,7 +215,7 @@ public class Map
 		return false;
 	}
 
-	public int moveWumpus()
+	public int wumpusRunsAway()
 	{
 		if (isAwake)
 		{
@@ -228,13 +228,22 @@ public class Map
 			else
 			{
 				int randomRoom = (int) (Math.random() * 6);
-
 				WumpusRoom = getNearbyRoom(WumpusRoom, MovementDirection.values()[randomRoom]);
-
 			}
 
 		}
 		return WumpusRoom;
+	}
+	
+	public void fightWumpus()
+	{
+		int rooms = (int)(Math.random() * 2 + 2);
+		int randomRoom = (int) (Math.random() * 6);	
+		
+		for(int i = 0; i < rooms; i++)
+		{
+			WumpusRoom = getNearbyRoom(WumpusRoom, MovementDirection.values()[randomRoom]);
+		}		
 	}
 
 	public int flyAway()

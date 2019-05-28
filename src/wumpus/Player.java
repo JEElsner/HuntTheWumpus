@@ -10,7 +10,7 @@ public class Player
 	private int turns;
 	private int score;
 	private boolean trivia;
-	
+	private boolean[] isVisited = new boolean[30];
 	public static void debug()
 	{
 		
@@ -23,6 +23,7 @@ public class Player
 		arrows = a;
 		turns = t;
 		score = s;
+		
 	}
 	
 	public int getArrows()
@@ -56,9 +57,21 @@ public class Player
 		return coins;
 	}
 	
-	public void countTurns()
+	public void countTurns(int roomNumber)
 	{
+		roomNumber--;
 		turns++;
+		isVisited[roomNumber] = true;
+	}
+	
+	public boolean HasVisited(int roomNumber)
+	{
+		roomNumber--;
+		return isVisited[roomNumber];
+	}
+	
+	public void addCoins()
+	{
 		coins++;
 	}
 	

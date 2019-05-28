@@ -7,6 +7,7 @@ public class Player
 	
 	private int arrows;
 	private int coins;
+	private int maxCoins;
 	private int turns;
 	private int score;
 	private boolean trivia;
@@ -17,13 +18,23 @@ public class Player
 	}
 	
 	//constructor
-	public Player(int c, int a, int t, int s)
+	public Player(int t, int s)
 	{
-		coins = c;
-		arrows = a;
+		coins = 10;
+		arrows = 3;
+		maxCoins = 100;
 		turns = t;
 		score = s;
 		
+	}
+	
+	public boolean coinsLimit()
+	{
+		if(maxCoins <= 0)
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	public int getArrows()
@@ -44,7 +55,7 @@ public class Player
 				coins--;
 				if(trivia)
 				{
-					arrows++; 
+					arrows = arrows + 2; 
 				}
 			return arrows;
 		}
@@ -79,7 +90,11 @@ public class Player
 	
 	public void addCoins()
 	{
-		coins++;
+		if(coinsLimit())
+			{
+				coins++;
+				maxCoins--;
+			}
 	}
 	
 	public int getTurns()

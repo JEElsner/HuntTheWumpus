@@ -47,6 +47,8 @@ public class GUI
 	private String question;
 	private boolean isCorrect;
 	
+	private ArrayList<String> secrets = new ArrayList<String>();
+	
 	private int caveSelected;
 	
 	private MovementDirection[] doors = new MovementDirection[3];
@@ -61,6 +63,16 @@ public class GUI
 	public void setScore(int score)
 	{
 		this.score = score;
+	}
+
+	public ArrayList<String> getSecrets()
+	{
+		return secrets;
+	}
+
+	public void setSecrets(ArrayList<String> secrets)
+	{
+		this.secrets = secrets;
 	}
 
 	public MovementDirection[] getDoors()
@@ -449,6 +461,9 @@ public class GUI
 			case GET_PLAYER_SCORE:
 				setCurrentScore((int) update.getData());
 				break;
+				
+			case PURCHASE_SECRET:
+				
 				
 			case PIT_WARNING:
 				setPits((int) update.getData());

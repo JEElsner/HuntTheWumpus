@@ -174,7 +174,6 @@ public class MainMenu extends JPanel implements UpdateScreen
 	{
 		if(gui == null)
 			return;
-		System.out.println(gui.getHighScores());
 		
 		m1 = new DefaultListModel<String>();
 		for(String s : gui.getHighScores())
@@ -183,7 +182,6 @@ public class MainMenu extends JPanel implements UpdateScreen
 		}
 		
 		list.setModel(m1);
-		System.out.println(m1);
 		
 	}
 }

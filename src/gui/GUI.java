@@ -173,7 +173,7 @@ public class GUI
 
 	public void setName(String n)
 	{
-		name = n;
+		name = n.toUpperCase();
 	}
 	
 	public String getName()

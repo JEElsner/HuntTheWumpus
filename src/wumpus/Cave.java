@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Cave
 {
 
-	private static int[][] cave = new int[30][6]; // FIXME Multiple objects should not be referencing static cave
-	public static int version=0; // REVIEW Unused
+	private int[][] cave = new int[30][7];
+	public int version=0;
 
 	// 2D array representing room connections
 	// 1-6 column indexes represent 6 designated directions
@@ -18,7 +18,7 @@ public class Cave
 		// REVIEW Eliminate one constructor by calling this(random cave)
 		
 		int i = 0, j = 0;
-		int version=(int)(Math.random()*5+1);
+		version=(int)(Math.random()*5+1);
 		
 		InputStream caveFile = getClass().getResourceAsStream("/res/mapOne.txt");
 		

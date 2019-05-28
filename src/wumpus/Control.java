@@ -372,13 +372,14 @@ public class Control extends SwingWorker<Void, Update>
 		
 		// TODO check if there is a door to the room the player wants to move to
 		
-		// Increment the number of turns the player has taken (and give the player another coin)
-		playerObject.countTurns();
-		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
-		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
-		
 		int playerRoom = mapObject.movePlayer(dir); // Move the player to the new location
 		System.out.println("Room: " + playerRoom);
+		
+		// Increment the number of turns the player has taken (and give the player another coin)
+		playerObject.countTurns(playerRoom);
+		playerObject.addCoins();
+		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
+		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
 		
 		publish(new Update(UpdateType.MOVE, false, playerRoom));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
@@ -490,7 +491,11 @@ public class Control extends SwingWorker<Void, Update>
 	 * Thread: Worker
 	 */
 	private void purchaseSecret()
-	{
+	{	
+		// Add a player turn
+		playerObject.incrementTurns();
+		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
+		
 		// TODO Implement Purchase Secret
 		// Use coin
 		// Ask trivia?
@@ -506,7 +511,11 @@ public class Control extends SwingWorker<Void, Update>
 	 * Thread: Worker
 	 */
 	private void purchaseArrow()
-	{
+	{	
+		// Add a player turn
+		playerObject.incrementTurns();
+		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
+		
 		// TODO Implement Purchase Arrow
 		// Use coin
 		// Ask trivia?
@@ -518,6 +527,10 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	private void shootArrow(MovementDirection dir)
 	{	
+		// Add a player turn
+		playerObject.incrementTurns();
+		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
+		
 		// FIXME The player presses the 'shoot arrow' button, moves, then presses a direction to shoot
 		
 		// Make the player lose an arrow, and update the GUI

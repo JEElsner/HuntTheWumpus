@@ -10,6 +10,7 @@ public class Player
 	private int maxCoins;
 	private int turns;
 	private int score;
+	private String name;
 	private boolean trivia;
 	private boolean[] isVisited = new boolean[30];
 	public static void debug()
@@ -18,13 +19,14 @@ public class Player
 	}
 	
 	//constructor
-	public Player(int t, int s)
+	public Player(int t, int s, String n)
 	{
 		coins = 10;
 		arrows = 3;
 		maxCoins = 100;
 		turns = t;
 		score = s;
+		name = n;
 		
 	}
 	

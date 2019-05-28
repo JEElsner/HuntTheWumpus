@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Graphics;
 
@@ -40,8 +41,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JButton buyArrow;
 	private JButton buySecret;
 	
-	private JButton[] shooting = new JButton[3];
-	private MovementDirection[] shootingDirection = new MovementDirection[3];
+	private ArrayList<JButton> shooting = new ArrayList<JButton>();
+	private ArrayList<MovementDirection> shootingDirection = new ArrayList<MovementDirection>();
 	private JLabel chooseDirection;
 	private JButton optOne;
 	private JButton optTwo;
@@ -124,46 +125,41 @@ public class GamePanel extends JPanel implements UpdateScreen
 		optOne = new JButton("");
 		optOne.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection[0]));
+				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection.get(0)));
 				shoot();
 				updatePanel("Shooting");
 			}
 		});
 		optOne.setBounds(651, 176, 111, 25);
+		optOne.setVisible(false);
 		add(optOne);
 		
 		optTwo = new JButton("");
 		optTwo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection[1]));
+				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection.get(1)));
 				shoot();
 				updatePanel("Shooting");
 			}
 		});
 		optTwo.setBounds(651, 204, 111, 25);
+		optTwo.setVisible(false);
 		add(optTwo);
 		
 		optThree = new JButton("");
 		optThree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection[2]));
+				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection.get(2)));
 				shoot();
 				updatePanel("Shooting");
 			}
 		});
 		optThree.setBounds(651, 232, 111, 25);
+		optThree.setVisible(false);
 		add(optThree);
-		
-		shooting[0] = optOne;
-		shooting[1] = optTwo;
-		shooting[2] = optThree;
-		
+
 		chooseDirection.setVisible(false);
 		
-		for(JButton b : shooting)
-		{
-			b.setVisible(false);
-		}
 		
 		yourRoom = new JLabel("Current Room: ");
 		yourRoom.setBounds(299, 232, 133, 16);
@@ -339,6 +335,18 @@ public class GamePanel extends JPanel implements UpdateScreen
 			b.setVisible(false);
 		}
 		
+		while(shooting.size() > 0)
+		{
+			int i = 0;
+			shooting.remove(i);
+		}
+		
+		while(shootingDirection.size() > 0)
+		{
+			int i = 0;
+			shootingDirection.remove(i);
+		}
+		
 		//TODO Add handler if it hits
 	}
 	
@@ -355,46 +363,54 @@ public class GamePanel extends JPanel implements UpdateScreen
 	// FIXME This is utterly borked when there are fewer than three doors from a room
 	public void updateShooting()
 	{
-		for(int i = 0; i < shooting.length; i++)
+		MovementDirection[] md = gui.getDoors();
+		for(MovementDirection mds : md)
 		{
-			MovementDirection[] md = gui.getDoors();
-				if(md[i] == null)
-					continue;
+			shootingDirection.add(mds);
+		}
+		
+		for(int i = 0; i < md.length; i++)
+		{
+			if(i == 0)
+				shooting.add(optOne);
+			if(i == 1)
+				shooting.add(optTwo);
+			if(i == 2)
+				shooting.add(optThree);
+		}
+		
+		
+		for(int i = 0; i < shootingDirection.size(); i++)
+		{
 				
 				if(md[i].equals(MovementDirection.UP))
 				{
-					shooting[i].setText("Up");
-					shootingDirection[i] = MovementDirection.UP;
+					shooting.get(i).setText("Up");
 				}
 				
 				if(md[i].equals(MovementDirection.UP_RIGHT))
 				{
-					shooting[i].setText("Up Right");
-					shootingDirection[i] = MovementDirection.UP_RIGHT;
+					shooting.get(i).setText("Up Right");
 				}
 				
 				if(md[i].equals(MovementDirection.UP_LEFT))
 				{
-					shooting[i].setText("Up Left");
-					shootingDirection[i] = MovementDirection.UP_LEFT;
+					shooting.get(i).setText("Up Left");
 				}
 				
 				if(md[i].equals(MovementDirection.DOWN))
 				{
-					shooting[i].setText("Down");
-					shootingDirection[i] = MovementDirection.DOWN;
+					shooting.get(i).setText("Down");
 				}
 				
 				if(md[i].equals(MovementDirection.DOWN_RIGHT))
 				{
-					shooting[i].setText("Down Right");
-					shootingDirection[i] = MovementDirection.DOWN_RIGHT;
+					shooting.get(i).setText("Down Right");
 				}
 				
 				if(md[i].equals(MovementDirection.DOWN_LEFT))
 				{
-					shooting[i].setText("Down Left");
-					shootingDirection[i] = MovementDirection.DOWN_LEFT;
+					shooting.get(i).setText("Down Left");
 				}
 					
 		}
@@ -413,7 +429,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		
 		playerName.setText(gui.getName());
-		System.out.println(update); // REVIEW Can we remove this, it prints a lot, and I don't think it tells us much
 		
 		yourRoom.setText("Current Room: " + gui.getCurrentRoom());
 		turnsTaken.setText("Turns Taken: " + gui.getTurns());

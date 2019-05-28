@@ -83,7 +83,7 @@ public class ForDebugging extends JPanel implements UpdateScreen
 	
 	public void updatePanel(String update)
 	{
-		
+		System.out.println(gui.getHighScores());
 	}
 
 }

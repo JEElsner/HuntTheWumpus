@@ -4,6 +4,10 @@ DAD
 420420
 MOM
 111110
+Stevo
+210
+Stevo
+140
 AAA
 0
 BBB
@@ -13,8 +17,4 @@ CCC
 DDD
 0
 EEE
-0
-FFF
-0
-GGG
 0

@@ -2,10 +2,14 @@ package gui;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.JList;
 
 public class MainMenu extends JPanel implements UpdateScreen
 {
@@ -20,11 +24,9 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private GUI gui;
 	private String updateRequired = "yes";
 	private JTextField plyrName;
-	private JLabel highScore1;
-	private JLabel highScore2;
-	private JLabel highScore3;
-	private JLabel highScore4;
-	private JLabel highScore5;
+	private JList<String> list;
+	DefaultListModel<String> m1;
+	private JLabel nameError;
 	
 	public MainMenu(GUI guiObject)
 	{
@@ -41,8 +43,8 @@ public class MainMenu extends JPanel implements UpdateScreen
 		btnForDebuggin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
+				gui.mainWindow.debug.updatePanel("ye");
 				gui.mainWindow.changeView(GUI.debugging);
-				gui.setHs1(plyrName.getText());
 			}
 		});
 		btnForDebuggin.setBounds(656, 460, 124, 25);
@@ -60,8 +62,8 @@ public class MainMenu extends JPanel implements UpdateScreen
 		btnUpdate.setBounds(12, 460, 97, 25);
 		add(btnUpdate);
 		
-		JLabel enterName = new JLabel("Enter Your Name:");
-		enterName.setBounds(290, 75, 106, 16);
+		JLabel enterName = new JLabel("Enter Your 3 Character Name:");
+		enterName.setBounds(232, 75, 176, 16);
 		add(enterName);
 		
 		// REVIEW Add Key listeners to components where pressing enter should start a new game or do something else
@@ -70,6 +72,11 @@ public class MainMenu extends JPanel implements UpdateScreen
 		add(plyrName);
 		plyrName.setColumns(10);
 		
+		nameError = new JLabel("Error! Name entered is invalid, please try again with a name that is 3 characters long");
+		nameError.setBounds(157, 45, 503, 16);
+		nameError.setVisible(false);
+		add(nameError);
+		
 		// TODO Implement Choosing a cave
 		JButton btnNewgame = new JButton("NewGame");
 		btnNewgame.addActionListener(new ActionListener()
@@ -77,35 +84,30 @@ public class MainMenu extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent event)
 			{
 				gui.setName(plyrName.getText());
-				gui.mainWindow.changeView(GUI.gameplay);
-				gui.mainWindow.gameplayScreen.updatePanel("name");
-				gui.notifyControl(new Update(UpdateType.NEW_GAME, true));
+				if(gui.getName().length() != 3)
+				{
+					nameError.setVisible(true);
+				}
+				
+				else {
+					nameError.setVisible(false);
+					gui.mainWindow.changeView(GUI.gameplay);
+					gui.mainWindow.gameplayScreen.updatePanel("name");
+					gui.notifyControl(new Update(UpdateType.NEW_GAME, true));
+				}
 			}
 		});
 		btnNewgame.setBounds(358, 104, 97, 25);
 		add(btnNewgame);
 		
-		// REVIEW Consider using a JLIST?
-		highScore1 = new JLabel("1. " + gui.getHs1());
-		highScore1.setBounds(88, 184, 56, 16);
-		add(highScore1);
+		
+		list = new JList<String>();
+		list.setVisibleRowCount(10);
+		list.setBounds(224, 274, -141, -88);
+		add(list);
 		
 		
-		highScore2 = new JLabel("2. " + gui.getHs2());
-		highScore2.setBounds(88, 202, 56, 16);
-		add(highScore2);
 		
-		highScore3 = new JLabel("3. " + gui.getHs3());
-		highScore3.setBounds(88, 224, 56, 16);
-		add(highScore3);
-		
-		highScore4 = new JLabel("4. " + gui.getHs4());
-		highScore4.setBounds(88, 242, 56, 16);
-		add(highScore4);
-		
-		highScore5 = new JLabel("5. " + gui.getHs5());
-		highScore5.setBounds(88, 266, 56, 16);
-		add(highScore5);
 	}
 	
 	//What you could do, IDK if this is a good idea
@@ -120,10 +122,16 @@ public class MainMenu extends JPanel implements UpdateScreen
 	{
 		if(gui == null)
 			return;
-		highScore1.setText("1. " + gui.getHs1());
-		highScore2.setText("2. " + gui.getHs2());
-		highScore3.setText("3. " + gui.getHs3());
-		highScore4.setText("4. " + gui.getHs4());
-		highScore5.setText("5. " + gui.getHs5());
+		System.out.println(gui.getHighScores());
+		
+		m1 = new DefaultListModel<String>();
+		for(String s : gui.getHighScores())
+		{
+			m1.addElement(s);
+		}
+		
+		list.setModel(m1);
+		System.out.println(m1);
+		
 	}
 }

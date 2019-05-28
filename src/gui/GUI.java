@@ -3,7 +3,10 @@ package gui;
 import java.awt.EventQueue;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.ListModel;
 
 import wumpus.Control;
 import wumpus.Map;
@@ -22,6 +25,7 @@ public class GUI
 	public static final String PlayAgain = "Play Again";
 	public static final String easterEgg = "Easter Egg?";
 	public static final String debugging = "Debug";
+	public static final String title = "Actual Title Screen";
 	
 	private int pits = 0;
 	private int bats = 0;
@@ -29,12 +33,7 @@ public class GUI
 	
 	private int score;
 	
-	// REVIEW Brother, use arrays!
-	private static String hs1N;
-	private static String hs2N;
-	private static String hs3N;
-	private static String hs4N;
-	private static String hs5N;
+	private ArrayList<String> highScores;
 	
 	//----Variables for Gameplay----//
 	private int arrows;
@@ -172,56 +171,6 @@ public class GUI
 		this.turns = turns;
 	}
 
-	public String getHs1()
-	{
-		return hs1N;
-	}
-
-	public void setHs1(String hs1)
-	{
-		GUI.hs1N = hs1;
-	}
-
-	public String getHs2()
-	{
-		return hs2N;
-	}
-
-	public void setHs2(String hs2)
-	{
-		GUI.hs2N = hs2;
-	}
-
-	public String getHs3()
-	{
-		return hs3N;
-	}
-
-	public void setHs3(String hs3)
-	{
-		GUI.hs3N = hs3;
-	}
-
-	public String getHs4()
-	{
-		return hs4N;
-	}
-
-	public void setHs4(String hs4)
-	{
-		GUI.hs4N = hs4;
-	}
-
-	public String getHs5()
-	{
-		return hs5N;
-	}
-
-	public void setHs5(String hs5)
-	{
-		GUI.hs5N = hs5;
-	}
-
 	public void setName(String n)
 	{
 		name = n;
@@ -230,6 +179,16 @@ public class GUI
 	public String getName()
 	{
 		return name;
+	}
+
+	public ArrayList<String> getHighScores()
+	{
+		return highScores;
+	}
+
+	public void setHighScores(ArrayList<String> highScores)
+	{
+		this.highScores = highScores;
 	}
 
 	public String getAnswer()
@@ -311,20 +270,6 @@ public class GUI
 		}
 	}
 	
-	public void displayWin()
-	{
-		//Run this if you win
-	}
-	
-	public void displayLose()
-	{
-		//Run this if you lose
-	}
-	
-	public void displayRoom()
-	{
-		//Ideally I get a separate program with the room's GUI coded and then just run that GUI here
-	}
 	
 	public String displayBWarn()
 	{
@@ -384,7 +329,6 @@ public class GUI
 		//Trivia would run once for each trivia you may need
 		//Definite ifs should you finish only needing two trivia questions
 		//Then at the end should you not answer correct, back to room - may need 
-		displayRoom();
 	}
 	
 	public void encounterWumpus()
@@ -455,6 +399,7 @@ public class GUI
 	
 	// Process updates from the control worker thread
 	// Thread: EDT
+	@SuppressWarnings("unchecked")
 	public void processControlUpdates(List<Update> updates)
 	{
 		for(Update update : updates)
@@ -473,6 +418,10 @@ public class GUI
 			case PURCHASE_ARROW:
 				setArrows((int) update.getData());
 				this.mainWindow.gameplayScreen.updatePanel("arrows");
+				break;
+				
+			case GET_HIGH_SCORE:
+				this.setHighScores((ArrayList<String>) update.getData());
 				break;
 			
 			case GET_COINS:

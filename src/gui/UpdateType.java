@@ -31,6 +31,18 @@ public enum UpdateType
 	
 	/* To Control:
 	 * -------------
+	 * Purpose: Notify Control of player name
+	 * Objects: none
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: 
+	 * Objects:
+	 */
+	PLAYER_NAME(String.class, Void.class),
+	
+	/* To Control:
+	 * -------------
 	 * Purpose: Notify to receive High Score
 	 * Objects:
 	 * 

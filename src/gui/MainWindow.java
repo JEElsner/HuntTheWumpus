@@ -20,7 +20,7 @@ public class MainWindow extends JFrame
 	public GUI guiObject;
 	// Different Cards to show
 	
-	protected TitleScreen titleScreen;
+	//protected TitleScreen titleScreen;
 	protected MainMenu menuScreen;
 	protected GamePanel gameplayScreen;
 	protected HighScore highScoreScreen;
@@ -43,7 +43,7 @@ public class MainWindow extends JFrame
 		this.guiObject = guiObject;
 		this.setResizable(false);
 		
-		titleScreen = new TitleScreen(guiObject);
+		//titleScreen = new TitleScreen(guiObject);
 		menuScreen = new MainMenu(guiObject);
 		gameplayScreen = new GamePanel(guiObject);
 		highScoreScreen = new HighScore(guiObject);
@@ -72,7 +72,7 @@ public class MainWindow extends JFrame
 		layout = new CardLayout(0,0);
 		contentPane.setLayout(layout);
 		
-		contentPane.add(titleScreen, GUI.title);
+		//contentPane.add(titleScreen, GUI.title);
 		contentPane.add(menuScreen, GUI.titleScreen);
 		contentPane.add(gameplayScreen, GUI.gameplay);
 		contentPane.add(highScoreScreen, GUI.highScoreNameEnter);

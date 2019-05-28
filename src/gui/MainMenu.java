@@ -1,15 +1,20 @@
 package gui;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JList;
+import javax.swing.border.BevelBorder;
 
 public class MainMenu extends JPanel implements UpdateScreen
 {
@@ -25,8 +30,12 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private String updateRequired = "yes";
 	private JTextField plyrName;
 	private JList<String> list;
+	private JList<String> caves;
+	private DefaultListModel<String> options = new DefaultListModel<String>();
+	
 	DefaultListModel<String> m1;
 	private JLabel nameError;
+	private JLabel errorCave;
 	
 	public MainMenu(GUI guiObject)
 	{
@@ -57,6 +66,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				updatePanel("yes");
 			}
 		});
 		btnUpdate.setBounds(12, 460, 97, 25);
@@ -89,10 +99,16 @@ public class MainMenu extends JPanel implements UpdateScreen
 					nameError.setVisible(true);
 				}
 				
+				else if(caves.isSelectionEmpty())
+				{
+					errorCave.setVisible(true);
+				}
+				
 				else {
 					nameError.setVisible(false);
 					gui.mainWindow.changeView(GUI.gameplay);
 					gui.mainWindow.gameplayScreen.updatePanel("name");
+					gui.notifyControl(new Update(UpdateType.PLAYER_NAME, true, gui.getName()));
 					gui.notifyControl(new Update(UpdateType.NEW_GAME, true));
 				}
 			}
@@ -100,16 +116,40 @@ public class MainMenu extends JPanel implements UpdateScreen
 		btnNewgame.setBounds(358, 104, 97, 25);
 		add(btnNewgame);
 		
-		
+				
 		list = new JList<String>();
 		list.setVisibleRowCount(10);
-		list.setBounds(224, 274, -141, -88);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setBounds(99, 183, 141, 183);
 		add(list);
 		
+		JLabel lblChooseYourCave = new JLabel("Choose your Cave");
+		lblChooseYourCave.setBounds(642, 141, 116, 16);
+		add(lblChooseYourCave);
+		
+		options.addElement("Cave One");
+		options.addElement("Cave Two");
+		options.addElement("Cave Three");
+		options.addElement("Cave Four");
+		options.addElement("Cave Five");
+		options.addElement("Random Cave");
+		
+		caves = new JList<String>();
+		caves.setModel(options);
+		caves.setVisibleRowCount(6);
+		caves.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		caves.setBounds(642, 170, 106, 111);
+		add(caves);
+		
+		errorCave = new JLabel("Error! Please select a Cave!");
+		errorCave.setBounds(306, 142, 176, 16);
+		add(errorCave);
+		errorCave.setVisible(false);
 		
 		
 	}
 	
+
 	//What you could do, IDK if this is a good idea
 	public void repaint()
 	{

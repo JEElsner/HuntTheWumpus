@@ -47,6 +47,8 @@ public class GUI
 	private String question;
 	private boolean isCorrect;
 	
+	private int caveSelected;
+	
 	private MovementDirection[] doors = new MovementDirection[3];
 	private int currentRoom;
 	
@@ -179,6 +181,16 @@ public class GUI
 	public String getName()
 	{
 		return name;
+	}
+
+	public int getCaveSelected()
+	{
+		return caveSelected;
+	}
+
+	public void setCaveSelected(int caveSelected)
+	{
+		this.caveSelected = caveSelected;
 	}
 
 	public ArrayList<String> getHighScores()

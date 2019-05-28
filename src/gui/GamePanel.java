@@ -59,6 +59,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JLabel secretsObtained;
 	private JLabel lblWarnings;
 	private JTextPane warnings;
+	private JLabel coinMax;
 		
 	public GamePanel(GUI guiObject)
 	{
@@ -290,6 +291,11 @@ public class GamePanel extends JPanel implements UpdateScreen
 		miss.setVisible(false);
 		add(miss);
 		
+		coinMax = new JLabel("Max coins reached!");
+		coinMax.setBounds(12, 159, 111, 16);
+		coinMax.setVisible(false);
+		add(coinMax);
+		
 
 				
 		updatePanel("Refresh");
@@ -434,6 +440,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 		turnsTaken.setText("Turns Taken: " + gui.getTurns());
 		coins.setText("Coins: " + gui.getCoins());
 		arrows.setText("Arrows: " + gui.getArrows());
+		
+		if(gui.getCoins() < 100)
+		{
+			coinMax.setVisible(false);
+		}
+		
+		if(gui.getCoins() == 100)
+		{
+			coinMax.setVisible(true);
+		}
 		
 		warnings.setText(gui.displayBWarn() +  gui.displayPWarn() + gui.displayWWarn());
 		

@@ -27,7 +27,7 @@ public enum UpdateType
 	 * Purpose: IDK yet
 	 * Objects:
 	 */
-	NEW_GAME(Void.class, Void.class),
+	NEW_GAME(Integer.class, Void.class),
 	
 	/* To Control:
 	 * -------------

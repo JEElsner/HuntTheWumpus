@@ -87,7 +87,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		nameError.setVisible(false);
 		add(nameError);
 		
-		// TODO Implement Choosing a cave
+		// TODO Implement Choosing a cave//COMPLETED
 		JButton btnNewgame = new JButton("NewGame");
 		btnNewgame.addActionListener(new ActionListener()
 		{
@@ -109,7 +109,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 					gui.mainWindow.changeView(GUI.gameplay);
 					gui.mainWindow.gameplayScreen.updatePanel("name");
 					gui.notifyControl(new Update(UpdateType.PLAYER_NAME, true, gui.getName()));
-					gui.notifyControl(new Update(UpdateType.NEW_GAME, true));
+					gui.notifyControl(new Update(UpdateType.NEW_GAME, true, checkCave()));
 				}
 			}
 		});
@@ -156,6 +156,18 @@ public class MainMenu extends JPanel implements UpdateScreen
 		updatePanel(updateRequired);
 		
 		super.repaint();
+	}
+	
+	public int checkCave()
+	{		
+		for(int i = 0; i < 6; i++)
+		{
+			if(caves.isSelectedIndex(i))
+			{
+				gui.setCaveSelected(i + 1);
+			}
+		}
+		return gui.getCaveSelected();
 	}
 	
 	public void updatePanel(String update)

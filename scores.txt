@@ -7,6 +7,8 @@ MOM
 Stevo
 210
 Stevo
+197
+Stevo
 140
 AAA
 0
@@ -15,6 +17,4 @@ BBB
 CCC
 0
 DDD
-0
-EEE
 0

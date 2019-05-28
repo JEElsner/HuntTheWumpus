@@ -214,6 +214,9 @@ public class Control extends SwingWorker<Void, Update>
 					
 					// --- Handle the Update --- //
 					
+					// Temporary variable to pass to newGame
+					String name = "";
+					
 					try
 					{	
 						// Handle the udpate based on its UpdateType
@@ -225,7 +228,11 @@ public class Control extends SwingWorker<Void, Update>
 							//break;
 							
 						case NEW_GAME: // A new game has started
-							newGame();
+							newGame((Integer) msg.getData(), name);
+							break;
+							
+						case PLAYER_NAME:
+							name = (String) msg.getData();
 							break;
 							
 						case GET_HIGH_SCORE:
@@ -331,12 +338,12 @@ public class Control extends SwingWorker<Void, Update>
 	
 	// Start a new game for the player to play
 	// Thread: Worker
-	public void newGame()
+	public void newGame(int caveVer, String playerName)
 	{
 		mapObject = new Map(); // Create a new map with new pit, bat, and wumpus locations
 		
 		// Create a new player with 100 coins, 3 arrows, 0 turns, and 0 score
-		playerObject = new Player(100, 3, 0, 0);
+		playerObject = new Player(0, 0, playerName);
 		// Notify the GUI the number of coins and arrows has changed
 		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
 		publish(new Update(UpdateType.GET_ARROWS, false, playerObject.getArrows()));
@@ -344,7 +351,10 @@ public class Control extends SwingWorker<Void, Update>
 		// Create a new cave with different doors
 		try
 		{
-			caveObject = new Cave();
+			if(caveVer == 6)
+				caveObject = new Cave(CaveGen.generateNewCave());
+			else
+				caveObject = new Cave(caveVer);
 		} catch (FileNotFoundException e)
 		{
 			System.err.println("Error creating new cave: ");
@@ -388,7 +398,7 @@ public class Control extends SwingWorker<Void, Update>
 		checkForHazards();
 		checkForWarnings();
 		
-		mapObject.moveWumpus();
+		mapObject.wumpusRunsAway();
 	}
 	
 	/* Check whether the player's current room has any hazards in it, and handle them
@@ -440,6 +450,8 @@ public class Control extends SwingWorker<Void, Update>
 		// If trivia incorrect, end game
 		// TODO Tell the map the wumpus is awake
 		// TODO Notify GUI the wumpus is awake
+		
+		mapObject.fightWumpus();
 	}
 	
 	// The player enters a room with bats

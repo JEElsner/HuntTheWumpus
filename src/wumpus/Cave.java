@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Cave
 {
 
-	private int[][] cave = new int[30][7];
+	private int[][] cave = new int[30][6];
 	public int version=0;
 
 	// 2D array representing room connections
@@ -137,6 +137,7 @@ public class Cave
 			
 			// Set the custom cave to be the actual cave
 			cave = customCave;
+			System.out.println("Using Cave: Randomly Generated");
 		}
 	}
 

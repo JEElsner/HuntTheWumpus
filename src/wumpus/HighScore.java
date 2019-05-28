@@ -72,12 +72,10 @@ public class HighScore
 				{
 					scores.add(ScoreCount, Integer.parseInt(line));
 					ScoreCount++;
-					System.out.println(line);
 				} else
 				{
 					names.add(NameCount, line);
 					NameCount++;
-					System.out.println(line);
 				}
 
 				isScore = !isScore;

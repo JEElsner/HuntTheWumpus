@@ -215,7 +215,7 @@ public class Control extends SwingWorker<Void, Update>
 					// --- Handle the Update --- //
 					
 					// Temporary variable to pass to newGame
-					String name = "";
+					String name = "NAME_UNSPECIFIED";
 					
 					try
 					{	
@@ -340,6 +340,9 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void newGame(int caveVer, String playerName)
 	{
+		if(playerName == null || playerName.equals("NAME_UNSPECIFIED"))
+			System.err.print(playerName);
+		
 		mapObject = new Map(); // Create a new map with new pit, bat, and wumpus locations
 		
 		// Create a new player with 100 coins, 3 arrows, 0 turns, and 0 score

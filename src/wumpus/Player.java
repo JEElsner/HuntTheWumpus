@@ -57,12 +57,19 @@ public class Player
 		return coins;
 	}
 	
+	public void incrementTurns() 
+	{
+		turns++;
+	}
+	
 	public void countTurns(int roomNumber)
 	{
 		roomNumber--;
 		turns++;
 		isVisited[roomNumber] = true;
 	}
+	
+	
 	
 	public boolean HasVisited(int roomNumber)
 	{

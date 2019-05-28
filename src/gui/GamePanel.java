@@ -99,6 +99,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buySecret = new JButton("Buy Secret");
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				gui.notifyControl(new Update(UpdateType.PURCHASE_SECRET, true));
 				gui.mainWindow.triviaScreen.updatePanel("q");
 				gui.mainWindow.triviaScreen.updatePanel("secret");
 				gui.mainWindow.changeView(GUI.trivia);

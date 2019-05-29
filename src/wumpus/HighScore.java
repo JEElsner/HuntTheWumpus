@@ -167,7 +167,8 @@ public class HighScore
 				buffer.newLine();
 				buffer.write("" + scores.get(i));
 				buffer.newLine();
-				buffer.write("Cave " + caves.get(i) );
+				buffer.write("" + caves.get(i));
+				buffer.newLine();
 				
 			}
 

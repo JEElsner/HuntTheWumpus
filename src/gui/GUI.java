@@ -45,7 +45,9 @@ public class GUI
 	private String name;
 	private String answer;
 	private String question;
-	private boolean isCorrect;
+	private boolean isSuccessful;
+	private boolean lastCorrect;
+	private int[] triviaStats = new int[4];
 	
 	private ArrayList<String> secrets = new ArrayList<String>();
 	
@@ -105,14 +107,38 @@ public class GUI
 		this.question = q;
 	}
 	
-	public boolean isCorrect()
+	public boolean isSuccessful()
 	{
-		return isCorrect;
+		return isSuccessful;
 	}
 
-	public void setCorrect(boolean isCorrect)
+	public void setSuccessful(boolean isCorrect)
 	{
-		this.isCorrect = isCorrect;
+		
+		this.isSuccessful = isCorrect;
+	}
+
+	public boolean isLastCorrect()
+	{
+		return lastCorrect;
+	}
+
+	public void setLastCorrect(boolean lastCorrect)
+	{
+		this.lastCorrect = lastCorrect;
+	}
+
+	public int[] getTriviaStats()
+	{
+		return triviaStats;
+	}
+
+	public void setTriviaStats(int[] stats)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			triviaStats[i] = stats[i];
+		}
 	}
 
 	public int getBats()
@@ -331,16 +357,6 @@ public class GUI
 		return "";
 	}
 	
-	public void checkEncounter()
-	{
-		//Get from Game Control the location and return whatever message based on location
-		//Bat - 'Bats Nearby'
-			//TwoBat - 'Several bats nearby'
-		//Pit - 'I feel a draft'
-			//TwoPit - 'It's really windy in here'
-		//Wumpus - 'I smell a Wumpus!'
-	}
-	
 	public void encounterBat()
 	{
 		//Move player to a different room - change display
@@ -382,20 +398,6 @@ public class GUI
 		//highScoreDisplay();
 	}
 	
-	public void displayInventory()
-	{
-		//Keep in corner of the screen - but continually display both the coins and arrows
-	}
-	
-	
-	public void move()
-	{
-		//Reads what room/direction you want to move
-		//U, UR, UL, DR, DL ***No Stay option
-		//Move accordingly
-		
-	}
-	
 	public void shootArrow()
 	{
 		//Whatever needs to be displayed for this action 
@@ -418,7 +420,7 @@ public class GUI
 	
 	public void runTrivia()
 	{
-		//Run the trivia for x amount of times - read from Control
+		this.mainWindow.changeView(trivia);
 	}
 	
 	// Process updates from the control worker thread
@@ -440,8 +442,13 @@ public class GUI
 				break;
 				
 			case PURCHASE_ARROW:
-				setArrows((int) update.getData());
-				this.mainWindow.gameplayScreen.updatePanel("arrows");
+				setQuestion((String) update.getData());
+				//this.mainWindow.gameplayScreen.updatePanel("arrows");
+				break;
+				
+			case PURCHASE_SECRET:
+				setQuestion((String) update.getData());
+				//this.mainWindow.gameplayScreen.updatePanel("secret");
 				break;
 				
 			case GET_HIGH_SCORE:
@@ -462,8 +469,9 @@ public class GUI
 				setCurrentScore((int) update.getData());
 				break;
 				
-			case PURCHASE_SECRET:
-				
+			case GET_SECRET:
+				secrets.add((String) update.getData());
+				break;
 				
 			case PIT_WARNING:
 				setPits((int) update.getData());
@@ -489,16 +497,16 @@ public class GUI
 				
 			case ENCOUNTER_PIT:
 				setQuestion((String) update.getData());
-				//this.mainWindow.gameplayScreen.updatePanel("pits");
 				this.mainWindow.triviaScreen.updatePanel("pits");
-				this.mainWindow.changeView(trivia); // FIXME The screen doesn't change to trivia
+				//mainWindow.changeView(trivia);
+				runTrivia(); // FIXME The screen doesn't change to trivia
 				break;
 				
 			case ENCOUNTER_WUMPUS:
 				setQuestion((String) update.getData());
 				this.mainWindow.gameplayScreen.updatePanel("wumpus");
 				this.mainWindow.triviaScreen.updatePanel("wumpus");
-				this.mainWindow.changeView(trivia);
+				runTrivia();
 				break;
 				
 			case GET_TRIVIA:
@@ -506,7 +514,15 @@ public class GUI
 				break;
 				
 			case GIVE_ANSWER:
-				setCorrect((boolean) update.getData());
+				setLastCorrect((boolean) update.getData());
+				break;
+				
+			case TRIVIA_STATS:
+				setTriviaStats((int[]) update.getData());
+				break;
+				
+			case TRIVIA_SUCCESS:
+				setSuccessful((boolean) update.getData());
 				break;
 				
 			case SHOOT_ARROW:

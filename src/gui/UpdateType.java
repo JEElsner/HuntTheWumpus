@@ -224,7 +224,7 @@ public enum UpdateType
 	 * To GUI:
 	 * ------------
 	 * Purpose: Notify the GUI the user has purchased a secret
-	 * Objects: String trivia question to begin asking questions to get an arrow
+	 * Objects: String trivia question to begin asking questions to get a secret
 	 */
 	PURCHASE_SECRET(Void.class, String.class), // The user requested a secret is purchased
 	

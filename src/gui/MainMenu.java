@@ -33,7 +33,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private JList<String> caves;
 	private DefaultListModel<String> options = new DefaultListModel<String>();
 	
-	DefaultListModel<String> m1;
+	private DefaultListModel<String> m1;
 	private JLabel nameError;
 	private JLabel errorCave;
 	
@@ -105,11 +105,12 @@ public class MainMenu extends JPanel implements UpdateScreen
 				}
 				
 				else {
-					nameError.setVisible(false);
-					gui.mainWindow.changeView(GUI.gameplay);
-					gui.mainWindow.gameplayScreen.updatePanel("name");
 					gui.notifyControl(new Update(UpdateType.PLAYER_NAME, true, gui.getName()));
 					gui.notifyControl(new Update(UpdateType.NEW_GAME, true, checkCave()));
+					nameError.setVisible(false);
+					errorCave.setVisible(false);
+					gui.mainWindow.gameplayScreen.updatePanel("name");
+					gui.mainWindow.changeView(GUI.gameplay);
 				}
 			}
 		});

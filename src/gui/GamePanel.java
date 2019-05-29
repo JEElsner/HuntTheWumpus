@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import java.awt.Canvas;
 import wumpus.MovementDirection;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.JList;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
@@ -40,6 +43,9 @@ public class GamePanel extends JPanel implements UpdateScreen
 	
 	private JButton buyArrow;
 	private JButton buySecret;
+	
+	private JList<String> mySecrets;
+	private DefaultListModel<String> secret = new DefaultListModel<String>();
 	
 	private ArrayList<JButton> shooting = new ArrayList<JButton>();
 	private ArrayList<MovementDirection> shootingDirection = new ArrayList<MovementDirection>();
@@ -86,8 +92,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buyArrow = new JButton("Buy Arrow");
 		buyArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				gui.mainWindow.triviaScreen.updatePanel("q");
+				gui.notifyControl(new Update(UpdateType.PURCHASE_ARROW, true));
 				gui.mainWindow.triviaScreen.updatePanel("arrows");
 				gui.mainWindow.changeView(GUI.trivia);
 				updatePanel(updateRequired);
@@ -100,7 +105,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_SECRET, true));
-				gui.mainWindow.triviaScreen.updatePanel("q");
 				gui.mainWindow.triviaScreen.updatePanel("secret");
 				gui.mainWindow.changeView(GUI.trivia);
 				updatePanel(updateRequired);
@@ -276,12 +280,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		lblWarnings.setBounds(677, 383, 68, 16);
 		add(lblWarnings);
 		
-		JTextArea secrets = new JTextArea();
-		secrets.setEditable(false);
-		secrets.setText("secret 1\nSecret 2\na\na\na\na\na\na\na\na\na\na\na\na");
-		secrets.setBounds(12, 205, 97, 162); // TODO we're gonna need a lot more room for secrets
-		add(secrets);
-		
 		warnings = new JTextPane();
 		warnings.setEditable(false);
 		warnings.setBounds(677, 399, 158, 57);
@@ -296,6 +294,12 @@ public class GamePanel extends JPanel implements UpdateScreen
 		coinMax.setBounds(12, 159, 111, 16);
 		coinMax.setVisible(false);
 		add(coinMax);
+		
+		mySecrets = new JList<String>();
+		mySecrets.setModel(secret);
+		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		mySecrets.setBounds(12, 217, 111, 167);
+		add(mySecrets);
 		
 
 				
@@ -436,6 +440,14 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		
 		playerName.setText(gui.getName());
+		
+		secret = new DefaultListModel<String>();
+		for(String s : gui.getSecrets())
+		{
+			secret.addElement(s);
+		}
+		
+		mySecrets.setModel(secret);
 		
 		yourRoom.setText("Current Room: " + gui.getCurrentRoom());
 		turnsTaken.setText("Turns Taken: " + gui.getTurns());

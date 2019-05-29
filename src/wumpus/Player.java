@@ -50,6 +50,11 @@ public class Player
 		return arrows;
 	}
 	
+	public String getName()
+	{
+		return name;
+	}
+	
 	public int buyArrows(boolean triviaCorrect)
 	{
 		if(coins > 1)

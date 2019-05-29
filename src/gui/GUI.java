@@ -523,6 +523,7 @@ public class GUI
 				
 			case TRIVIA_SUCCESS:
 				setSuccessful((boolean) update.getData());
+				this.mainWindow.changeView(gameplay);
 				break;
 				
 			case SHOOT_ARROW:

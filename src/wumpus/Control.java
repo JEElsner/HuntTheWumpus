@@ -96,6 +96,8 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Initial
 	public static void debug()
 	{
+		System.out.println("Debug");
+		
 		Field control;
 		try
 		{
@@ -103,11 +105,12 @@ public class Control extends SwingWorker<Void, Update>
 			control.setAccessible(true);
 			
 			Control controlObj = (Control) control.get(null);
+			controlObj.guiMessages.notifyAll();
 			
-			Field pitF = Map.class.getDeclaredField("WumpusRoom");
+			/*Field pitF = Map.class.getDeclaredField("PitRoom");
 			pitF.setAccessible(true);
 			
-			pitF.setInt(controlObj.mapObject, 2);
+			pitF.setInt(controlObj.mapObject, 2);*/
 		} catch (NoSuchFieldException e)
 		{
 			e.printStackTrace();
@@ -191,18 +194,7 @@ public class Control extends SwingWorker<Void, Update>
 			// IDK if all of this code, especially the Update handling, should
 			// occur within the synchronized block
 			synchronized(guiMessages)
-			{	
-				try
-				{
-					guiMessages.wait(); // Wait for a new update to be posted, then continue once notified
-				} catch (InterruptedException e)
-				{
-					// Handle interrupt, IDK why it would be interrupted
-					// Maybe the GUI closing and exiting the program?
-					System.err.println("Control worker interrupted while waiting:");
-					e.printStackTrace();
-				} // End try for wait
-				
+			{					
 				// Look at all the unprocessed messages in the queue from the GUI
 				while(guiMessages.size() > 0)
 				{
@@ -281,6 +273,17 @@ public class Control extends SwingWorker<Void, Update>
 					
 					guiMessages.remove(0); // Remove the update, since it has been processed
 				} // End while looping through guiMessages
+				
+				try
+				{
+					guiMessages.wait(); // Wait for a new update to be posted, then continue once notified
+				} catch (InterruptedException e)
+				{
+					// Handle interrupt, IDK why it would be interrupted
+					// Maybe the GUI closing and exiting the program?
+					System.err.println("Control worker interrupted while waiting:");
+					e.printStackTrace();
+				} // End try for wait
 			} // End synchronized
 		} // End while(true)
 	} // End doInBackground

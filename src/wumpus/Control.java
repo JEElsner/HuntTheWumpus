@@ -249,6 +249,7 @@ public class Control extends SwingWorker<Void, Update>
 							
 						case GIVE_ANSWER:
 							answerTrivia((String) msg.getData());
+							break;
 							
 						case MOVE: // The player has moved
 							movePlayer((MovementDirection) msg.getData());
@@ -341,7 +342,7 @@ public class Control extends SwingWorker<Void, Update>
 	public void newGame(int caveVer, String playerName)
 	{
 		if(playerName == null || playerName.equals("NAME_UNSPECIFIED"))
-			System.err.print(playerName);
+			System.err.println(playerName);
 		
 		mapObject = new Map(); // Create a new map with new pit, bat, and wumpus locations
 		
@@ -415,10 +416,10 @@ public class Control extends SwingWorker<Void, Update>
 		// See if the Wumpus is in the room
 		if(room == mapObject.getWumpusRoom())
 		{
-			foundWumpus();
+			beginTrivia(3, 5, UpdateType.ENCOUNTER_WUMPUS);
 		}else if(room == mapObject.getPitRoom() || room == mapObject.getPitRoom2())
 		{	// See if the room has a pit, and make the player fall in
-			foundPit();
+			beginTrivia(2, 3, UpdateType.ENCOUNTER_PIT);
 		}else if(room == mapObject.getBatRoom() || room == mapObject.getBatRoom2())
 		{	// See if the room has bats, and make the player get carried away by bats
 			foundBats();
@@ -442,21 +443,6 @@ public class Control extends SwingWorker<Void, Update>
 		publish(new Update(UpdateType.WUMPUS_WARNING, false, mapObject.CheckForWumpus() ? 1 : 0));
 	}
 	
-	// The player enters the same room as the Wumpus
-	// Thread: Worker
-	public void foundWumpus()
-	{
-		publish(new Update(UpdateType.ENCOUNTER_WUMPUS, false)); // Pass trivia questions with update?
-		
-		// Make the player answer trivia
-		// If trivia correct, move wumpus
-		// If trivia incorrect, end game
-		// TODO Tell the map the wumpus is awake
-		// TODO Notify GUI the wumpus is awake
-		
-		mapObject.fightWumpus();
-	}
-	
 	// The player enters a room with bats
 	// Thread: Worker
 	public void foundBats()
@@ -475,9 +461,7 @@ public class Control extends SwingWorker<Void, Update>
 	// The player enters a room with a bottomless pit
 	// Thread: Worker
 	public void foundPit()
-	{
-		publish(new Update(UpdateType.ENCOUNTER_PIT, false)); // TODO Pass trivia questions with update
-		
+	{	
 		// Move the player, then run checks for a new room
 		// FIXME The Room doesn't update on screen
 		mapObject.fallIntoPit();
@@ -487,18 +471,82 @@ public class Control extends SwingWorker<Void, Update>
 		checkForHazards();
 		checkForWarnings();
 	}
+	
+	/* Begin asking questions to the GUI
+	 * Thread: Worker
+	 */
+	private void beginTrivia(int quota, int max, UpdateType hazardType)
+	{
+		// Initialize a new trivia session, as it were
+		// This keeps track of the stats surrounding one trivia event
+		Trivia.askQuestions(max, quota, hazardType.toString());
+		
+		// Gets the stats for the trivia event from trivia, and prep them to be sent to the GUI
+		int[] triviaStats = new int[]
+				{
+					0, // Was the last question answered correct (Since no question was asked last, just stay 0)
+					Trivia.questionsCorrect(), // How many the player has answered correct
+					Trivia.questionsAsked(), // How many questions the player has been asked
+					Trivia.questionsLeft() // How many more attempts at answering trivia the player has before losing
+				};
+		publish(new Update(UpdateType.TRIVIA_STATS, false, triviaStats)); // Send stats to GUI
+		
+		// Use a coin to ask the question (& update GUI)
+		publish(new Update(UpdateType.GET_COINS, false, playerObject.spendCoin()));
+		
+		// Send the first question to the GUI, the rest will be handled after the previous one is answered
+		publish(new Update(hazardType, false, Trivia.getQuestion()));
+	}
 
 	/* Handles the answer a player gives for a Trivia question
+	 * 
+	 * This is necessary because the Control is seperate from the GUI, so a linear progression
+	 * of repeatedly asking a question, then recieving an answer (with a simple loop) doesn't work because
+	 * it occurs across threads.
 	 * 
 	 * Thread: Worker
 	 */
 	private void answerTrivia(String answer)
 	{
-		Trivia.answer(answer);
+		int[] triviaStats = new int[]
+			{
+				Trivia.answer(answer) ? 1 : 0, // Was the last question answered correct, 1 if yes, 0 if not
+				Trivia.questionsCorrect(), // How many the player has answered correct
+				Trivia.questionsAsked(), // How many questions the player has been asked
+				Trivia.questionsLeft() // How many more attempts at answering trivia the player has before losing
+			};
+		publish(new Update(UpdateType.TRIVIA_STATS, false, triviaStats)); // Send Stats to GUI
 		
-		// TODO check if enough trivia questions have been asked for the type of trivia event
-		// If so, do the reward of the event
-		// Otherwise, ask another trivia question
+		// If enough questions have been answered correct, the trivia event finishes, and the result is carried out
+		if(Trivia.triviaPassed())
+		{
+			// Let the GUI know the trivia event is done, and the player succeeded
+			publish(new Update(UpdateType.TRIVIA_SUCCESS, false, true));
+			
+			// REVIEW specialized messages for each hazard?
+			if(Trivia.getReason().equals(UpdateType.ENCOUNTER_PIT.toString()))
+			{
+				foundPit(); // If the player was trying to get out of a pit, get out of the pit
+			}else if(Trivia.getReason().equals(UpdateType.ENCOUNTER_WUMPUS.toString()))
+			{
+				// If the player was trying to escape the wumpus, make the wumpus run away
+				mapObject.wumpusRunsAway();
+			}
+		}else if(Trivia.canAskAnotherQuestion())
+		{
+			// Keep asking questions if the player hasn't answered enough yet
+			
+			// Use a coin to ask the question (& update GUI)
+			publish(new Update(UpdateType.GET_COINS, false, playerObject.spendCoin()));
+			
+			// Ask the next question
+			publish(new Update(UpdateType.GET_TRIVIA, false, Trivia.getQuestion()));
+		}else
+		{
+			// If the player has gotten too many questions wrong, let the GUI know, and end the game
+			publish(new Update(UpdateType.TRIVIA_SUCCESS, false, false));
+			endGame(false);
+		}
 	}
 	
 	/* Purchases a secret for the player, and tells the GUI what it is

@@ -13,7 +13,11 @@ public class Trivia
 	private static boolean gotIt[]=new boolean[101]; //gotIt right or not
 	private static int toAsk=1;
 	private static String reason="";
-	private static int correct=0;
+	
+	private static int correct = 0;
+	private static int correctQuota = 0;
+	private static int totalQuestions = 0;
+	private static int totalQuestionsAsked = 0;
 	
 
 	// Reads the set of 100 questions and answers from two files
@@ -63,28 +67,30 @@ public class Trivia
 	public static boolean answer(String guess)
 	{
 		asked[toAsk]=true;
+		totalQuestionsAsked++;
+		
 		if (guess.equals(answers[toAsk]))
 		{
-			gotIt[toAsk]=true;
+			gotIt[toAsk++]=true; // toAsk will increment after it is used to reference the array
 			correct++;
 			return true;
 			
 		}
 		else
 		{
-			gotIt[toAsk]=false;
+			gotIt[toAsk++]=false;
 			return false;
 		}
-	
 	}
 	
-	public static String askQuestions(int number,String triviaReason)
+	public static void askQuestions(int number, int quota, String triviaReason)
 	{
-		reason=triviaReason;
-		String questions="";
-		for(int i=1;i<=number;i++)
-			questions+=getQuestion()+" ";
-		return questions;
+		reason = triviaReason;
+		
+		correct = 0;
+		correctQuota = quota;
+		totalQuestions = number;
+		totalQuestionsAsked = 0;
 	}
 
 	public static String getHint()
@@ -97,10 +103,41 @@ public class Trivia
 		return result;
 	}
 	
+	public static boolean triviaPassed()
+	{
+		return correct >= correctQuota;
+	}
+	
+	public static boolean canAskAnotherQuestion()
+	{
+		return totalQuestionsAsked < totalQuestions;
+	}
+	
+	public static String getReason()
+	{
+		return reason;
+	}
+	
+	public static int getCorrectQuota()
+	{
+		return correctQuota;
+	}
+	
 	public static int questionsAsked()
 	{
-		return toAsk-1;
+		return totalQuestionsAsked;
 	}
+	
+	public static int questionsCorrect()
+	{
+		return correct;
+	}
+	
+	public static int questionsLeft()
+	{
+		return totalQuestions - totalQuestionsAsked;
+	}
+	
 	public static void debug()
 	{
 		try

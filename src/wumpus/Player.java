@@ -119,4 +119,9 @@ public class Player
 	{
 		arrows = 0;
 	}
+
+	public int spendCoin()
+	{
+		return --coins;
+	}
 }

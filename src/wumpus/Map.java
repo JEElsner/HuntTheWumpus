@@ -242,8 +242,11 @@ public class Map
 		
 		for(int i = 0; i < rooms; i++)
 		{
+			// TODO make sure the wumpus doesn't go back the way he came, the second time
 			WumpusRoom = getNearbyRoom(WumpusRoom, MovementDirection.values()[randomRoom]);
-		}		
+		}
+		
+		isAwake = true;
 	}
 
 	public int flyAway()

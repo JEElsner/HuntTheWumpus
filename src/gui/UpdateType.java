@@ -53,6 +53,20 @@ public enum UpdateType
 	 */
 	GET_HIGH_SCORE(Void.class, new ArrayList<String>().getClass()),
 	
+	/* To Control: N/A
+	 * 
+	 * To GUI: Sends the statistics about the last trivia question, how many trivia questions have been
+	 * answered, how many need to be answered to pass the trivia, and how many more questions can be asked
+	 * before the user fails
+	 * 
+	 * Objects: An array of int values where index:
+	 * 		0: 1 if the answer to the last question was correct, 0 otherwise
+	 * 		1: the number of questions the user has guessed correctly
+	 * 		2: the number of questions the user has been asked
+	 * 		3: the number of questions remaining (before the user fails)
+	 */
+	TRIVIA_STATS(Void.class, int[].class),
+	
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify to receive Triva Q's based on action performed
@@ -77,6 +91,14 @@ public enum UpdateType
 	 * Objects: Boolean if is correct
 	 */
 	GIVE_ANSWER(String.class, boolean.class),
+	
+	/* To Control: N/A
+	 * 
+	 * To GUI:
+	 * Tell the GUI if the user has succeed or failed at the entire round of questions for the hazard.
+	 * (e.g. has the user answered 2/3 questions correct to escape a pit)
+	 */
+	TRIVIA_SUCCESS(Void.class, boolean.class),
 	
 	// Updates that are likely for GUI only
 

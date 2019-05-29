@@ -13,6 +13,7 @@ public class HighScore
 	private static ArrayList<String> List = new ArrayList<String>();
 	private static ArrayList<Integer> scores = new ArrayList<Integer>();
 	private static ArrayList<String> names = new ArrayList<String>();
+	private static ArrayList<Integer> caves = new ArrayList<Integer>();
 	
 	public static final String HIGH_SCORE_PATH = System.getProperty("user.dir") + File.separator + "scores.txt";
 	
@@ -38,18 +39,19 @@ public class HighScore
 		File dir = new File(HIGH_SCORE_PATH);
 		readFile(dir);
 		writeFile();
-		addScore("DAD", 420420);
-		addScore("MOM", 111110);
-		addScore("COW", 928340);
+		addScore("DAD", 420420, 3);
+		addScore("MOM", 111110, 2);
+		addScore("COW", 928340, 5);
 		writeFile();
 		readFile(dir);
 	}
 
 	public static void readFile(File fileObj)
 	{
-		boolean isScore = false;
+		int cycle = 0;
 		int ScoreCount = 0;
 		int NameCount = 0;
+		int CaveCount = 0;
 		try
 		{
 			File scoresFile = new File(HIGH_SCORE_PATH);
@@ -68,17 +70,23 @@ public class HighScore
 			String line = "";
 			while ((line = buff.readLine()) != null)
 			{
-				if (isScore)
+				if (cycle % 3 == 0)
 				{
 					scores.add(ScoreCount, Integer.parseInt(line));
 					ScoreCount++;
-				} else
+				} 
+				else if (cycle % 3 == 1)
 				{
 					names.add(NameCount, line);
 					NameCount++;
 				}
+				else if (cycle % 3 == 2)
+				{
+					caves.add(CaveCount, Integer.parseInt(line));
+					CaveCount++;
+				}
 
-				isScore = !isScore;
+				cycle++;
 			}
 			
 			buff.close();
@@ -103,6 +111,7 @@ public class HighScore
 		for (int i = 0; i < 10; i++)
 		{
 			scores.add(000000);
+			caves.add(1);
 		}
 		names.add("AAA");
 		names.add("BBB");
@@ -116,7 +125,7 @@ public class HighScore
 		names.add("JJJ");
 	}
 
-	public static void addScore(String n, int s)
+	public static void addScore(String n, int s, int c)
 	{
 		for (int i = 0; i < scores.size(); i++)
 		{
@@ -124,14 +133,17 @@ public class HighScore
 			{
 				scores.add(i, s);
 				names.add(i, n);
+				caves.add(i, c);
+				
 				break;
 			}
 		}
 
-		if (names.size() == 11 && scores.size() == 11)
+		if (names.size() == 11)
 		{
 			names.remove(10);
 			scores.remove(10);
+			caves.remove(10);
 		}
 	}
 
@@ -151,6 +163,8 @@ public class HighScore
 				buffer.newLine();
 				buffer.write("" + scores.get(i));
 				buffer.newLine();
+				buffer.write("Cave " + caves.get(i) );
+				
 			}
 
 			buffer.close();
@@ -169,7 +183,7 @@ public class HighScore
 	{
 		for (int i = 0; i < 10; i++)
 		{
-			List.add(i, names.get(i) + "  -  " + scores.get(i));
+			List.add(i, names.get(i) + "  -  " + scores.get(i) + " Cave " + caves.get(i));
 		}
 		return List;
 	}

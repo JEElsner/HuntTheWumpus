@@ -36,6 +36,8 @@ public class HighScore
 //			System.out.println("Folder not found.");
 //		}
 		
+		
+		
 		File dir = new File(HIGH_SCORE_PATH);
 		readFile(dir);
 		writeFile();
@@ -72,14 +74,15 @@ public class HighScore
 			{
 				if (cycle % 3 == 0)
 				{
-					scores.add(ScoreCount, Integer.parseInt(line));
-					ScoreCount++;
-				} 
-				else if (cycle % 3 == 1)
-				{
 					names.add(NameCount, line);
 					NameCount++;
 				}
+				else if (cycle % 3 == 1)
+				{
+					scores.add(ScoreCount, Integer.parseInt(line));
+					ScoreCount++;
+				} 
+				
 				else if (cycle % 3 == 2)
 				{
 					caves.add(CaveCount, Integer.parseInt(line));

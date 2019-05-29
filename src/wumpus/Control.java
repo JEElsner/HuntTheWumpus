@@ -238,15 +238,6 @@ public class Control extends SwingWorker<Void, Update>
 						case GET_HIGH_SCORE:
 							break;
 							
-						case GET_TRIVIA:
-							/* So thinking about the trivia, and the multi-threading, Control isn't going
-							 * to wait in whatever method askTrivia() say, for an answer, it should likely keep going,
-							 * and then be notified by a TRIVIA_RESPONSE Update or something, which is then processed and
-							 * compared to the correct answer. I think this method goes beyond Control though, Trivia
-							 * will have to keep track of the current question that was last asked. oh boy, help.
-							 */
-							break;
-							
 						case GIVE_ANSWER:
 							answerTrivia((String) msg.getData());
 							break;
@@ -256,11 +247,11 @@ public class Control extends SwingWorker<Void, Update>
 							break;
 							
 						case PURCHASE_ARROW: // The player has purchased an arrow
-							purchaseArrow();
+							beginTrivia(2, 3, UpdateType.PURCHASE_ARROW);
 							break;
 							
 						case PURCHASE_SECRET: // The player has purchased a secret
-							purchaseSecret();
+							beginTrivia(2, 3, UpdateType.PURCHASE_SECRET);
 							break;
 							
 						case SHOOT_ARROW: // The player has shot an arrow
@@ -566,12 +557,7 @@ public class Control extends SwingWorker<Void, Update>
 		// Add a player turn
 		playerObject.incrementTurns();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
-		
-		// TODO Implement Purchase Secret
-		// Use coin
-		// Ask trivia?
-		// Get secret
-		publish(new Update(UpdateType.PURCHASE_SECRET, false, "Secret"));
+		publish(new Update(UpdateType.GET_SECRET, false, "Secret"));
 		
 		// REVIEW What happens when we say the wumpus is within two rooms of the player, then the player moves? (or the wumpus for that matter?)
 	}
@@ -587,11 +573,7 @@ public class Control extends SwingWorker<Void, Update>
 		playerObject.incrementTurns();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
 		
-		// TODO Implement Purchase Arrow
-		// Use coin
-		// Ask trivia?
-		// tell player they've got another arrow
-		publish(new Update(UpdateType.PURCHASE_ARROW, false, playerObject.buyArrows(true))); // return new number of arrows
+		publish(new Update(UpdateType.GET_ARROWS, false, playerObject.buyArrows(true))); // return new number of arrows
 	}
 	
 	// The player shoots an arrow

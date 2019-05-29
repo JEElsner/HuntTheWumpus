@@ -212,9 +212,9 @@ public enum UpdateType
 	 * To GUI:
 	 * ------------
 	 * Purpose: Notify the GUI of how many arrows the player has
-	 * Objects: int number of arrows
+	 * Objects: String trivia question to begin asking questions to get an arrow
 	 */
-	PURCHASE_ARROW(Void.class, Integer.class), // The user requested an arrow is purchased
+	PURCHASE_ARROW(Void.class, String.class), // The user requested an arrow is purchased
 	
 	/* To Control:
 	 * -------------
@@ -224,9 +224,18 @@ public enum UpdateType
 	 * To GUI:
 	 * ------------
 	 * Purpose: Notify the GUI the user has purchased a secret
-	 * Objects: String secret
+	 * Objects: String trivia question to begin asking questions to get an arrow
 	 */
 	PURCHASE_SECRET(Void.class, String.class), // The user requested a secret is purchased
+	
+	/* To Control: N/A
+	 * 
+	 * To GUI: The new secret the user gets
+	 * 
+	 * REVIEW It seems like secrets are separate from trivia. trivia is specifically an answer to a question,
+	 * while a secret can be that or a few other bits of information. so...
+	 */
+	GET_SECRET(Void.class, String.class),
 	
 	/* To Control:
 	 * -------------

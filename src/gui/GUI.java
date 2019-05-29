@@ -498,8 +498,7 @@ public class GUI
 			case ENCOUNTER_PIT:
 				setQuestion((String) update.getData());
 				this.mainWindow.triviaScreen.updatePanel("pits");
-				//mainWindow.changeView(trivia);
-				runTrivia(); // FIXME The screen doesn't change to trivia
+				mainWindow.changeView(trivia); // FIXME The screen doesn't change to trivia
 				break;
 				
 			case ENCOUNTER_WUMPUS:

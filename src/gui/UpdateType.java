@@ -237,6 +237,15 @@ public enum UpdateType
 	 */
 	GET_SECRET(Void.class, String.class),
 	
+	/* To Control: N/A
+	 * 
+	 * To GUI: The new trivia answer the user gets
+	 * 
+	 * REVIEW It seems like secrets are separate from trivia. trivia is specifically an answer to a question,
+	 * while a secret can be that or a few other bits of information. so...
+	 */
+	GET_TRIVIA_ANSWER(Void.class, String.class),
+	
 	/* To Control:
 	 * -------------
 	 * Purpose: Notify of attempt at shooting an arrow

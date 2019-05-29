@@ -75,7 +75,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		
 		JLabel lblTitle = new JLabel("Game Panel");
-		lblTitle.setBounds(299, 0, 68, 16);
+		lblTitle.setBounds(468, 0, 68, 16);
 		add(lblTitle);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
@@ -98,7 +98,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel(updateRequired);
 			}
 		});
-		buyArrow.setBounds(651, 13, 111, 25);
+		buyArrow.setBounds(839, 46, 111, 25);
 		add(buyArrow);
 		
 		buySecret = new JButton("Buy Secret");
@@ -110,7 +110,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel(updateRequired);
 			}
 		});
-		buySecret.setBounds(651, 51, 111, 25);
+		buySecret.setBounds(839, 84, 111, 25);
 		add(buySecret);
 		
 		JButton shootArrow = new JButton("Shoot Arrow");
@@ -121,11 +121,11 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updateShooting();
 			}
 		});
-		shootArrow.setBounds(651, 89, 111, 25);
+		shootArrow.setBounds(839, 122, 111, 25);
 		add(shootArrow);
 		
 		chooseDirection = new JLabel("Choose a direction to shoot");
-		chooseDirection.setBounds(651, 147, 158, 16);
+		chooseDirection.setBounds(817, 224, 158, 16);
 		add(chooseDirection);
 		
 		optOne = new JButton("");
@@ -136,7 +136,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Shooting");
 			}
 		});
-		optOne.setBounds(651, 176, 111, 25);
+		optOne.setBounds(839, 253, 111, 25);
 		optOne.setVisible(false);
 		add(optOne);
 		
@@ -148,7 +148,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Shooting");
 			}
 		});
-		optTwo.setBounds(651, 204, 111, 25);
+		optTwo.setBounds(839, 281, 111, 25);
 		optTwo.setVisible(false);
 		add(optTwo);
 		
@@ -160,7 +160,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Shooting");
 			}
 		});
-		optThree.setBounds(651, 232, 111, 25);
+		optThree.setBounds(839, 309, 111, 25);
 		optThree.setVisible(false);
 		add(optThree);
 
@@ -168,7 +168,9 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		
 		yourRoom = new JLabel("Current Room: ");
-		yourRoom.setBounds(299, 232, 133, 16);
+		yourRoom.setBackground(Color.GRAY);
+		yourRoom.setForeground(Color.BLACK);
+		yourRoom.setBounds(431, 380, 133, 16);
 		add(yourRoom);
 		
 		//----------------------------------//
@@ -181,7 +183,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP));
 			}
 		});
-		moveUp.setBounds(311, 46, 97, 25);
+		moveUp.setBounds(444, 122, 97, 25);
 		add(moveUp);
 		
 		moveUpRight = new JButton("Up Right");
@@ -191,7 +193,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_RIGHT));
 			}
 		});
-		moveUpRight.setBounds(489, 91, 97, 25);
+		moveUpRight.setBounds(682, 202, 97, 25);
 		add(moveUpRight);
 		
 		moveUpLeft = new JButton("Up Left");
@@ -201,7 +203,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_LEFT));
 			}
 		});
-		moveUpLeft.setBounds(151, 104, 97, 25);
+		moveUpLeft.setBounds(201, 202, 97, 25);
 		add(moveUpLeft);
 		
 		moveDown = new JButton("Down");
@@ -211,7 +213,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN));
 			}
 		});
-		moveDown.setBounds(321, 431, 97, 25);
+		moveDown.setBounds(444, 671, 97, 25);
 		add(moveDown);
 		
 		moveDownRight = new JButton("Down Right");
@@ -221,7 +223,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_RIGHT));
 			}
 		});
-		moveDownRight.setBounds(476, 383, 110, 25);
+		moveDownRight.setBounds(669, 616, 110, 25);
 		add(moveDownRight);
 		
 		moveDownLeft = new JButton("Down Left");
@@ -231,7 +233,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_LEFT));
 			}
 		});
-		moveDownLeft.setBounds(151, 383, 97, 25);
+		moveDownLeft.setBounds(201, 616, 97, 25);
 		add(moveDownLeft);
 		
 		moving[0] = moveUp;
@@ -241,15 +243,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moving[4] = moveDownRight;
 		moving[5] = moveDownLeft;
 		
-		//-----------Making Them Rotate---------------//
-		
-//		Canvas c = new Canvas();
-//		c.setBackground(Color.LIGHT_GRAY);
-//		c.setBounds(146, 46, 440, 410);
-//		add(c);
-		
 		canvas.setBackground(Color.LIGHT_GRAY);
-		canvas.setBounds(146, 46, 440, 410);
+		canvas.setBounds(177, 122, 622, 574);
 		add(canvas);
 		
 		playerName = new JLabel();
@@ -257,15 +252,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(playerName);
 		
 		inventory = new JLabel("Inventory");
-		inventory.setBounds(12, 95, 56, 16);
+		inventory.setBounds(213, 17, 56, 16);
 		add(inventory);
 		
 		coins = new JLabel("Coins:");
-		coins.setBounds(12, 119, 79, 16);
+		coins.setBounds(219, 46, 79, 16);
 		add(coins);
 		
 		arrows = new JLabel("Arrows:");
-		arrows.setBounds(12, 134, 79, 16);
+		arrows.setBounds(219, 70, 79, 16);
 		add(arrows);
 		
 		turnsTaken = new JLabel("Turns Taken:");
@@ -273,33 +268,40 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(turnsTaken);
 		
 		secretsObtained = new JLabel("Secrets Obtained:");
-		secretsObtained.setBounds(12, 188, 111, 16);
+		secretsObtained.setBounds(12, 126, 111, 16);
 		add(secretsObtained);
 		
 		lblWarnings = new JLabel("WARNINGS");
-		lblWarnings.setBounds(677, 383, 68, 16);
+		lblWarnings.setBounds(825, 497, 68, 16);
 		add(lblWarnings);
 		
 		warnings = new JTextPane();
 		warnings.setEditable(false);
-		warnings.setBounds(677, 399, 158, 57);
+		warnings.setBounds(817, 526, 158, 80);
 		add(warnings);
 		
 		miss = new JLabel("Oh no! You missed!");
-		miss.setBounds(651, 127, 127, 16);
+		miss.setBounds(839, 160, 127, 16);
 		miss.setVisible(false);
 		add(miss);
 		
 		coinMax = new JLabel("Max coins reached!");
-		coinMax.setBounds(12, 159, 111, 16);
+		coinMax.setBounds(299, 46, 111, 16);
 		coinMax.setVisible(false);
 		add(coinMax);
 		
 		mySecrets = new JList<String>();
 		mySecrets.setModel(secret);
 		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		mySecrets.setBounds(12, 217, 111, 167);
+		mySecrets.setBounds(12, 155, 138, 223);
 		add(mySecrets);
+		
+		//-----------Making Them Rotate---------------//
+		
+//		Canvas c = new Canvas();
+//		c.setBackground(Color.LIGHT_GRAY);
+//		c.setBounds(177, 122, 622, 574);
+//		add(c);
 		
 
 				
@@ -325,9 +327,9 @@ public class GamePanel extends JPanel implements UpdateScreen
 
 		    Polygon h = new Polygon();
 		    
-		    int xPos = 220;
-		    int yPos = 205;
-		    int side = 200;
+		    int xPos = 311;
+		    int yPos = 287;
+		    int side = 292;
 			for (int i = 0; i < 6; i++)
 			{
 				h.addPoint((int) (xPos + side * Math.cos(i * Math.PI / 3)),

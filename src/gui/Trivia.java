@@ -77,7 +77,7 @@ public class Trivia extends JPanel implements UpdateScreen
 		add(answeredStats);
 		
 		correctMessage = new JLabel("Congrats boi");
-		correctMessage.setBounds(73, 366, 229, 16);
+		correctMessage.setBounds(73, 366, 331, 16);
 		add(correctMessage);
 		correctMessage.setVisible(false);
 		
@@ -86,7 +86,7 @@ public class Trivia extends JPanel implements UpdateScreen
 		add(warnings);
 		
 		questions = new JTextArea();
-		questions.setBounds(93, 58, 317, 272);
+		questions.setBounds(80, 55, 317, 272);
 		add(questions);
 		questions.setColumns(10);
 		questions.setLineWrap(true);

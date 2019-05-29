@@ -39,6 +39,7 @@ public class HighScore
 		
 		
 		File dir = new File(HIGH_SCORE_PATH);
+		setDefault();
 		readFile(dir);
 		writeFile();
 		addScore("DAD", 420420, 3);

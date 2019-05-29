@@ -40,8 +40,8 @@ public class HighScore
 		
 		File dir = new File(HIGH_SCORE_PATH);
 		setDefault();
-		readFile(dir);
 		writeFile();
+		readFile(dir);
 		addScore("DAD", 420420, 3);
 		addScore("MOM", 111110, 2);
 		addScore("COW", 928340, 5);

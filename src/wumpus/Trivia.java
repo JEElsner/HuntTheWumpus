@@ -33,6 +33,8 @@ public class Trivia
 		{
 			String theLine = qreader.nextLine();
 			questions[i] = theLine;
+			asked[i] = false;
+			gotIt[i] = false;
 			i++;
 		}
 		System.out.println("-------Questions list-------");

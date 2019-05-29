@@ -340,7 +340,7 @@ public class Control extends SwingWorker<Void, Update>
 	// Start a new game for the player to play
 	// Thread: Worker
 	public void newGame(int caveVer, String playerName)
-	{
+	{	
 		if(playerName == null || playerName.equals("NAME_UNSPECIFIED"))
 			System.err.println(playerName);
 		
@@ -355,13 +355,15 @@ public class Control extends SwingWorker<Void, Update>
 		// Create a new cave with different doors
 		try
 		{
+			Trivia.read_qa(); // Initialize Trivia for a new game (set the questions to be unused)
+			
 			if(caveVer == 6)
 				caveObject = new Cave(CaveGen.generateNewCave());
 			else
 				caveObject = new Cave(caveVer);
 		} catch (FileNotFoundException e)
 		{
-			System.err.println("Error creating new cave: ");
+			System.err.println("Error creating new cave or reading trivia file: ");
 			e.printStackTrace();
 		}
 		
@@ -516,6 +518,12 @@ public class Control extends SwingWorker<Void, Update>
 				Trivia.questionsLeft() // How many more attempts at answering trivia the player has before losing
 			};
 		publish(new Update(UpdateType.TRIVIA_STATS, false, triviaStats)); // Send Stats to GUI
+		
+		System.out.print("Answer: " + answer);
+		if(triviaStats[0] == 1)
+			System.out.println(" Correct");
+		else
+			System.out.println();
 		
 		// If enough questions have been answered correct, the trivia event finishes, and the result is carried out
 		if(Trivia.triviaPassed())

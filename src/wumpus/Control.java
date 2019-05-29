@@ -618,7 +618,7 @@ public class Control extends SwingWorker<Void, Update>
 	public void endGame(boolean wumpusKilled)
 	{
 		/* TODO Add tracking of player name in Player, and use update to transmit name */
-		HighScore.addScore("Stevo", playerObject.finalScore());
+		HighScore.addScore("Stevo", playerObject.finalScore(), caveObject.version);
 		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
 			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore())); // Pass high scores?

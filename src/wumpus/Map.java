@@ -126,20 +126,11 @@ public class Map
 		neighbors[29] = new int[] { 24, 25, 1, 6, 5, 29 };
 	}
 
-	public static void main(String[] args)
-	{
-		Map m1 = new Map();
-		
-		m1.PlayerRoom = 1;
-		m1.WumpusRoom = 30;
-		
-		System.out.println(m1.CheckForWumpus2());		
-	}
-	
 	public static void debug()
 	{
-		//Map m1 = new Map();
+		// Map m1 = new Map();
 	}
+
 	public int getWumpusRoom()
 	{
 		return WumpusRoom;
@@ -234,19 +225,22 @@ public class Map
 		}
 		return WumpusRoom;
 	}
-	
+
 	public void fightWumpus()
 	{
-		int rooms = (int)(Math.random() * 2 + 2);
-		int randomRoom = (int) (Math.random() * 6);	
-		
-		for(int i = 0; i < rooms; i++)
+		int rooms = (int) (Math.random() * 2 + 2);
+
+		for (int i = 0; i < rooms; i++)
 		{
-			// TODO make sure the wumpus doesn't go back the way he came, the second time
-			WumpusRoom = getNearbyRoom(WumpusRoom, MovementDirection.values()[randomRoom]);
+			int lastRoom = WumpusRoom;
+			int newRoom = -1;
+			do
+			{
+				int randomRoom = (int) (Math.random() * 6);
+				newRoom = getNearbyRoom(WumpusRoom, MovementDirection.values()[randomRoom]);
+			} while (newRoom == lastRoom);
+			WumpusRoom = newRoom;
 		}
-		
-		isAwake = true;
 	}
 
 	public int flyAway()
@@ -326,7 +320,7 @@ public class Map
 		return false;
 	}
 
-	public boolean CheckForWumpus2()
+	public boolean isWumpus2RoomsAway()
 	{
 		int[] Neighbors = new int[6];
 

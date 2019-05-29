@@ -84,7 +84,7 @@ public class HighScore
 					ScoreCount++;
 				} 
 				
-				else if (cycle % 3 == 2)
+				else 
 				{
 					caves.add(CaveCount, Integer.parseInt(line));
 					CaveCount++;

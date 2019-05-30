@@ -454,12 +454,14 @@ public class GUI
 				
 			case PURCHASE_ARROW:
 				setQuestion((String) update.getData());
-				//this.mainWindow.gameplayScreen.updatePanel("arrows");
+				mainWindow.triviaScreen.updatePanel("arrows");
+				mainWindow.changeView(GUI.trivia);
 				break;
 				
 			case PURCHASE_SECRET:
 				setQuestion((String) update.getData());
-				//this.mainWindow.gameplayScreen.updatePanel("secret");
+				this.mainWindow.triviaScreen.updatePanel("secret");
+				runTrivia();
 				break;
 				
 			case GET_HIGH_SCORE:

@@ -3,7 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=java,windows
 
 # Ignore scores.txt, which records high scores of the game
-.gitignore
+/scores.txt
 
 ### Java ###
 # Compiled class file

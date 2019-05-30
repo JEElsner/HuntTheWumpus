@@ -97,9 +97,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buyArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_ARROW, true));
-				gui.mainWindow.triviaScreen.updatePanel("arrows");
-				gui.mainWindow.changeView(GUI.trivia);
-				//updatePanel(updateRequired);
 			}
 		});
 		buyArrow.setBounds(839, 46, 111, 25);
@@ -109,9 +106,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_SECRET, true));
-				gui.mainWindow.triviaScreen.updatePanel("secret");
-				gui.mainWindow.changeView(GUI.trivia);
-				//updatePanel(updateRequired);
 			}
 		});
 		buySecret.setBounds(839, 84, 111, 25);
@@ -187,7 +181,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP));
 			}
 		});
-		moveUp.setBounds(444, 122, 97, 25);
+		moveUp.setBounds(431, 84, 97, 25);
 		add(moveUp);
 		
 		moveUpRight = new JButton("Up Right");
@@ -197,7 +191,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_RIGHT));
 			}
 		});
-		moveUpRight.setBounds(682, 202, 97, 25);
+		moveUpRight.setBounds(665, 156, 97, 25);
 		add(moveUpRight);
 		
 		moveUpLeft = new JButton("Up Left");
@@ -207,7 +201,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_LEFT));
 			}
 		});
-		moveUpLeft.setBounds(201, 202, 97, 25);
+		moveUpLeft.setBounds(201, 156, 97, 25);
 		add(moveUpLeft);
 		
 		moveDown = new JButton("Down");
@@ -217,7 +211,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN));
 			}
 		});
-		moveDown.setBounds(444, 671, 97, 25);
+		moveDown.setBounds(431, 628, 97, 25);
 		add(moveDown);
 		
 		moveDownRight = new JButton("Down Right");
@@ -227,7 +221,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_RIGHT));
 			}
 		});
-		moveDownRight.setBounds(669, 616, 110, 25);
+		moveDownRight.setBounds(651, 570, 110, 25);
 		add(moveDownRight);
 		
 		moveDownLeft = new JButton("Down Left");
@@ -237,7 +231,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_LEFT));
 			}
 		});
-		moveDownLeft.setBounds(201, 616, 97, 25);
+		moveDownLeft.setBounds(201, 570, 97, 25);
 		add(moveDownLeft);
 		
 		moving[0] = moveUp;
@@ -256,15 +250,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(playerName);
 		
 		inventory = new JLabel("Inventory");
-		inventory.setBounds(213, 17, 56, 16);
+		inventory.setBounds(201, 17, 56, 16);
 		add(inventory);
 		
 		coins = new JLabel("Coins:");
-		coins.setBounds(219, 46, 79, 16);
+		coins.setBounds(201, 31, 79, 16);
 		add(coins);
 		
 		arrows = new JLabel("Arrows:");
-		arrows.setBounds(219, 70, 79, 16);
+		arrows.setBounds(201, 55, 79, 16);
 		add(arrows);
 		
 		turnsTaken = new JLabel("Turns Taken:");
@@ -290,18 +284,18 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(miss);
 		
 		coinMax = new JLabel("Max coins reached!");
-		coinMax.setBounds(299, 46, 111, 16);
+		coinMax.setBounds(281, 31, 111, 16);
 		coinMax.setVisible(false);
 		add(coinMax);
 		
 		myTriviaAnswers = new JList<String>();
-		myTriviaAnswers.setModel(triviaAnswers);
+		//myTriviaAnswers.setModel(triviaAnswers);
 		myTriviaAnswers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		myTriviaAnswers.setBounds(230, 734, 534, 60);
+		myTriviaAnswers.setBounds(230, 710, 534, 60);
 		//add(myTriviaAnswers);
 		
 		JScrollPane tAnswers = new JScrollPane(myTriviaAnswers);
-		tAnswers.setBounds(230, 734, 534, 60);
+		tAnswers.setBounds(230, 710, 534, 60);
 		add(tAnswers);
 		
 		JLabel lblSecretsObtained = new JLabel("Secrets Obtained:");
@@ -309,20 +303,20 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(lblSecretsObtained);
 		
 		mySecrets = new JList<String>();
-		mySecrets.setModel(obtainedSecrets);
+		//mySecrets.setModel(obtainedSecrets);
 		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		mySecrets.setBounds(230, 819, 534, 60);
+		mySecrets.setBounds(230, 790, 534, 60);
 		//add(mySecrets);
 		
 		JScrollPane mySec = new JScrollPane(mySecrets);
-		mySec.setBounds(230, 819, 534, 60);
+		mySec.setBounds(230, 790, 534, 60);
 		add(mySec);
 		
 		//-----------Making Them Rotate---------------//
 		
 //		Canvas c = new Canvas();
 //		c.setBackground(Color.LIGHT_GRAY);
-//		c.setBounds(177, 122, 622, 574);
+//		c.setBounds(176, 84, 622, 574);
 //		add(c);
 		
 

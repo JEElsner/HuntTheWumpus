@@ -71,7 +71,7 @@ public class Trivia
 		asked[toAsk]=true;
 		totalQuestionsAsked++;
 		
-		if (guess.equals(answers[toAsk]))
+		if (guess.equalsIgnoreCase(answers[toAsk]))
 		{
 			gotIt[toAsk++]=true; // toAsk will increment after it is used to reference the array
 			correct++;
@@ -97,11 +97,13 @@ public class Trivia
 
 	public static String getHint()
 	{
+		int q=(int)(Math.random()*(toAsk-1)+1);
+		
+		while(gotIt[q]==true)
+			q=(int)(Math.random()*(toAsk-1)+1);
+		
 		String result="";
-		for(int i=1;i<=toAsk;i++)
-			if(!gotIt[i])
-				result+="You got a secret! The answer to question---"+questions[i]+ 
-						"---was "+answers[i];
+		result+=""+questions[q]+ "-"+answers[q];
 		return result;
 	}
 	
@@ -145,7 +147,8 @@ public class Trivia
 		try
 		{
 			read_qa();
-			getQuestion();
+			answer("idk");
+			answer("idk");
 			answer("idk");
 			System.out.println(getHint());
 			

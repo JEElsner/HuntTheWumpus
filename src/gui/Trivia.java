@@ -107,7 +107,7 @@ public class Trivia extends JPanel implements UpdateScreen
 		
 		questions.setText(gui.getQuestion());
 		
-		if(stats[2] > 1)
+		if(stats[2] > 0)
 		{
 			if(stats[0] == 0)
 			{

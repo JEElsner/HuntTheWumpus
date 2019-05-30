@@ -13,11 +13,15 @@ public class Win extends JPanel implements UpdateScreen
 	 */
 	private static final long serialVersionUID = -1866960958992003815L;
 
+	private GUI gui;
+	
 	/**
 	 * Create the panel.
 	 */
 	public Win(GUI guiObject)
 	{
+		gui = guiObject;
+		
 		setLayout(null);
 		this.setSize(1000, 800);
 		
@@ -35,8 +39,8 @@ public class Win extends JPanel implements UpdateScreen
 		btnNewButton.setBounds(12, 262, 193, 25);
 		add(btnNewButton);
 		
-		JLabel lblCongratulationsYouGot = new JLabel("Congratulations! You got a High Score of [Get Points Here] Points!");
-		lblCongratulationsYouGot.setBounds(39, 72, 411, 16);
+		JLabel lblCongratulationsYouGot = new JLabel("Congratulations! You got a Score of " + gui.getScore() + " Points!");
+		lblCongratulationsYouGot.setBounds(75, 93, 411, 16);
 		add(lblCongratulationsYouGot);
 		
 		JLabel lblThankYouFor = new JLabel("Thank you for playing!");
@@ -52,13 +56,9 @@ public class Win extends JPanel implements UpdateScreen
 		btnClickHereTo.setBounds(245, 262, 193, 25);
 		add(btnClickHereTo);
 		
-		JLabel lblYourNameWill = new JLabel("Your name will appear on the Main Menu under High Scores!");
-		lblYourNameWill.setBounds(49, 95, 364, 16);
+		JLabel lblYourNameWill = new JLabel("If you got a High Score, you name, score, and cave will appear on the main menu!");
+		lblYourNameWill.setBounds(12, 137, 489, 16);
 		add(lblYourNameWill);
-		
-		JLabel lblCongratulationsOnYour = new JLabel("Congratulations on your victory! Unfortunately you didn't get a High Score");
-		lblCongratulationsOnYour.setBounds(12, 167, 426, 16);
-		add(lblCongratulationsOnYour);
 
 	}
 

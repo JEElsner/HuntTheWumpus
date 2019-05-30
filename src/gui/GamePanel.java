@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -45,7 +46,10 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JButton buySecret;
 	
 	private JList<String> myTriviaAnswers;
-	private DefaultListModel<String> triviaAnswers = new DefaultListModel<String>();
+	private DefaultListModel<String> triviaAnswers;
+	
+	JList<String> mySecrets;
+	private DefaultListModel<String> obtainedSecrets;
 	
 	private ArrayList<JButton> shooting = new ArrayList<JButton>();
 	private ArrayList<MovementDirection> shootingDirection = new ArrayList<MovementDirection>();
@@ -294,7 +298,25 @@ public class GamePanel extends JPanel implements UpdateScreen
 		myTriviaAnswers.setModel(triviaAnswers);
 		myTriviaAnswers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		myTriviaAnswers.setBounds(230, 734, 534, 60);
-		add(myTriviaAnswers);
+		//add(myTriviaAnswers);
+		
+		JScrollPane tAnswers = new JScrollPane(myTriviaAnswers);
+		tAnswers.setBounds(230, 734, 534, 60);
+		add(tAnswers);
+		
+		JLabel lblSecretsObtained = new JLabel("Secrets Obtained:");
+		lblSecretsObtained.setBounds(78, 820, 151, 16);
+		add(lblSecretsObtained);
+		
+		mySecrets = new JList<String>();
+		mySecrets.setModel(obtainedSecrets);
+		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		mySecrets.setBounds(230, 819, 534, 60);
+		//add(mySecrets);
+		
+		JScrollPane mySec = new JScrollPane(mySecrets);
+		mySec.setBounds(230, 819, 534, 60);
+		add(mySec);
 		
 		//-----------Making Them Rotate---------------//
 		
@@ -373,7 +395,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		miss.setVisible(false);
 	}
 	
-	// FIXME This is utterly borked when there are fewer than three doors from a room
 	public void updateShooting()
 	{
 		MovementDirection[] md = gui.getDoors();
@@ -448,8 +469,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 		{
 			triviaAnswers.addElement(s);
 		}
-		
 		myTriviaAnswers.setModel(triviaAnswers);
+		
+		
+		obtainedSecrets = new DefaultListModel<String>();
+		for(String s : gui.getSecrets())
+		{
+			obtainedSecrets.addElement(s);
+		}
+		mySecrets.setModel(obtainedSecrets);
+		
 		
 		yourRoom.setText("Current Room: " + gui.getCurrentRoom());
 		turnsTaken.setText("Turns Taken: " + gui.getTurns());

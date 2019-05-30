@@ -75,7 +75,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 900);
+		this.setSize(1000, 930);
 		
 		
 		JLabel lblTitle = new JLabel("Game Panel");
@@ -242,7 +242,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moving[5] = moveDownLeft;
 		
 		canvas.setBackground(Color.LIGHT_GRAY);
-		canvas.setBounds(177, 122, 622, 574);
+		canvas.setBounds(176, 84, 622, 574);
 		add(canvas);
 		
 		playerName = new JLabel();
@@ -266,7 +266,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(turnsTaken);
 		
 		secretsObtained = new JLabel("Trivia Answers Obtained:");
-		secretsObtained.setBounds(36, 735, 151, 16);
+		secretsObtained.setBounds(46, 682, 151, 16);
 		add(secretsObtained);
 		
 		lblWarnings = new JLabel("WARNINGS");
@@ -291,25 +291,25 @@ public class GamePanel extends JPanel implements UpdateScreen
 		myTriviaAnswers = new JList<String>();
 		//myTriviaAnswers.setModel(triviaAnswers);
 		myTriviaAnswers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		myTriviaAnswers.setBounds(230, 710, 534, 60);
+		myTriviaAnswers.setBounds(230, 780, 534, 60);
 		//add(myTriviaAnswers);
 		
 		JScrollPane tAnswers = new JScrollPane(myTriviaAnswers);
-		tAnswers.setBounds(230, 710, 534, 60);
+		tAnswers.setBounds(230, 680, 534, 80);
 		add(tAnswers);
 		
 		JLabel lblSecretsObtained = new JLabel("Secrets Obtained:");
-		lblSecretsObtained.setBounds(78, 820, 151, 16);
+		lblSecretsObtained.setBounds(89, 782, 151, 16);
 		add(lblSecretsObtained);
 		
 		mySecrets = new JList<String>();
 		//mySecrets.setModel(obtainedSecrets);
 		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		mySecrets.setBounds(230, 790, 534, 60);
+		mySecrets.setBounds(230, 780, 534, 60);
 		//add(mySecrets);
 		
 		JScrollPane mySec = new JScrollPane(mySecrets);
-		mySec.setBounds(230, 790, 534, 60);
+		mySec.setBounds(230, 780, 534, 80);
 		add(mySec);
 		
 		//-----------Making Them Rotate---------------//

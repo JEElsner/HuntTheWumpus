@@ -168,15 +168,15 @@ public class Control extends SwingWorker<Void, Update>
 	// This is necessary because we don't want the entire game running in Control's constructor
 	// Thread: Initial
 	public void startControl()
-	{
-		// Read the high scores and send them to the GUI
-		HighScore.readFile(null);
-		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
-		
+	{	
 		guiObject.startGUI(); // Start the GUI
 		
 		SwingUtilities.invokeLater(this::execute); // Begin the worker thread to support the GUI in the background
 		// I'm pretty sure SwingWorker.execute() must be called on the EDT, so hence the invokeLater
+		
+		// Read the high scores and send them to the GUI
+		HighScore.readFile(null);
+		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}
 	
 	/* Processes updates from the GUI & EDT

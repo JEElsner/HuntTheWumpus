@@ -97,9 +97,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buyArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_ARROW, true));
-				gui.mainWindow.triviaScreen.updatePanel("arrows");
-				gui.mainWindow.changeView(GUI.trivia);
-				//updatePanel(updateRequired);
 			}
 		});
 		buyArrow.setBounds(839, 46, 111, 25);
@@ -109,9 +106,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_SECRET, true));
-				gui.mainWindow.triviaScreen.updatePanel("secret");
-				gui.mainWindow.changeView(GUI.trivia);
-				//updatePanel(updateRequired);
 			}
 		});
 		buySecret.setBounds(839, 84, 111, 25);

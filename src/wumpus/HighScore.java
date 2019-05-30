@@ -167,8 +167,8 @@ public class HighScore
 				buffer.newLine();
 				buffer.write("" + scores.get(i));
 				buffer.newLine();
-				buffer.write("Cave " + caves.get(i) );
-				
+				buffer.write("" + caves.get(i));
+				buffer.newLine();
 			}
 
 			buffer.close();
@@ -185,7 +185,7 @@ public class HighScore
 
 	public static ArrayList<String> returnHighscore()
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < names.size(); i++)
 		{
 			List.add(i, names.get(i) + "  -  " + scores.get(i) + " Cave " + caves.get(i));
 		}

@@ -464,6 +464,7 @@ public class GUI
 				
 			case GET_HIGH_SCORE:
 				this.setHighScores((ArrayList<String>) update.getData());
+				this.mainWindow.menuScreen.updatePanel("high scores"); // Update the panel
 				break;
 			
 			case GET_COINS:
@@ -523,7 +524,7 @@ public class GUI
 				runTrivia();
 				break;
 				
-			case GET_TRIVIA:
+			case GET_TRIVIA_QUESTION:
 				setQuestion((String) update.getData());
 				break;
 				

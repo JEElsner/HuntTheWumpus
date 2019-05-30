@@ -78,7 +78,7 @@ public enum UpdateType
 	 * Purpose: Notify GUI to display trivia screen
 	 * Objects: String trivia question
 	 */
-	GET_TRIVIA(String.class, String.class),
+	GET_TRIVIA_QUESTION(String.class, String.class),
 	
 	/* To Control:
 	 * -------------

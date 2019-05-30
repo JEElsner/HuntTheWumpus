@@ -50,7 +50,7 @@ public class Win extends JPanel implements UpdateScreen
 		JButton btnClickHereTo = new JButton("CLICK HERE TO STOP");
 		btnClickHereTo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				guiObject.notifyControl(new Update(UpdateType.WINDOW_CLOSING, true));
 			}
 		});
 		btnClickHereTo.setBounds(245, 262, 193, 25);

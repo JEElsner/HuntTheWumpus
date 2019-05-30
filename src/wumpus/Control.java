@@ -105,7 +105,7 @@ public class Control extends SwingWorker<Void, Update>
 			control.setAccessible(true);
 			
 			Control controlObj = (Control) control.get(null);
-			controlObj.guiMessages.notifyAll();
+			controlObj.endGame(true);
 			
 			/*Field pitF = Map.class.getDeclaredField("PitRoom");
 			pitF.setAccessible(true);
@@ -168,15 +168,15 @@ public class Control extends SwingWorker<Void, Update>
 	// This is necessary because we don't want the entire game running in Control's constructor
 	// Thread: Initial
 	public void startControl()
-	{
-		// Read the high scores and send them to the GUI
-		HighScore.readFile(null);
-		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
-		
+	{	
 		guiObject.startGUI(); // Start the GUI
 		
 		SwingUtilities.invokeLater(this::execute); // Begin the worker thread to support the GUI in the background
 		// I'm pretty sure SwingWorker.execute() must be called on the EDT, so hence the invokeLater
+		
+		// Read the high scores and send them to the GUI
+		HighScore.readFile(null);
+		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}
 	
 	/* Processes updates from the GUI & EDT
@@ -189,6 +189,9 @@ public class Control extends SwingWorker<Void, Update>
 	 */
 	protected Void doInBackground() throws Exception
 	{	
+		// Temporary variable to pass to newGame
+		String name = "NAME_UNSPECIFIED";
+		
 		while(true)
 		{						
 			// IDK if all of this code, especially the Update handling, should
@@ -205,9 +208,6 @@ public class Control extends SwingWorker<Void, Update>
 						guiMessages.remove(0);
 					
 					// --- Handle the Update --- //
-					
-					// Temporary variable to pass to newGame
-					String name = "NAME_UNSPECIFIED";
 					
 					try
 					{	
@@ -336,7 +336,7 @@ public class Control extends SwingWorker<Void, Update>
 	public void newGame(int caveVer, String playerName)
 	{	
 		if(playerName == null || playerName.equals("NAME_UNSPECIFIED"))
-			System.err.println(playerName);
+			System.err.println("Player name unknown!");
 		
 		mapObject = new Map(); // Create a new map with new pit, bat, and wumpus locations
 		
@@ -390,6 +390,9 @@ public class Control extends SwingWorker<Void, Update>
 		playerObject.addCoins();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
 		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
+		
+		// Send a trivia hint
+		publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
 		
 		publish(new Update(UpdateType.MOVE, false, playerRoom));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
@@ -533,6 +536,12 @@ public class Control extends SwingWorker<Void, Update>
 			{
 				// If the player was trying to escape the wumpus, make the wumpus run away
 				mapObject.wumpusRunsAway();
+			}else if(Trivia.getReason().equals(UpdateType.PURCHASE_SECRET.toString()))
+			{
+				purchaseSecret();
+			}else if(Trivia.getReason().equals(UpdateType.PURCHASE_ARROW.toString()))
+			{
+				purchaseArrow();
 			}
 		}else if(Trivia.canAskAnotherQuestion())
 		{
@@ -542,7 +551,7 @@ public class Control extends SwingWorker<Void, Update>
 			publish(new Update(UpdateType.GET_COINS, false, playerObject.spendCoin()));
 			
 			// Ask the next question
-			publish(new Update(UpdateType.GET_TRIVIA, false, Trivia.getQuestion()));
+			publish(new Update(UpdateType.GET_TRIVIA_QUESTION, false, Trivia.getQuestion()));
 		}else
 		{
 			// If the player has gotten too many questions wrong, let the GUI know, and end the game
@@ -560,9 +569,30 @@ public class Control extends SwingWorker<Void, Update>
 		// Add a player turn
 		playerObject.incrementTurns();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
-		publish(new Update(UpdateType.GET_SECRET, false, "Secret"));
+		publish(new Update(UpdateType.GET_SECRET, false, "Secret")); // TODO implement
 		
-		// REVIEW What happens when we say the wumpus is within two rooms of the player, then the player moves? (or the wumpus for that matter?)
+		boolean twoRoomsAway = mapObject.isWumpus2RoomsAway();
+		int probability = (int)(Math.random() * 11);
+		
+		if(twoRoomsAway && probability >= 8)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "The wumpus is within two rooms of you."));
+		}else if(probability == 10)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "The wumpus is NOT within two rooms of you."));
+		}else if(probability == 1)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "You are in room " + mapObject.getPlayerRoom()));
+		}else if(probability <= 3)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room" + ((Math.random() > 0.5) ? mapObject.getPitRoom() : mapObject.getPitRoom2())));
+		}else if(probability <= 5)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room" + ((Math.random() > 0.5) ? mapObject.getBatRoom() : mapObject.getBatRoom2())));
+		}else
+		{
+			publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
+		}
 	}
 
 	/* Method that purchases another arrow for the player using coins
@@ -617,8 +647,8 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void endGame(boolean wumpusKilled)
 	{
-		/* TODO Add tracking of player name in Player, and use update to transmit name */
-		HighScore.addScore("Stevo", playerObject.finalScore(), caveObject.version);
+		// Record the player's high score
+		HighScore.addScore(playerObject.getName(), playerObject.finalScore(), caveObject.version);
 		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
 			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore())); // Pass high scores?

@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/java,windows
 # Edit at https://www.gitignore.io/?templates=java,windows
 
+# Ignore scores.txt, which records high scores of the game
+.gitignore
+
 ### Java ###
 # Compiled class file
 *.class

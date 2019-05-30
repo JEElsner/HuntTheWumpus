@@ -105,7 +105,7 @@ public class Control extends SwingWorker<Void, Update>
 			control.setAccessible(true);
 			
 			Control controlObj = (Control) control.get(null);
-			controlObj.guiMessages.notifyAll();
+			controlObj.endGame(true);
 			
 			/*Field pitF = Map.class.getDeclaredField("PitRoom");
 			pitF.setAccessible(true);
@@ -189,6 +189,9 @@ public class Control extends SwingWorker<Void, Update>
 	 */
 	protected Void doInBackground() throws Exception
 	{	
+		// Temporary variable to pass to newGame
+		String name = "NAME_UNSPECIFIED";
+		
 		while(true)
 		{						
 			// IDK if all of this code, especially the Update handling, should
@@ -205,9 +208,6 @@ public class Control extends SwingWorker<Void, Update>
 						guiMessages.remove(0);
 					
 					// --- Handle the Update --- //
-					
-					// Temporary variable to pass to newGame
-					String name = "NAME_UNSPECIFIED";
 					
 					try
 					{	
@@ -336,7 +336,7 @@ public class Control extends SwingWorker<Void, Update>
 	public void newGame(int caveVer, String playerName)
 	{	
 		if(playerName == null || playerName.equals("NAME_UNSPECIFIED"))
-			System.err.println(playerName);
+			System.err.println("Player name unknown!");
 		
 		mapObject = new Map(); // Create a new map with new pit, bat, and wumpus locations
 		
@@ -647,8 +647,8 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Worker
 	public void endGame(boolean wumpusKilled)
 	{
-		/* TODO Add tracking of player name in Player, and use update to transmit name */
-		HighScore.addScore("Stevo", playerObject.finalScore(), caveObject.version);
+		// Record the player's high score
+		HighScore.addScore(playerObject.getName(), playerObject.finalScore(), caveObject.version);
 		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
 			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore())); // Pass high scores?

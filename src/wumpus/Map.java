@@ -130,6 +130,14 @@ public class Map
 	{
 		// Map m1 = new Map();
 	}
+	
+	public void setDefaultMap()
+	{
+		PlayerRoom = 1;
+		WumpusRoom = 2;
+		BatRoom = 25;
+		PitRoom = 6;
+	}
 
 	public int getWumpusRoom()
 	{

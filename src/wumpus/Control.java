@@ -391,6 +391,9 @@ public class Control extends SwingWorker<Void, Update>
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
 		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
 		
+		// Send a trivia hint
+		publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
+		
 		publish(new Update(UpdateType.MOVE, false, playerRoom));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
 		
@@ -533,6 +536,12 @@ public class Control extends SwingWorker<Void, Update>
 			{
 				// If the player was trying to escape the wumpus, make the wumpus run away
 				mapObject.wumpusRunsAway();
+			}else if(Trivia.getReason().equals(UpdateType.PURCHASE_SECRET.toString()))
+			{
+				purchaseSecret();
+			}else if(Trivia.getReason().equals(UpdateType.PURCHASE_ARROW.toString()))
+			{
+				purchaseArrow();
 			}
 		}else if(Trivia.canAskAnotherQuestion())
 		{
@@ -542,7 +551,7 @@ public class Control extends SwingWorker<Void, Update>
 			publish(new Update(UpdateType.GET_COINS, false, playerObject.spendCoin()));
 			
 			// Ask the next question
-			publish(new Update(UpdateType.GET_TRIVIA, false, Trivia.getQuestion()));
+			publish(new Update(UpdateType.GET_TRIVIA_QUESTION, false, Trivia.getQuestion()));
 		}else
 		{
 			// If the player has gotten too many questions wrong, let the GUI know, and end the game
@@ -560,9 +569,30 @@ public class Control extends SwingWorker<Void, Update>
 		// Add a player turn
 		playerObject.incrementTurns();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
-		publish(new Update(UpdateType.GET_SECRET, false, "Secret"));
+		publish(new Update(UpdateType.GET_SECRET, false, "Secret")); // TODO implement
 		
-		// REVIEW What happens when we say the wumpus is within two rooms of the player, then the player moves? (or the wumpus for that matter?)
+		boolean twoRoomsAway = mapObject.isWumpus2RoomsAway();
+		int probability = (int)(Math.random() * 11);
+		
+		if(twoRoomsAway && probability >= 8)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "The wumpus is within two rooms of you."));
+		}else if(probability == 10)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "The wumpus is NOT within two rooms of you."));
+		}else if(probability == 1)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "You are in room " + mapObject.getPlayerRoom()));
+		}else if(probability <= 3)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room" + ((Math.random() > 0.5) ? mapObject.getPitRoom() : mapObject.getPitRoom2())));
+		}else if(probability <= 5)
+		{
+			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room" + ((Math.random() > 0.5) ? mapObject.getBatRoom() : mapObject.getBatRoom2())));
+		}else
+		{
+			publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
+		}
 	}
 
 	/* Method that purchases another arrow for the player using coins

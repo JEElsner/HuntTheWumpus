@@ -523,7 +523,7 @@ public class GUI
 				runTrivia();
 				break;
 				
-			case GET_TRIVIA:
+			case GET_TRIVIA_QUESTION:
 				setQuestion((String) update.getData());
 				break;
 				

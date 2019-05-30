@@ -50,6 +50,7 @@ public class GUI
 	private int[] triviaStats = new int[4];
 	
 	private ArrayList<String> secrets = new ArrayList<String>();
+	private ArrayList<String> triviaAnswers = new ArrayList<String>();
 	
 	private int caveSelected;
 	
@@ -75,6 +76,16 @@ public class GUI
 	public void setSecrets(ArrayList<String> secrets)
 	{
 		this.secrets = secrets;
+	}
+
+	public ArrayList<String> getTriviaAnswers()
+	{
+		return triviaAnswers;
+	}
+
+	public void setTriviaAnswers(ArrayList<String> triviaAnswers)
+	{
+		this.triviaAnswers = triviaAnswers;
 	}
 
 	public MovementDirection[] getDoors()
@@ -305,7 +316,7 @@ public class GUI
 					try
 					{
 						mainWindow = new MainWindow(thisGUI);
-						mainWindow.setSize(1000, 800);
+						mainWindow.setSize(1000, 900);
 						mainWindow.setVisible(true);
 					} catch (Exception e)
 					{
@@ -315,7 +326,7 @@ public class GUI
 			});
 		} catch (InvocationTargetException | InterruptedException e)
 		{
-			// TODO Auto-generated catch block
+			System.err.println("Error starting GUI: ");
 			e.printStackTrace();
 		}
 	}
@@ -469,6 +480,10 @@ public class GUI
 				setCurrentScore((int) update.getData());
 				break;
 				
+			case GET_TRIVIA_ANSWER:
+				triviaAnswers.add((String) update.getData());
+				break;
+			
 			case GET_SECRET:
 				secrets.add((String) update.getData());
 				break;

@@ -42,7 +42,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 800);
+		this.setSize(1000, 900);
 
 		JLabel lblTitle = new JLabel("Hunt The Wumpus");
 		lblTitle.setBounds(332, 0, 106, 16);

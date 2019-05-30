@@ -44,8 +44,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JButton buyArrow;
 	private JButton buySecret;
 	
-	private JList<String> mySecrets;
-	private DefaultListModel<String> secret = new DefaultListModel<String>();
+	private JList<String> myTriviaAnswers;
+	private DefaultListModel<String> triviaAnswers = new DefaultListModel<String>();
 	
 	private ArrayList<JButton> shooting = new ArrayList<JButton>();
 	private ArrayList<MovementDirection> shootingDirection = new ArrayList<MovementDirection>();
@@ -71,7 +71,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	{
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 800);
+		this.setSize(1000, 900);
 		
 		
 		JLabel lblTitle = new JLabel("Game Panel");
@@ -95,7 +95,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.PURCHASE_ARROW, true));
 				gui.mainWindow.triviaScreen.updatePanel("arrows");
 				gui.mainWindow.changeView(GUI.trivia);
-				updatePanel(updateRequired);
+				//updatePanel(updateRequired);
 			}
 		});
 		buyArrow.setBounds(839, 46, 111, 25);
@@ -107,7 +107,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.PURCHASE_SECRET, true));
 				gui.mainWindow.triviaScreen.updatePanel("secret");
 				gui.mainWindow.changeView(GUI.trivia);
-				updatePanel(updateRequired);
+				//updatePanel(updateRequired);
 			}
 		});
 		buySecret.setBounds(839, 84, 111, 25);
@@ -267,8 +267,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		turnsTaken.setBounds(12, 55, 97, 16);
 		add(turnsTaken);
 		
-		secretsObtained = new JLabel("Secrets Obtained:");
-		secretsObtained.setBounds(12, 126, 111, 16);
+		secretsObtained = new JLabel("Trivia Answers Obtained:");
+		secretsObtained.setBounds(36, 735, 151, 16);
 		add(secretsObtained);
 		
 		lblWarnings = new JLabel("WARNINGS");
@@ -290,11 +290,11 @@ public class GamePanel extends JPanel implements UpdateScreen
 		coinMax.setVisible(false);
 		add(coinMax);
 		
-		mySecrets = new JList<String>();
-		mySecrets.setModel(secret);
-		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		mySecrets.setBounds(12, 155, 138, 223);
-		add(mySecrets);
+		myTriviaAnswers = new JList<String>();
+		myTriviaAnswers.setModel(triviaAnswers);
+		myTriviaAnswers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		myTriviaAnswers.setBounds(230, 734, 534, 60);
+		add(myTriviaAnswers);
 		
 		//-----------Making Them Rotate---------------//
 		
@@ -443,13 +443,13 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		playerName.setText(gui.getName());
 		
-		secret = new DefaultListModel<String>();
-		for(String s : gui.getSecrets())
+		triviaAnswers = new DefaultListModel<String>();
+		for(String s : gui.getTriviaAnswers())
 		{
-			secret.addElement(s);
+			triviaAnswers.addElement(s);
 		}
 		
-		mySecrets.setModel(secret);
+		myTriviaAnswers.setModel(triviaAnswers);
 		
 		yourRoom.setText("Current Room: " + gui.getCurrentRoom());
 		turnsTaken.setText("Turns Taken: " + gui.getTurns());

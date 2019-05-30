@@ -36,7 +36,7 @@ public class Trivia extends JPanel implements UpdateScreen
 	{		
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 800);
+		this.setSize(1000, 900);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.addActionListener(new ActionListener() {
@@ -122,7 +122,7 @@ public class Trivia extends JPanel implements UpdateScreen
 			}
 		}
 		
-		if(update.equals("pits"));
+		if(update.equals("pits"))
 		{
 			encounter.setText("You have to escape the pit!");
 			numNeeded.setText("You must answer 2 out of 3 questions correctly to escape!");
@@ -131,7 +131,7 @@ public class Trivia extends JPanel implements UpdateScreen
 			//TODO print out / handle how many questions are answered and how many are needed
 		}
 		
-		if(update.equals("wumpus"));
+		if(update.equals("wumpus"))
 		{
 			encounter.setText("You have to escape the Wumpus!");
 			numNeeded.setText("You must answer 3 out of 5 questions correctly");
@@ -140,7 +140,7 @@ public class Trivia extends JPanel implements UpdateScreen
 			//TODO print out / handle how many questions are answered and how many are needed
 		}
 		
-		if(update.equals("arrows"));
+		if(update.equals("arrows"))
 		{
 			encounter.setText("You are trying to buy some more arrows");
 			numNeeded.setText("You must answer 2 out of 3 questions correctly");
@@ -149,7 +149,7 @@ public class Trivia extends JPanel implements UpdateScreen
 			//TODO print out / handle how many questions are answered and how many are needed
 		}
 		
-		if(update.equals("secret"));
+		if(update.equals("secret"))
 		{
 			encounter.setText("You are trying to buy a secret");
 			numNeeded.setText("You must answer 2 out of 3 questions correctly");

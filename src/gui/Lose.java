@@ -37,7 +37,7 @@ public class Lose extends JPanel implements UpdateScreen
 		JButton button = new JButton("CLICK HERE TO STOP");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				guiObject.notifyControl(new Update(UpdateType.WINDOW_CLOSING, true));
 			}
 		});
 		button.setBounds(245, 262, 193, 25);

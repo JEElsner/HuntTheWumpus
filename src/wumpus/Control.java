@@ -572,7 +572,11 @@ public class Control extends SwingWorker<Void, Update>
 		{
 			// If the player has gotten too many questions wrong, let the GUI know, and end the game
 			publish(new Update(UpdateType.TRIVIA_SUCCESS, false, false));
-			endGame(false);
+			
+			if(Trivia.getReason().equals(UpdateType.ENCOUNTER_WUMPUS.toString()) || Trivia.getReason().equals(UpdateType.ENCOUNTER_PIT.toString()))
+			{
+				endGame(false);
+			}
 		}
 	}
 	

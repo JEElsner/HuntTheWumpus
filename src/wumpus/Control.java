@@ -96,34 +96,23 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Initial
 	public static void debug()
 	{
-		System.out.println("Debug");
+		System.out.println();
+		System.out.println("  Gamestate readout  ");
+		System.out.println("=====================");
+		System.out.println();
 		
-		Field control;
-		try
-		{
-			control = Control.class.getDeclaredField("controlObject");
-			control.setAccessible(true);
-			
-			Control controlObj = (Control) control.get(null);
-			controlObj.endGame(true);
-			
-			/*Field pitF = Map.class.getDeclaredField("PitRoom");
-			pitF.setAccessible(true);
-			
-			pitF.setInt(controlObj.mapObject, 2);*/
-		} catch (NoSuchFieldException e)
-		{
-			e.printStackTrace();
-		} catch (SecurityException e)
-		{
-			e.printStackTrace();
-		} catch (IllegalArgumentException e)
-		{
-			e.printStackTrace();
-		} catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
-		}
+		System.out.println("Map");
+		System.out.println("Wumpus: " + controlObject.mapObject.getWumpusRoom());
+		System.out.println("Bats: " + controlObject.mapObject.getBatRoom() + ", " + controlObject.mapObject.getBatRoom2());
+		System.out.println("Pits: " + controlObject.mapObject.getPitRoom() + ", " + controlObject.mapObject.getPitRoom2());
+		System.out.println("Player: " + controlObject.mapObject.getPlayerRoom());
+		System.out.println();
+		
+		System.out.println("Player - " + controlObject.playerObject.getName());
+		System.out.println("Turns: " + controlObject.playerObject.getTurns());
+		System.out.println("Coins: " + controlObject.playerObject.getCoins());
+		System.out.println("Arrows: " + controlObject.playerObject.getArrows());
+		System.out.println();
 	}
 	
 	// Game Objects //
@@ -604,10 +593,10 @@ public class Control extends SwingWorker<Void, Update>
 			publish(new Update(UpdateType.GET_SECRET, false, "You are in room " + mapObject.getPlayerRoom()));
 		}else if(probability <= 3)
 		{
-			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room" + ((Math.random() > 0.5) ? mapObject.getPitRoom() : mapObject.getPitRoom2())));
+			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room " + ((Math.random() > 0.5) ? mapObject.getPitRoom() : mapObject.getPitRoom2())));
 		}else if(probability <= 5)
 		{
-			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room" + ((Math.random() > 0.5) ? mapObject.getBatRoom() : mapObject.getBatRoom2())));
+			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room " + ((Math.random() > 0.5) ? mapObject.getBatRoom() : mapObject.getBatRoom2())));
 		}else
 		{
 			publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));

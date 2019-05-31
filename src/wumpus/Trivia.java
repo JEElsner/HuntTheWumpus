@@ -11,8 +11,12 @@ public class Trivia
 	private static String answers[] = new String[101];  //array of answers
 	private static boolean asked[] = new boolean[101];  //array of asked questions
 	private static boolean gotIt[]=new boolean[101]; //gotIt right or not
+	private static int wrong[]=new int[101];
 	private static int toAsk=1;
 	private static String reason="";
+	private static int hint=1;
+	private static int wrongCount=1;
+	
 	
 	private static int correct = 0;
 	private static int correctQuota = 0;
@@ -81,6 +85,7 @@ public class Trivia
 		else
 		{
 			gotIt[toAsk++]=false;
+			wrong[wrongCount++]=toAsk;
 			return false;
 		}
 	}
@@ -97,13 +102,9 @@ public class Trivia
 
 	public static String getHint()
 	{
-		int q=(int)(Math.random()*(toAsk-1)+1);
-		
-		while(gotIt[q]==true)
-			q=(int)(Math.random()*(toAsk-1)+1);
-		
 		String result="";
-		result+=""+questions[q]+ "-"+answers[q];
+		result+=""+questions[hint]+ "-"+answers[hint];
+		hint++;
 		return result;
 	}
 	
@@ -151,7 +152,8 @@ public class Trivia
 			answer("idk");
 			answer("idk");
 			System.out.println(getHint());
-			
+			System.out.println(getHint());
+			System.out.println(getHint());
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block

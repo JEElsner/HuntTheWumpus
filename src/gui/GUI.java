@@ -528,6 +528,7 @@ public class GUI
 				
 			case GET_TRIVIA_QUESTION:
 				setQuestion((String) update.getData());
+				this.mainWindow.triviaScreen.updatePanel("new question");
 				break;
 				
 			case GIVE_ANSWER:

@@ -514,6 +514,8 @@ public class Control extends SwingWorker<Void, Update>
 	 */
 	private void answerTrivia(String answer)
 	{
+		System.out.println("\n\n");
+		
 		int[] triviaStats = new int[]
 			{
 				Trivia.answer(answer) ? 1 : 0, // Was the last question answered correct, 1 if yes, 0 if not

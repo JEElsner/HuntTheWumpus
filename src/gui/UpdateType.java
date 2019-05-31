@@ -98,7 +98,7 @@ public enum UpdateType
 	 * Tell the GUI if the user has succeed or failed at the entire round of questions for the hazard.
 	 * (e.g. has the user answered 2/3 questions correct to escape a pit)
 	 */
-	TRIVIA_SUCCESS(Void.class, boolean.class),
+	TRIVIA_SUCCESS(Void.class, Boolean.class),
 	
 	// Updates that are likely for GUI only
 

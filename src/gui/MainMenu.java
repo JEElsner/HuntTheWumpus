@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Font;
 
 public class MainMenu extends JPanel implements UpdateScreen
 {
@@ -39,56 +42,69 @@ public class MainMenu extends JPanel implements UpdateScreen
 	
 	public MainMenu(GUI guiObject)
 	{
+		setBorder(new LineBorder(new Color(139, 69, 19), 4));
+		setBackground(new Color(222, 184, 135));
 
 		gui = guiObject;
 		setLayout(null);
 		this.setSize(1000, 930);
 
 		JLabel lblTitle = new JLabel("Hunt The Wumpus");
-		lblTitle.setBounds(332, 0, 106, 16);
+		lblTitle.setFont(new Font("Viner Hand ITC", Font.BOLD, 36));
+		lblTitle.setBounds(302, 13, 367, 45);
 		add(lblTitle);
 		
-		JButton btnForDebuggin = new JButton("For Debuggin");
-		btnForDebuggin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				gui.mainWindow.debug.updatePanel("ye");
-				gui.mainWindow.changeView(GUI.debugging);
-			}
-		});
-		btnForDebuggin.setBounds(656, 460, 124, 25);
-		add(btnForDebuggin);
+//		JButton btnForDebuggin = new JButton("For Debuggin");
+//		btnForDebuggin.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) 
+//			{
+//				gui.mainWindow.debug.updatePanel("ye");
+//				gui.mainWindow.changeView(GUI.debugging);
+//			}
+//		});
+//		btnForDebuggin.setBounds(864, 874, 124, 25);
+//		add(btnForDebuggin);
 		
 		JLabel lblHighScores = new JLabel("High Scores");
-		lblHighScores.setBounds(121, 154, 74, 16);
+		lblHighScores.setFont(new Font("Papyrus", Font.BOLD, 24));
+		lblHighScores.setBounds(70, 384, 160, 45);
 		add(lblHighScores);
 		
-		JButton btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				updatePanel("yes");
-			}
-		});
-		btnUpdate.setBounds(12, 460, 97, 25);
-		add(btnUpdate);
+//		JButton btnUpdate = new JButton("Update");
+//		btnUpdate.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				updatePanel("yes");
+//			}
+//		});
+//		btnUpdate.setBounds(12, 874, 97, 25);
+//		add(btnUpdate);
 		
 		JLabel enterName = new JLabel("Enter Your 3 Character Name:");
-		enterName.setBounds(232, 75, 176, 16);
+		enterName.setFont(new Font("Papyrus", Font.BOLD, 18));
+		enterName.setBounds(342, 227, 282, 32);
 		add(enterName);
 		
 		// REVIEW Add Key listeners to components where pressing enter should start a new game or do something else
 		plyrName = new JTextField();
-		plyrName.setBounds(420, 72, 116, 22);
+		plyrName.setBorder(new LineBorder(new Color(160, 82, 45), 3));
+		plyrName.setFont(new Font("Papyrus", Font.BOLD, 18));
+		plyrName.setBackground(new Color(245, 222, 179));
+		plyrName.setBounds(445, 272, 74, 35);
 		add(plyrName);
 		plyrName.setColumns(10);
 		
 		nameError = new JLabel("Error! Name entered is invalid, please try again with a name that is 3 characters long");
-		nameError.setBounds(157, 45, 503, 16);
+		nameError.setForeground(new Color(139, 69, 19));
+		nameError.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		nameError.setBounds(145, 154, 662, 25);
 		nameError.setVisible(false);
 		add(nameError);
 		
 		// TODO Implement Choosing a cave//COMPLETED
-		JButton btnNewgame = new JButton("NewGame");
+		JButton btnNewgame = new JButton("New Game");
+		btnNewgame.setFont(new Font("Georgia", Font.BOLD, 20));
+		btnNewgame.setBackground(new Color(154, 205, 50));
+		btnNewgame.setBorder(new LineBorder(new Color(0, 128, 0), 4));
 		btnNewgame.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent event)
@@ -114,18 +130,23 @@ public class MainMenu extends JPanel implements UpdateScreen
 				}
 			}
 		});
-		btnNewgame.setBounds(358, 104, 97, 25);
+		btnNewgame.setBounds(420, 505, 140, 55);
 		add(btnNewgame);
 		
 				
 		list = new JList<String>();
+		list.setSelectionBackground(new Color(255, 215, 0));
+		list.setBackground(new Color(255, 255, 153));
+		list.setFont(new Font("Georgia", Font.PLAIN, 18));
+		list.setBorder(new LineBorder(new Color(218, 165, 32), 6));
 		list.setVisibleRowCount(10);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBounds(99, 183, 141, 183);
+		list.setBounds(54, 442, 176, 257);
 		add(list);
 		
 		JLabel lblChooseYourCave = new JLabel("Choose your Cave");
-		lblChooseYourCave.setBounds(642, 141, 116, 16);
+		lblChooseYourCave.setFont(new Font("Papyrus", Font.BOLD, 24));
+		lblChooseYourCave.setBounds(700, 390, 252, 45);
 		add(lblChooseYourCave);
 		
 		options.addElement("Cave One");
@@ -136,14 +157,20 @@ public class MainMenu extends JPanel implements UpdateScreen
 		options.addElement("Random Cave");
 		
 		caves = new JList<String>();
+		caves.setSelectionBackground(new Color(107, 142, 35));
+		caves.setBackground(new Color(189, 183, 107));
+		caves.setFont(new Font("Papyrus", Font.BOLD, 20));
+		caves.setBorder(new LineBorder(new Color(0, 128, 0), 3, true));
 		caves.setModel(options);
 		caves.setVisibleRowCount(6);
 		caves.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		caves.setBounds(642, 170, 106, 111);
+		caves.setBounds(725, 455, 176, 218);
 		add(caves);
 		
 		errorCave = new JLabel("Error! Please select a Cave!");
-		errorCave.setBounds(306, 142, 176, 16);
+		errorCave.setForeground(new Color(139, 69, 19));
+		errorCave.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		errorCave.setBounds(380, 125, 226, 16);
 		add(errorCave);
 		errorCave.setVisible(false);
 		

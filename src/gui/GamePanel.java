@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
+import java.awt.Font;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
@@ -62,7 +63,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JButton[] moving = new JButton[6];
 	private JLabel yourRoom;
 	private JLabel playerName;
-	private JLabel inventory;
 	private JLabel coins;
 	private JLabel arrows;
 	private JLabel turnsTaken;
@@ -73,14 +73,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 	public GamePanel(GUI guiObject)
 	{
+		setBackground(new Color(222, 184, 135));
 		gui = guiObject;
 		setLayout(null);
 		this.setSize(1000, 930);
 		
 		
-		JLabel lblTitle = new JLabel("Game Panel");
-		lblTitle.setBounds(468, 0, 68, 16);
-		add(lblTitle);
+//		JLabel lblTitle = new JLabel("Game Panel");
+//		lblTitle.setBounds(468, 0, 68, 16);
+//		add(lblTitle);
 		
 		JButton btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.addActionListener(new ActionListener() {
@@ -90,7 +91,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				
 			}
 		});
-		btnMainMenu.setBounds(12, 481, 97, 25);
+		btnMainMenu.setBounds(20, 892, 97, 25);
 		add(btnMainMenu);
 		
 		buyArrow = new JButton("Buy Arrow");
@@ -166,7 +167,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		
 		yourRoom = new JLabel("Current Room: ");
-		yourRoom.setBackground(Color.GRAY);
+		yourRoom.setOpaque(true);
+		yourRoom.setBackground(new Color(180, 150, 110));
 		yourRoom.setForeground(Color.BLACK);
 		yourRoom.setBounds(431, 380, 133, 16);
 		add(yourRoom);
@@ -191,7 +193,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_RIGHT));
 			}
 		});
-		moveUpRight.setBounds(665, 156, 97, 25);
+		moveUpRight.setBounds(678, 156, 97, 25);
 		add(moveUpRight);
 		
 		moveUpLeft = new JButton("Up Left");
@@ -221,7 +223,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_RIGHT));
 			}
 		});
-		moveDownRight.setBounds(651, 570, 110, 25);
+		moveDownRight.setBounds(676, 570, 110, 25);
 		add(moveDownRight);
 		
 		moveDownLeft = new JButton("Down Left");
@@ -241,24 +243,21 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moving[4] = moveDownRight;
 		moving[5] = moveDownLeft;
 		
-		canvas.setBackground(Color.LIGHT_GRAY);
+		canvas.setBackground(new Color(222, 184, 135));
 		canvas.setBounds(176, 84, 622, 574);
 		add(canvas);
 		
 		playerName = new JLabel();
-		playerName.setBounds(12, 17, 79, 16);
+		playerName.setFont(new Font("Papyrus", Font.BOLD, 18));
+		playerName.setBounds(12, 17, 79, 30);
 		add(playerName);
 		
-		inventory = new JLabel("Inventory");
-		inventory.setBounds(201, 17, 56, 16);
-		add(inventory);
-		
 		coins = new JLabel("Coins:");
-		coins.setBounds(201, 31, 79, 16);
+		coins.setBounds(440, 13, 79, 16);
 		add(coins);
 		
 		arrows = new JLabel("Arrows:");
-		arrows.setBounds(201, 55, 79, 16);
+		arrows.setBounds(440, 37, 79, 16);
 		add(arrows);
 		
 		turnsTaken = new JLabel("Turns Taken:");
@@ -270,12 +269,12 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(secretsObtained);
 		
 		lblWarnings = new JLabel("WARNINGS");
-		lblWarnings.setBounds(825, 497, 68, 16);
+		lblWarnings.setBounds(20, 106, 68, 16);
 		add(lblWarnings);
 		
 		warnings = new JTextPane();
 		warnings.setEditable(false);
-		warnings.setBounds(817, 526, 158, 80);
+		warnings.setBounds(12, 135, 158, 80);
 		add(warnings);
 		
 		miss = new JLabel("Oh no! You missed!");
@@ -284,7 +283,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(miss);
 		
 		coinMax = new JLabel("Max coins reached!");
-		coinMax.setBounds(281, 31, 111, 16);
+		coinMax.setBounds(520, 13, 111, 16);
 		coinMax.setVisible(false);
 		add(coinMax);
 		
@@ -339,7 +338,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		@Override
 		public void paint(Graphics g)
 		{
-			g.setColor(Color.BLACK);
+			g.setColor(new Color(180, 150, 110));
 
 		    Polygon h = new Polygon();
 		    
@@ -351,6 +350,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 				h.addPoint((int) (xPos + side * Math.cos(i * Math.PI / 3)),
 						  (int) (yPos + side * Math.sin(i * Math.PI / 3)));
 			}
+			
+			g.fillPolygon(h);
 			g.drawPolygon(h);
 		}
 	}
@@ -376,7 +377,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 			shootingDirection.remove(i);
 		}
 		
-		//TODO Add handler if it hits
 	}
 	
 	public void miss()

@@ -489,6 +489,7 @@ public class GUI
 			
 			case GET_SECRET:
 				secrets.add((String) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("secrets");
 				break;
 				
 			case PIT_WARNING:

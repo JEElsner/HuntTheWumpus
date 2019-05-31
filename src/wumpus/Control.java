@@ -514,7 +514,7 @@ public class Control extends SwingWorker<Void, Update>
 	 */
 	private void answerTrivia(String answer)
 	{
-		System.out.println("\n\n");
+		//System.out.println("\n\n");
 		
 		int[] triviaStats = new int[]
 			{
@@ -589,7 +589,6 @@ public class Control extends SwingWorker<Void, Update>
 		// Add a player turn
 		playerObject.incrementTurns();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
-		publish(new Update(UpdateType.GET_SECRET, false, "Secret")); // TODO implement
 		
 		boolean twoRoomsAway = mapObject.isWumpus2RoomsAway();
 		int probability = (int)(Math.random() * 11);

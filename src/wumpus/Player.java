@@ -55,19 +55,9 @@ public class Player
 		return name;
 	}
 	
-	public int buyArrows(boolean triviaCorrect)
+	public int buyArrows()
 	{
-		if(coins > 1)
-		{
-				coins--;
-				if(trivia)
-				{
-					arrows = arrows + 2; 
-				}
-			return arrows;
-		}
-		return -1;
-	
+		return (arrows += 2);
 	}
 	
 	public int getCoins()

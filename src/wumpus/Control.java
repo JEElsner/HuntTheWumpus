@@ -625,7 +625,7 @@ public class Control extends SwingWorker<Void, Update>
 		playerObject.incrementTurns();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
 		
-		publish(new Update(UpdateType.GET_ARROWS, false, playerObject.buyArrows(true))); // return new number of arrows
+		publish(new Update(UpdateType.GET_ARROWS, false, playerObject.buyArrows())); // return new number of arrows
 	}
 	
 	// The player shoots an arrow

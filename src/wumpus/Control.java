@@ -647,6 +647,7 @@ public class Control extends SwingWorker<Void, Update>
 	{
 		// TBH, IDK if anything else needs to go here...
 		
+		
 		endGame(true); // Well, the wumpus is dead, so the game ends
 	}
 	
@@ -656,13 +657,13 @@ public class Control extends SwingWorker<Void, Update>
 	public void endGame(boolean wumpusKilled)
 	{
 		// Record the player's high score
-		HighScore.addScore(playerObject.getName(), playerObject.finalScore(), caveObject.version,
+		HighScore.addScore(playerObject.getName(), playerObject.finalScore(wumpusKilled), caveObject.version,
 				playerObject.getTurns(), playerObject.getCoins(), playerObject.getArrows());
 		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
-			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore())); // Pass high scores?
+			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore(wumpusKilled))); // Pass high scores?
 		else // The the wumpus wasn't killed the game is lost
-			publish(new Update(UpdateType.DISPLAY_LOSE, false, playerObject.finalScore())); // Pass high scores?
+			publish(new Update(UpdateType.DISPLAY_LOSE, false, playerObject.finalScore(wumpusKilled))); // Pass high scores?
 		
 		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}

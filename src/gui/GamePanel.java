@@ -86,16 +86,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 //		lblTitle.setBounds(468, 0, 68, 16);
 //		add(lblTitle);
 		
-//		JButton btnMainMenu = new JButton("Main Menu");
-//		btnMainMenu.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) 
-//			{
-//				gui.mainWindow.changeView(GUI.titleScreen);
-//				
-//			}
-//		});
-//		btnMainMenu.setBounds(12, 628, 97, 25);
-//		add(btnMainMenu);
+		JButton btnMainMenu = new JButton("Quit");
+		btnMainMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				gui.mainWindow.changeView(GUI.titleScreen);
+				
+			}
+		});
+		btnMainMenu.setBounds(12, 628, 97, 25);
+		add(btnMainMenu);
 		
 		buyArrow = new JButton("Buy Arrow");
 		buyArrow.addActionListener(new ActionListener() {

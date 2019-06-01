@@ -46,7 +46,7 @@ public class ScoreDetails extends JFrame
 	 */
 	public ScoreDetails()
 	{
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,23 +54,23 @@ public class ScoreDetails extends JFrame
 		contentPane.setLayout(null);
 		
 		nameScore = new JLabel("New label");
-		nameScore.setBounds(103, 36, 56, 16);
+		nameScore.setBounds(103, 36, 122, 16);
 		contentPane.add(nameScore);
 		
 		caveNo = new JLabel("New label");
-		caveNo.setBounds(103, 107, 56, 16);
+		caveNo.setBounds(103, 107, 141, 22);
 		contentPane.add(caveNo);
 		
 		turnsNo = new JLabel("New label");
-		turnsNo.setBounds(103, 147, 56, 16);
+		turnsNo.setBounds(103, 147, 122, 16);
 		contentPane.add(turnsNo);
 		
 		coinsNo = new JLabel("New label");
-		coinsNo.setBounds(103, 176, 56, 16);
+		coinsNo.setBounds(103, 176, 122, 22);
 		contentPane.add(coinsNo);
 		
 		arrowsNo = new JLabel("New label");
-		arrowsNo.setBounds(103, 205, 56, 16);
+		arrowsNo.setBounds(103, 205, 122, 22);
 		contentPane.add(arrowsNo);
 		
 		this.setSize(400, 400);

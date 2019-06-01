@@ -83,6 +83,7 @@ public class Win extends JPanel implements UpdateScreen
 
 	public void updatePanel(String update)
 	{
+		
 		myScores = new DefaultListModel<String>();
 		for(String s : gui.getHighScores())
 		{

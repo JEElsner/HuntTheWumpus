@@ -481,7 +481,10 @@ public class GUI
 				
 			case GET_HIGH_SCORE:
 				this.setHighScores((ArrayList<String>) update.getData());
-				this.mainWindow.menuScreen.updatePanel("high scores"); // Update the panel
+				this.mainWindow.menuScreen.updatePanel("high scores");
+				this.mainWindow.winScreen.updatePanel("win scores");
+				this.mainWindow.winScreen.updatePanel("lose scores");
+				// Update the panel
 				break;
 				
 			case GET_SCORE_STATS:
@@ -576,11 +579,13 @@ public class GUI
 				
 			case DISPLAY_WIN:
 				this.setScore((int) update.getData());
+				this.mainWindow.winScreen.updatePanel("scores");
 				this.mainWindow.changeView(WinScreen);
 				break;
 			
 			case DISPLAY_LOSE:
 				this.setScore((int) update.getData());
+				this.mainWindow.loseScreen.updatePanel("scores");
 				this.mainWindow.changeView(LoseScreen);
 				break;
 				

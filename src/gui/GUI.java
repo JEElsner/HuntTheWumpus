@@ -562,7 +562,7 @@ public class GUI
 			
 			case DISPLAY_LOSE:
 				this.setScore((int) update.getData());
-				this.mainWindow.changeView(WinScreen);
+				this.mainWindow.changeView(LoseScreen);
 				break;
 				
 			default:

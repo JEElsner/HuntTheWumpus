@@ -372,7 +372,9 @@ public class Control extends SwingWorker<Void, Update>
 	{
 		System.out.println("\n New Turn:\n------------------\n");
 		
-		// TODO check if there is a door to the room the player wants to move to
+		// Make sure the player can actually move the direction they want
+		if(caveObject.getConnections(mapObject.getPlayerRoom())[dir.ordinal()] == 0)
+			return;
 		
 		int playerRoom = mapObject.movePlayer(dir); // Move the player to the new location
 		System.out.println("Room: " + playerRoom);

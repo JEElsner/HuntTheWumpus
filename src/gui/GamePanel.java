@@ -19,6 +19,9 @@ import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import java.awt.Font;
+import javax.swing.border.LineBorder;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
@@ -83,16 +86,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 //		lblTitle.setBounds(468, 0, 68, 16);
 //		add(lblTitle);
 		
-		JButton btnMainMenu = new JButton("Main Menu");
-		btnMainMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				gui.mainWindow.changeView(GUI.titleScreen);
-				
-			}
-		});
-		btnMainMenu.setBounds(20, 892, 97, 25);
-		add(btnMainMenu);
+//		JButton btnMainMenu = new JButton("Main Menu");
+//		btnMainMenu.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) 
+//			{
+//				gui.mainWindow.changeView(GUI.titleScreen);
+//				
+//			}
+//		});
+//		btnMainMenu.setBounds(12, 628, 97, 25);
+//		add(btnMainMenu);
 		
 		buyArrow = new JButton("Buy Arrow");
 		buyArrow.addActionListener(new ActionListener() {
@@ -167,10 +170,11 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		
 		yourRoom = new JLabel("Current Room: ");
+		yourRoom.setFont(new Font("Papyrus", Font.BOLD, 18));
 		yourRoom.setOpaque(true);
 		yourRoom.setBackground(new Color(180, 150, 110));
 		yourRoom.setForeground(Color.BLACK);
-		yourRoom.setBounds(431, 380, 133, 16);
+		yourRoom.setBounds(415, 357, 167, 38);
 		add(yourRoom);
 		
 		//----------------------------------//
@@ -253,28 +257,36 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(playerName);
 		
 		coins = new JLabel("Coins:");
-		coins.setBounds(440, 13, 79, 16);
+		coins.setFont(new Font("Papyrus", Font.BOLD, 18));
+		coins.setBounds(440, 13, 111, 21);
 		add(coins);
 		
 		arrows = new JLabel("Arrows:");
-		arrows.setBounds(440, 37, 79, 16);
+		arrows.setFont(new Font("Papyrus", Font.BOLD, 18));
+		arrows.setBounds(440, 37, 111, 34);
 		add(arrows);
 		
 		turnsTaken = new JLabel("Turns Taken:");
-		turnsTaken.setBounds(12, 55, 97, 16);
+		turnsTaken.setFont(new Font("Papyrus", Font.BOLD, 18));
+		turnsTaken.setBounds(12, 55, 171, 46);
 		add(turnsTaken);
 		
-		secretsObtained = new JLabel("Trivia Answers Obtained:");
-		secretsObtained.setBounds(46, 682, 151, 16);
+		secretsObtained = new JLabel("Trivia Answers:");
+		secretsObtained.setFont(new Font("Papyrus", Font.BOLD, 18));
+		secretsObtained.setBounds(24, 684, 159, 24);
 		add(secretsObtained);
 		
 		lblWarnings = new JLabel("WARNINGS");
-		lblWarnings.setBounds(20, 106, 68, 16);
+		lblWarnings.setFont(new Font("Papyrus", Font.BOLD, 20));
+		lblWarnings.setBounds(12, 114, 158, 41);
 		add(lblWarnings);
 		
 		warnings = new JTextPane();
+		warnings.setBorder(new LineBorder(new Color(160, 82, 45), 4));
+		warnings.setBackground(new Color(238, 232, 170));
+		warnings.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
 		warnings.setEditable(false);
-		warnings.setBounds(12, 135, 158, 80);
+		warnings.setBounds(12, 160, 158, 146);
 		add(warnings);
 		
 		miss = new JLabel("Oh no! You missed!");
@@ -283,33 +295,53 @@ public class GamePanel extends JPanel implements UpdateScreen
 		add(miss);
 		
 		coinMax = new JLabel("Max coins reached!");
-		coinMax.setBounds(520, 13, 111, 16);
+		coinMax.setForeground(new Color(139, 69, 19));
+		coinMax.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		coinMax.setBounds(563, 11, 187, 25);
 		coinMax.setVisible(false);
 		add(coinMax);
 		
 		myTriviaAnswers = new JList<String>();
+		myTriviaAnswers.setFont(new Font("Georgia", Font.BOLD, 16));
+		myTriviaAnswers.setSelectionBackground(new Color(210, 180, 140));
+		myTriviaAnswers.setBorder(new LineBorder(new Color(160, 82, 45), 4));
+		myTriviaAnswers.setBackground(new Color(180, 150, 110));
 		//myTriviaAnswers.setModel(triviaAnswers);
 		myTriviaAnswers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		myTriviaAnswers.setBounds(230, 780, 534, 60);
 		//add(myTriviaAnswers);
 		
 		JScrollPane tAnswers = new JScrollPane(myTriviaAnswers);
-		tAnswers.setBounds(230, 680, 534, 80);
+		tAnswers.setBounds(180, 680, 724, 80);
 		add(tAnswers);
 		
-		JLabel lblSecretsObtained = new JLabel("Secrets Obtained:");
-		lblSecretsObtained.setBounds(89, 782, 151, 16);
+		JLabel lblSecretsObtained = new JLabel("Secrets:");
+		lblSecretsObtained.setFont(new Font("Papyrus", Font.BOLD, 18));
+		lblSecretsObtained.setBounds(80, 785, 97, 25);
 		add(lblSecretsObtained);
 		
 		mySecrets = new JList<String>();
+		mySecrets.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		mySecrets.setBorder(new LineBorder(new Color(160, 82, 45), 4));
+		mySecrets.setSelectionBackground(new Color(210, 180, 140));
+		mySecrets.setBackground(new Color(180, 150, 110));
 		//mySecrets.setModel(obtainedSecrets);
 		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		mySecrets.setBounds(230, 780, 534, 60);
 		//add(mySecrets);
 		
 		JScrollPane mySec = new JScrollPane(mySecrets);
-		mySec.setBounds(230, 780, 534, 80);
+		mySec.setBounds(180, 780, 724, 80);
 		add(mySec);
+		
+		JButton btnQuit = new JButton("Quit");
+		btnQuit.setBounds(12, 853, 97, 25);
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				guiObject.notifyControl(new Update(UpdateType.WINDOW_CLOSING, true));
+			}
+		});
+		add(btnQuit);
 		
 		//-----------Making Them Rotate---------------//
 		

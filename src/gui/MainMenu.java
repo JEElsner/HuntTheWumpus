@@ -16,6 +16,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JList;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+
 import java.awt.Color;
 import java.awt.Font;
 

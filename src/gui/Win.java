@@ -1,9 +1,15 @@
 package gui;
 
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 
 public class Win extends JPanel implements UpdateScreen
@@ -14,6 +20,9 @@ public class Win extends JPanel implements UpdateScreen
 	private static final long serialVersionUID = -1866960958992003815L;
 
 	private GUI gui;
+	
+	private JList<String> hScores;
+	private DefaultListModel<String> myScores;
 	
 	/**
 	 * Create the panel.
@@ -59,11 +68,27 @@ public class Win extends JPanel implements UpdateScreen
 		JLabel lblYourNameWill = new JLabel("If you got a High Score, you name, score, and cave will appear on the main menu!");
 		lblYourNameWill.setBounds(12, 137, 489, 16);
 		add(lblYourNameWill);
+		
+		hScores = new JList<String>();
+		hScores.setSelectionBackground(new Color(255, 215, 0));
+		hScores.setBackground(new Color(255, 255, 153));
+		hScores.setFont(new Font("Georgia", Font.PLAIN, 18));
+		hScores.setBorder(new LineBorder(new Color(218, 165, 32), 6));
+		hScores.setVisibleRowCount(10);
+		hScores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		hScores.setBounds(54, 442, 176, 257);
+		add(hScores);
 
 	}
 
 	public void updatePanel(String update)
 	{
+		myScores = new DefaultListModel<String>();
+		for(String s : gui.getHighScores())
+		{
+			myScores.addElement(s);
+		}
 		
+		hScores.setModel(myScores);
 	}
 }

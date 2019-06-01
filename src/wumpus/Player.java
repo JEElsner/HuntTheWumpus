@@ -99,9 +99,14 @@ public class Player
 		return turns;
 	}
 	
-	public int finalScore()
+	public int finalScore(boolean wumpusKilled)
 	{
-		score = (100 - turns + coins + (10 * arrows));
+		score = (coins + (10 * arrows) - turns);
+		if(wumpusKilled)
+		{
+			score = score + 100;
+		}
+		
 		return score;
 	}
 	

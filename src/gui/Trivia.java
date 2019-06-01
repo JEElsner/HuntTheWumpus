@@ -10,6 +10,8 @@ import java.awt.Color;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Trivia extends JPanel implements UpdateScreen
 {
@@ -28,6 +30,7 @@ public class Trivia extends JPanel implements UpdateScreen
 	private int[] stats = new int[4];
 	private JLabel warnings;
 	private JTextArea questions;
+	private JLabel coinsLeft;
 	
 	/**
 	 * Create the panel.
@@ -38,35 +41,48 @@ public class Trivia extends JPanel implements UpdateScreen
 		setLayout(null);
 		this.setSize(1000, 900);
 		
-		JButton btnMainMenu = new JButton("Main Menu");
-		btnMainMenu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				guiObject.mainWindow.changeView(GUI.titleScreen);
-			}
-		});
-		btnMainMenu.setBounds(686, 465, 97, 25);
-		add(btnMainMenu);
+//		JButton btnMainMenu = new JButton("Main Menu");
+//		btnMainMenu.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) 
+//			{
+//				guiObject.mainWindow.changeView(GUI.titleScreen);
+//			}
+//		});
+//		btnMainMenu.setBounds(686, 465, 97, 25);
+//		add(btnMainMenu);
 		
-		answers = new JTextField();
-		answers.setBounds(409, 55, 331, 272);
-		add(answers);
-		answers.setColumns(10);
+
 		
 		encounter = new JLabel("You are attempting to *****");
 		encounter.setBounds(73, 395, 273, 25);
 		add(encounter);
 		
-		JButton submit = new JButton("Submit Answer");
-		submit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gui.setAnswer(answers.getText());
-				gui.notifyControl(new Update(UpdateType.GIVE_ANSWER, true, gui.getAnswer()));
-				updatePanel("Submitted");
+//		JButton submit = new JButton("Submit Answer");
+//		submit.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				gui.setAnswer(answers.getText());
+//				gui.notifyControl(new Update(UpdateType.GIVE_ANSWER, true, gui.getAnswer()));
+//				updatePanel("Submitted");
+//			}
+//		});
+//		submit.setBounds(652, 406, 131, 25);
+//		add(submit);
+		
+		answers = new JTextField();
+		answers.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					gui.setAnswer(answers.getText());
+					gui.notifyControl(new Update(UpdateType.GIVE_ANSWER, true, gui.getAnswer()));
+					updatePanel("Submitted");
+				}
 			}
 		});
-		submit.setBounds(652, 406, 131, 25);
-		add(submit);
+		answers.setBounds(409, 55, 331, 272);
+		add(answers);
+		answers.setColumns(10);
 		
 		numNeeded = new JLabel("You must answer **** correctly");
 		numNeeded.setBounds(73, 427, 273, 25);
@@ -91,9 +107,18 @@ public class Trivia extends JPanel implements UpdateScreen
 		questions.setColumns(10);
 		questions.setLineWrap(true);
 		questions.setWrapStyleWord(true);
+		
+		coinsLeft = new JLabel("Coins Remaining:");
+		coinsLeft.setBounds(73, 340, 157, 16);
+		add(coinsLeft);
 		//questions.setEditable(false);
 
 
+	}
+	
+	public void clear()
+	{
+		correctMessage.setVisible(false);
 	}
 	
 	public void updatePanel(String update)
@@ -106,6 +131,8 @@ public class Trivia extends JPanel implements UpdateScreen
 		}
 		
 		questions.setText(gui.getQuestion());
+		
+		coinsLeft.setText("Coins Remaining: " + gui.getCoins());
 		
 		if(stats[2] > 0)
 		{

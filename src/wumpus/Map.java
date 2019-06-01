@@ -133,15 +133,15 @@ public class Map
 		{
 			Field controlF = Control.class.getDeclaredField("controlObject");
 			controlF.setAccessible(true);
-			
+
 			Field mapF = Control.class.getDeclaredField("mapObject");
 			mapF.setAccessible(true);
-			
+
 			Control controller = (Control) controlF.get(null);
 			Map map = (Map) mapF.get(controller);
-			
+
 			map.setDefaultMap();
-			
+
 		} catch (NoSuchFieldException e)
 		{
 			// TODO Auto-generated catch block
@@ -159,9 +159,9 @@ public class Map
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void setDefaultMap()
 	{
 		PlayerRoom = 1;
@@ -247,21 +247,23 @@ public class Map
 
 	public int wumpusRunsAway()
 	{
-		if (isAwake)
+		if(isWumpusAwake())
 		{
-			int random = (int) (Math.random() * 2);
-			if (random == 1)
-			{
-				return WumpusRoom;
-			}
+		
+		int random = (int) (Math.random() * 2);
+		if (random == 1)
+		{
+			return WumpusRoom;
+		}
 
-			else
-			{
-				int randomRoom = (int) (Math.random() * 6);
-				WumpusRoom = getNearbyRoom(WumpusRoom, MovementDirection.values()[randomRoom]);
-			}
+		else
+		{
+			int randomRoom = (int) (Math.random() * 6);
+			WumpusRoom = getNearbyRoom(WumpusRoom, MovementDirection.values()[randomRoom]);
+		}
 
 		}
+		
 		return WumpusRoom;
 	}
 
@@ -280,6 +282,7 @@ public class Map
 			} while (newRoom == lastRoom);
 			WumpusRoom = newRoom;
 		}
+		isAwake = true;
 	}
 
 	public int flyAway()

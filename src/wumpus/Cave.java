@@ -55,6 +55,8 @@ public class Cave
 	{
 		System.out.println("Using Cave: " + ver);
 		
+		version = ver;
+		
 		int i = 0, j = 0;
 		
 		InputStream caveFile = getClass().getResourceAsStream("/res/mapOne.txt");

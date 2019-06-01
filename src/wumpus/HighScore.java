@@ -1,12 +1,13 @@
 package wumpus;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 
 public class HighScore
 {
@@ -14,39 +15,21 @@ public class HighScore
 	private static ArrayList<Integer> scores = new ArrayList<Integer>();
 	private static ArrayList<String> names = new ArrayList<String>();
 	private static ArrayList<Integer> caves = new ArrayList<Integer>();
-	
+	private static ArrayList<Integer> turns = new ArrayList<Integer>();
+	private static ArrayList<Integer> coins = new ArrayList<Integer>();
+	private static ArrayList<Integer> arrows = new ArrayList<Integer>();
+
 	public static final String HIGH_SCORE_PATH = System.getProperty("user.dir") + File.separator + "scores.txt";
-	
-	// TODO Comment HighScore
+
+	// We created three seperate arraylists for the different types of data (score,
+	// name and the cave version)
+	// Then we used file readers and writers to store and rewrite data onto a file
+	// so the highscores can be saved
+	// and modified
 
 	public static void debug()
 	{
-//		File dir = new File("data");
-//		if (dir.exists())
-//		{
-//			String[] files = dir.list();
-//			System.out.println(files.length + "files found...");
-//			for (int i = 0; i < files.length; i++)
-//			{
-//				System.out.println(files[i]);
-//			}
-//
-//		} else
-//		{
-//			System.out.println("Folder not found.");
-//		}
 		
-		
-		
-		File dir = new File(HIGH_SCORE_PATH);
-		setDefault();
-		writeFile();
-		readFile(dir);
-		addScore("DAD", 420420, 3);
-		addScore("MOM", 111110, 2);
-		addScore("COW", 928340, 5);
-		writeFile();
-		readFile(dir);
 	}
 
 	public static void readFile(File fileObj)
@@ -55,6 +38,9 @@ public class HighScore
 		int ScoreCount = 0;
 		int NameCount = 0;
 		int CaveCount = 0;
+		int TurnCount = 0;
+		int CoinCount = 0;
+		int ArrowCount = 0;
 		try
 		{
 			File scoresFile = new File(HIGH_SCORE_PATH);
@@ -73,26 +59,43 @@ public class HighScore
 			String line = "";
 			while ((line = buff.readLine()) != null)
 			{
-				if (cycle % 3 == 0)
+				if (cycle % 6 == 0)
 				{
 					names.add(NameCount, line);
 					NameCount++;
-				}
-				else if (cycle % 3 == 1)
+				} else if (cycle % 6 == 1)
 				{
 					scores.add(ScoreCount, Integer.parseInt(line));
 					ScoreCount++;
-				} 
-				
-				else if (cycle % 3 == 2)
+				}
+
+				else if (cycle % 6 == 2)
 				{
 					caves.add(CaveCount, Integer.parseInt(line));
 					CaveCount++;
 				}
 
+				else if (cycle % 6 == 3)
+				{
+					turns.add(TurnCount, Integer.parseInt(line));
+					TurnCount++;
+				}
+
+				else if (cycle % 6 == 4)
+				{
+					coins.add(CoinCount, Integer.parseInt(line));
+					CoinCount++;
+				}
+
+				else if (cycle % 6 == 5)
+				{
+					arrows.add(ArrowCount, Integer.parseInt(line));
+					ArrowCount++;
+				}
+
 				cycle++;
 			}
-			
+
 			buff.close();
 
 			if (scores.size() == 0)
@@ -111,11 +114,14 @@ public class HighScore
 	public static void setDefault()
 	{
 		System.out.println("Populating Default Scores...");
-		
+
 		for (int i = 0; i < 10; i++)
 		{
 			scores.add(000000);
 			caves.add(1);
+			turns.add(1);
+			coins.add(1);
+			arrows.add(1);
 		}
 		names.add("AAA");
 		names.add("BBB");
@@ -129,7 +135,7 @@ public class HighScore
 		names.add("JJJ");
 	}
 
-	public static void addScore(String n, int s, int c)
+	public static void addScore(String n, int s, int c, int t, int o, int a)
 	{
 		for (int i = 0; i < scores.size(); i++)
 		{
@@ -138,7 +144,10 @@ public class HighScore
 				scores.add(i, s);
 				names.add(i, n);
 				caves.add(i, c);
-				
+				turns.add(i, t);
+				coins.add(i, o);
+				arrows.add(i, a);
+
 				break;
 			}
 		}
@@ -148,6 +157,9 @@ public class HighScore
 			names.remove(10);
 			scores.remove(10);
 			caves.remove(10);
+			turns.remove(10);
+			coins.remove(10);
+			arrows.remove(10);
 		}
 	}
 
@@ -169,6 +181,13 @@ public class HighScore
 				buffer.newLine();
 				buffer.write("" + caves.get(i));
 				buffer.newLine();
+				buffer.write("" + turns.get(i));
+				buffer.newLine();
+				buffer.write("" + coins.get(i));
+				buffer.newLine();
+				buffer.write("" + arrows.get(i));
+				buffer.newLine();
+				
 			}
 
 			buffer.close();
@@ -183,11 +202,22 @@ public class HighScore
 		}
 	}
 
+	public static int[] returnStats(int ranking)
+	{
+		int[] stats = new int[4];
+		stats[0] = caves.get(ranking);
+		stats[1] = turns.get(ranking);
+		stats[2] = coins.get(ranking);
+		stats[3] = arrows.get(ranking);
+
+		return stats;
+	}
+
 	public static ArrayList<String> returnHighscore()
 	{
 		for (int i = 0; i < names.size(); i++)
 		{
-			List.add(i, names.get(i) + "  -  " + scores.get(i) + " Cave " + caves.get(i));
+			List.add(i, names.get(i) + "  -  " + scores.get(i));
 		}
 		return List;
 	}

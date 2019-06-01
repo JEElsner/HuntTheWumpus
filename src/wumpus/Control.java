@@ -533,7 +533,7 @@ public class Control extends SwingWorker<Void, Update>
 			}else if(Trivia.getReason().equals(UpdateType.ENCOUNTER_WUMPUS.toString()))
 			{
 				// If the player was trying to escape the wumpus, make the wumpus run away
-				mapObject.wumpusRunsAway();
+				mapObject.fightWumpus();
 			}else if(Trivia.getReason().equals(UpdateType.PURCHASE_SECRET.toString()))
 			{
 				purchaseSecret();
@@ -656,7 +656,8 @@ public class Control extends SwingWorker<Void, Update>
 	public void endGame(boolean wumpusKilled)
 	{
 		// Record the player's high score
-		HighScore.addScore(playerObject.getName(), playerObject.finalScore(), caveObject.version);
+		HighScore.addScore(playerObject.getName(), playerObject.finalScore(), caveObject.version,
+				playerObject.getTurns(), playerObject.getCoins(), playerObject.getArrows());
 		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
 			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore())); // Pass high scores?

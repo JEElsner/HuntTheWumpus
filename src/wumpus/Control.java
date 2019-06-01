@@ -219,6 +219,10 @@ public class Control extends SwingWorker<Void, Update>
 						case GET_HIGH_SCORE:
 							break;
 							
+						case GET_SCORE_STATS:
+							publish(new Update(UpdateType.GET_SCORE_STATS, false, HighScore.returnStats((int) msg.getData())));
+							break;
+							
 						case GIVE_ANSWER:
 							answerTrivia((String) msg.getData());
 							break;
@@ -665,12 +669,12 @@ public class Control extends SwingWorker<Void, Update>
 		HighScore.addScore(playerObject.getName(), playerObject.finalScore(wumpusKilled), caveObject.version,
 				playerObject.getTurns(), playerObject.getCoins(), playerObject.getArrows());
 		
+		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
+		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
 			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore(wumpusKilled))); // Pass high scores?
 		else // The the wumpus wasn't killed the game is lost
 			publish(new Update(UpdateType.DISPLAY_LOSE, false, playerObject.finalScore(wumpusKilled))); // Pass high scores?
-		
-		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}
 	
 	public void exitGame()

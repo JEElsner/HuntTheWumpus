@@ -219,6 +219,10 @@ public class Control extends SwingWorker<Void, Update>
 						case GET_HIGH_SCORE:
 							break;
 							
+						case GET_SCORE_STATS:
+							publish(new Update(UpdateType.GET_SCORE_STATS, false, HighScore.returnStats((int) msg.getData())));
+							break;
+							
 						case GIVE_ANSWER:
 							answerTrivia((String) msg.getData());
 							break;

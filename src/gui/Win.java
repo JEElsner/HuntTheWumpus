@@ -23,6 +23,7 @@ public class Win extends JPanel implements UpdateScreen
 	
 	private JList<String> hScores;
 	private DefaultListModel<String> myScores;
+	private JLabel yourScore;
 	
 	/**
 	 * Create the panel.
@@ -48,9 +49,9 @@ public class Win extends JPanel implements UpdateScreen
 		btnNewButton.setBounds(12, 262, 193, 25);
 		add(btnNewButton);
 		
-		JLabel lblCongratulationsYouGot = new JLabel("Congratulations! You got a Score of " + gui.getScore() + " Points!");
-		lblCongratulationsYouGot.setBounds(75, 93, 411, 16);
-		add(lblCongratulationsYouGot);
+		yourScore = new JLabel("Congratulations! You got a Score of " + gui.getScore() + " Points!");
+		yourScore.setBounds(75, 93, 411, 16);
+		add(yourScore);
 		
 		JLabel lblThankYouFor = new JLabel("Thank you for playing!");
 		lblThankYouFor.setBounds(152, 196, 139, 16);
@@ -83,6 +84,7 @@ public class Win extends JPanel implements UpdateScreen
 
 	public void updatePanel(String update)
 	{
+		yourScore.setText("Congratulations! You got a Score of " + gui.getScore() + " Points!");
 		
 		myScores = new DefaultListModel<String>();
 		for(String s : gui.getHighScores())

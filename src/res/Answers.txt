@@ -1,7 +1,7 @@
 False
 0
 True
-The skull
+skull
 Acid
 Canada
 Australia
@@ -13,22 +13,22 @@ Lava
 USA
 Brazil
 China
-The esophagus
+esophagus
 True
 Epidermis
-The Pacific Ocean
+Pacific Ocean
 Iron and nickel
-India
+Earth
 Scotland
-A double helix
+double helix
 Circulation
 Ribs
 Magma
 Lava
 Australia
-The Gorilla
-A fish
-Spines
+Gorilla
+fish
+Spikes
 False
 Bamboo
 False
@@ -42,7 +42,7 @@ Africa
 Larynx
 Nostrils
 True
-The skin
+skin
 Bone marrow
 False
 True

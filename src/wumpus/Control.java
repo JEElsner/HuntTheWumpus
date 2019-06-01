@@ -362,6 +362,8 @@ public class Control extends SwingWorker<Void, Update>
 		// Publish the first Updates to tell the GUI where the player is and where they can move
 		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
+		
+		checkForWarnings(); // Display any warnings that should be shown in the first room 
 	}
 	
 	// Move the player

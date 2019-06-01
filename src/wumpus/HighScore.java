@@ -29,7 +29,11 @@ public class HighScore
 
 	public static void debug()
 	{
-		
+		for(int i = 0; i < 10; i++)
+		{
+			System.out.println(List.get(i) + " Cave number: " + caves.get(i) + " " + turns.get(i) +
+					"turns, " + coins.get(i) + "coins,  " + arrows.get(i) + "arrows.");
+		}
 	}
 
 	public static void readFile(File fileObj)

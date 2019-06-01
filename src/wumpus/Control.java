@@ -334,6 +334,7 @@ public class Control extends SwingWorker<Void, Update>
 		// Notify the GUI the number of coins and arrows has changed
 		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
 		publish(new Update(UpdateType.GET_ARROWS, false, playerObject.getArrows()));
+		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
 		
 		// Create a new cave with different doors
 		try

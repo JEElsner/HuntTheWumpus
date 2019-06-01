@@ -49,6 +49,8 @@ public class GUI
 	private boolean lastCorrect;
 	private int[] triviaStats = new int[4];
 	
+	private int[] scoreStats = new int[4];
+	
 	private ArrayList<String> secrets = new ArrayList<String>();
 	private ArrayList<String> triviaAnswers = new ArrayList<String>();
 	
@@ -149,6 +151,19 @@ public class GUI
 		for(int i = 0; i < 4; i++)
 		{
 			triviaStats[i] = stats[i];
+		}
+	}
+
+	public int[] getScoreStats()
+	{
+		return scoreStats;
+	}
+
+	public void setScoreStats(int[] scoreStats)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			scoreStats[i] = scoreStats[i];
 		}
 	}
 
@@ -467,6 +482,10 @@ public class GUI
 			case GET_HIGH_SCORE:
 				this.setHighScores((ArrayList<String>) update.getData());
 				this.mainWindow.menuScreen.updatePanel("high scores"); // Update the panel
+				break;
+				
+			case GET_SCORE_STATS:
+				this.setScoreStats((int[]) update.getData());
 				break;
 			
 			case GET_COINS:

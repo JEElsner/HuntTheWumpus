@@ -45,6 +45,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private DefaultListModel<String> m1;
 	private JLabel nameError;
 	private JLabel errorCave;
+	JButton seeStats;
 	
 	public MainMenu(GUI guiObject)
 	{
@@ -138,14 +139,6 @@ public class MainMenu extends JPanel implements UpdateScreen
 		});
 		btnNewgame.setBounds(420, 505, 140, 55);
 		add(btnNewgame);
-		
-		MouseListener mListen = new MouseAdapter(){
-			public void mouseisClicked(MouseEvent mouseEvent) {
-				if(mouseEvent.getClickCount() == 2) {
-					JOptionPane.showMessageDialog(null, "testing");
-				}
-			}
-		};
 				
 		list = new JList<String>();
 		list.setSelectionBackground(new Color(255, 215, 0));
@@ -153,10 +146,23 @@ public class MainMenu extends JPanel implements UpdateScreen
 		list.setFont(new Font("Georgia", Font.PLAIN, 18));
 		list.setBorder(new LineBorder(new Color(218, 165, 32), 6));
 		list.setVisibleRowCount(10);
-		list.addMouseListener(mListen);
+		//list.addMouseListener(mListen);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBounds(54, 442, 176, 257);
 		add(list);
+		
+		seeStats = new JButton("See Stats");
+		seeStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
+				ScoreDetails details = new ScoreDetails();
+				details.settingScores(list.getSelectedValuesList(), gui.getScoreStats());
+				details.setVisible(true);
+			}
+		});
+		seeStats.setBounds(96, 719, 97, 25);
+		add(seeStats);
+
 		
 
 		

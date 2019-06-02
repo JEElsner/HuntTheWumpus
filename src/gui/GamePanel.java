@@ -443,6 +443,14 @@ public class GamePanel extends JPanel implements UpdateScreen
 		completedMessage.setVisible(false);
 	}
 	
+	public void maxCoins()
+	{
+		if(gui.isMaxCoins())
+		{
+			coinMax.setVisible(true);		
+		}
+	}
+	
 	public void completed()
 	{
 		completedMessage.setVisible(true);
@@ -472,7 +480,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		if(action.equals("bats"))
 		{
-			completedMessage.setText("Bats move you elsewhere!");
+			completedMessage.setText("Bats moved you elsewhere!");
 		}
 	}
 	

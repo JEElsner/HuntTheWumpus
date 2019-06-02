@@ -76,7 +76,7 @@ public class Lose extends JPanel implements UpdateScreen
 	}
 	public void updatePanel(String update)
 	{
-		yourScore.setText("You had a score of: " + gui.getScore() + "points!");
+		yourScore.setText("You had a score of: " + gui.getScore() + " points!");
 		
 		DefaultListModel<String> m1 = new DefaultListModel<String>();
 		m1.setSize(10);

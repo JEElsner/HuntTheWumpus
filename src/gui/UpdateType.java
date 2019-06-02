@@ -289,6 +289,18 @@ public enum UpdateType
 	
 	/* To Control:
 	 * -------------
+	 * Purpose: Notify of need for coins
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Notify the GUI of current coin total
+	 * Objects:
+	 */
+	MAX_COINS_REACHED(Void.class, boolean.class),
+	
+	/* To Control:
+	 * -------------
 	 * Purpose: Notify of need for current player score
 	 * Objects:
 	 * 

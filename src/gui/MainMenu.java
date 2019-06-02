@@ -173,11 +173,12 @@ public class MainMenu extends JPanel implements UpdateScreen
 				}
 				else
 				{
+					gui.setNameScore(list.getSelectedValue());
 					gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
 //					ScoreDetails details = gui.getDetails();
 //					details.settingStats(gui.getScoreStats());	
 //					details.settingScores(list.getSelectedValuesList());
-					gui.getDetails().setVisible(true);
+					//gui.getDetails().setVisible(true);
 				}
 			}
 		});

@@ -83,7 +83,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		setBackground(new Color(222, 184, 135));
 		gui = guiObject;
 		setLayout(null);
-	//	this.setSize(1100, 1000);
+		this.setSize(1100, 1000);
 		
 		
 //		JLabel lblTitle = new JLabel("Game Panel");

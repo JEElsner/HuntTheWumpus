@@ -11,6 +11,9 @@ package gui;
 
 public class Update
 {		
+	private static Update lastGUIUpdate = null;
+	private static Update lastControlUpdate = null;
+	
 	// --- Instance Data --- //
 	
 	private boolean updateProcessed = false; // Has the update been fully consumed by the recipient?
@@ -52,6 +55,27 @@ public class Update
 		this.type = type;
 		this.data = data;
 		this.forControl = forControl;
+		
+		if(forControl)
+		{
+			if(this.equals(lastControlUpdate))
+			{
+				updateProcessed = true;
+				return;
+			}
+			else
+				lastControlUpdate = this;
+		}
+		else
+		{
+			if(this.equals(lastGUIUpdate))
+			{
+				updateProcessed = true;
+				return;
+			}
+			else
+				lastGUIUpdate = this;
+		}
 		
 		System.out.println("UPDATE: " + toString());
 	}
@@ -101,5 +125,21 @@ public class Update
 	public String toString()
 	{
 		return type.toString() + " -> " + (forControl ? "CONTROL" : "GUI");
+	}
+	
+	public boolean equals(Object obj)
+	{
+		if(obj instanceof Update)
+			return false;
+		
+		return equals((Update) obj);
+	}
+	
+	public boolean equals(Update other)
+	{
+		if(other == null)
+			return false;
+		
+		return this.data.equals(other.data) && this.type.equals(other.type) && this.forControl == other.forControl;
 	}
 }

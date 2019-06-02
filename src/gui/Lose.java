@@ -45,7 +45,7 @@ public class Lose extends JPanel implements UpdateScreen
 		add(lblYouLose);
 		
 		JButton btnMainMenu = new JButton("CLICK HERE TO PLAY AGAIN");
-		btnMainMenu.setBorder(new LineBorder(new Color(178, 34, 34), 3));
+		btnMainMenu.setBorder(new LineBorder(new Color(178, 34, 34), 4));
 		btnMainMenu.setBackground(new Color(240, 128, 128));
 		btnMainMenu.setFont(new Font("Georgia", Font.BOLD, 18));
 		btnMainMenu.addActionListener(new ActionListener() {
@@ -58,7 +58,7 @@ public class Lose extends JPanel implements UpdateScreen
 		add(btnMainMenu);
 		
 		JButton button = new JButton("CLICK HERE TO STOP");
-		button.setBorder(new LineBorder(new Color(178, 34, 34), 3));
+		button.setBorder(new LineBorder(new Color(178, 34, 34), 4));
 		button.setBackground(new Color(240, 128, 128));
 		button.setFont(new Font("Georgia", Font.BOLD, 18));
 		button.addActionListener(new ActionListener() {

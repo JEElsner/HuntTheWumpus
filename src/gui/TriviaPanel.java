@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Trivia extends JPanel implements UpdateScreen
+public class TriviaPanel extends JPanel implements UpdateScreen
 {
 	// REVIEW, Consider adding known secrets to this screen
 	
@@ -35,7 +35,7 @@ public class Trivia extends JPanel implements UpdateScreen
 	/**
 	 * Create the panel.
 	 */
-	public Trivia(GUI guiObject)
+	public TriviaPanel(GUI guiObject)
 	{		
 		gui = guiObject;
 		setLayout(null);

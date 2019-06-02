@@ -602,7 +602,11 @@ public class GamePanel extends JPanel implements UpdateScreen
 		{
 			triviaAnswers.addElement(s);
 		}
-		myTriviaAnswers.setModel(triviaAnswers);
+		
+		if(triviaAnswers.size() < 117)
+		{
+			myTriviaAnswers.setModel(triviaAnswers);
+		}
 		
 		
 		obtainedSecrets = new DefaultListModel<String>();

@@ -106,7 +106,7 @@ public class Trivia
 		totalQuestionsAsked = 0;
 	}
 
-	public static String getHint()
+	 public static String getHint()
 	{
 		String result="";
 		result+=""+questions[hint]+ "-"+answers[hint];
@@ -117,6 +117,7 @@ public class Trivia
 		else
 		return "No more hints.";
 	}
+	
 	
 	public static boolean triviaPassed()
 	{
@@ -168,7 +169,6 @@ public class Trivia
 			
 		} catch (FileNotFoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		/*if (answer("False"))

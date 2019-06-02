@@ -49,6 +49,10 @@ public class GUI
 	private boolean lastCorrect;
 	private int[] triviaStats = new int[4];
 	
+	private ScoreDetails details;
+	
+	private int[] scoreStats = new int[4];
+	
 	private ArrayList<String> secrets = new ArrayList<String>();
 	private ArrayList<String> triviaAnswers = new ArrayList<String>();
 	
@@ -58,6 +62,11 @@ public class GUI
 	private int currentRoom;
 	
 
+	public ScoreDetails getDetails()
+	{
+		return details;
+	}
+	
 	public int getScore()
 	{
 		return score;
@@ -149,6 +158,19 @@ public class GUI
 		for(int i = 0; i < 4; i++)
 		{
 			triviaStats[i] = stats[i];
+		}
+	}
+
+	public int[] getScoreStats()
+	{
+		return scoreStats;
+	}
+
+	public void setScoreStats(int[] scoreStats)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			scoreStats[i] = scoreStats[i];
 		}
 	}
 
@@ -466,7 +488,17 @@ public class GUI
 				
 			case GET_HIGH_SCORE:
 				this.setHighScores((ArrayList<String>) update.getData());
-				this.mainWindow.menuScreen.updatePanel("high scores"); // Update the panel
+				this.mainWindow.menuScreen.updatePanel("high scores");
+				this.mainWindow.winScreen.updatePanel("win scores");
+				this.mainWindow.winScreen.updatePanel("lose scores");
+				// Update the panel
+				break;
+				
+			case GET_SCORE_STATS:
+				setScoreStats((int[]) update.getData());
+				details = new ScoreDetails();
+				details.settingScores(this.mainWindow.menuScreen.getMyStats());
+				details.settingStats(getScoreStats());
 				break;
 			
 			case GET_COINS:
@@ -508,16 +540,14 @@ public class GUI
 				break;
 				
 			case ENCOUNTER_BAT:
-//				setQuestion((String) update.getData());
-//				this.mainWindow.gameplayScreen.updatePanel("bats");
-//				this.mainWindow.triviaScreen.updatePanel("bats");
-//				this.mainWindow.changeView(trivia);
+				this.mainWindow.gameplayScreen.setCompletedAction("bats");
+				this.mainWindow.gameplayScreen.completed();
 				break;
 				
 			case ENCOUNTER_PIT:
 				setQuestion((String) update.getData());
 				this.mainWindow.triviaScreen.updatePanel("pits");
-				mainWindow.changeView(trivia); // FIXME The screen doesn't change to trivia
+				mainWindow.changeView(trivia); 
 				break;
 				
 			case ENCOUNTER_WUMPUS:
@@ -542,6 +572,8 @@ public class GUI
 				
 			case TRIVIA_SUCCESS:
 				setSuccessful((boolean) update.getData());
+				this.mainWindow.gameplayScreen.completed();
+				this.mainWindow.triviaScreen.clear();
 				this.mainWindow.changeView(gameplay);
 				break;
 				
@@ -557,11 +589,13 @@ public class GUI
 				
 			case DISPLAY_WIN:
 				this.setScore((int) update.getData());
+				this.mainWindow.winScreen.updatePanel("scores");
 				this.mainWindow.changeView(WinScreen);
 				break;
 			
 			case DISPLAY_LOSE:
 				this.setScore((int) update.getData());
+				this.mainWindow.loseScreen.updatePanel("scores");
 				this.mainWindow.changeView(LoseScreen);
 				break;
 				

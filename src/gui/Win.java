@@ -22,7 +22,7 @@ public class Win extends JPanel implements UpdateScreen
 	private GUI gui;
 	
 	private JList<String> hScores;
-	private DefaultListModel<String> myScores;
+	private JLabel yourScore;
 	
 	/**
 	 * Create the panel.
@@ -48,9 +48,9 @@ public class Win extends JPanel implements UpdateScreen
 		btnNewButton.setBounds(12, 262, 193, 25);
 		add(btnNewButton);
 		
-		JLabel lblCongratulationsYouGot = new JLabel("Congratulations! You got a Score of " + gui.getScore() + " Points!");
-		lblCongratulationsYouGot.setBounds(75, 93, 411, 16);
-		add(lblCongratulationsYouGot);
+		yourScore = new JLabel("Congratulations! You got a Score of " + gui.getScore() + " Points!");
+		yourScore.setBounds(75, 93, 411, 16);
+		add(yourScore);
 		
 		JLabel lblThankYouFor = new JLabel("Thank you for playing!");
 		lblThankYouFor.setBounds(152, 196, 139, 16);
@@ -83,12 +83,15 @@ public class Win extends JPanel implements UpdateScreen
 
 	public void updatePanel(String update)
 	{
-		myScores = new DefaultListModel<String>();
-		for(String s : gui.getHighScores())
+		yourScore.setText("Congratulations! You got a Score of " + gui.getScore() + " Points!");
+		
+		DefaultListModel<String> m1 = new DefaultListModel<String>();
+		m1.setSize(10);
+		for(int i = 0; i < 10; i++)
 		{
-			myScores.addElement(s);
+			m1.setElementAt(gui.getHighScores().get(i), i);
 		}
 		
-		hScores.setModel(myScores);
+		hScores.setModel(m1);
 	}
 }

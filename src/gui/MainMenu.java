@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -42,9 +43,22 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private JList<String> caves;
 	private DefaultListModel<String> options = new DefaultListModel<String>();
 	
-	private DefaultListModel<String> m1;
 	private JLabel nameError;
 	private JLabel errorCave;
+	JButton seeStats;
+	private JLabel errorStats;
+	
+	private String myStats;
+	
+	public String getMyStats()
+	{
+		return myStats;
+	}
+	
+	public void setMyStats(List<String> stats)
+	{
+		myStats = stats.get(0);
+	}
 	
 	public MainMenu(GUI guiObject)
 	{
@@ -138,14 +152,6 @@ public class MainMenu extends JPanel implements UpdateScreen
 		});
 		btnNewgame.setBounds(420, 505, 140, 55);
 		add(btnNewgame);
-		
-		MouseListener mListen = new MouseAdapter(){
-			public void mouseisClicked(MouseEvent mouseEvent) {
-				if(mouseEvent.getClickCount() == 2) {
-					JOptionPane.showMessageDialog(null, "testing");
-				}
-			}
-		};
 				
 		list = new JList<String>();
 		list.setSelectionBackground(new Color(255, 215, 0));
@@ -153,10 +159,31 @@ public class MainMenu extends JPanel implements UpdateScreen
 		list.setFont(new Font("Georgia", Font.PLAIN, 18));
 		list.setBorder(new LineBorder(new Color(218, 165, 32), 6));
 		list.setVisibleRowCount(10);
-		list.addMouseListener(mListen);
+		//list.addMouseListener(mListen);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBounds(54, 442, 176, 257);
 		add(list);
+		
+		seeStats = new JButton("See Stats");
+		seeStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(list.getSelectedIndex() == -1)
+				{
+					errorStats.setVisible(true);
+				}
+				else
+				{
+					gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
+//					ScoreDetails details = gui.getDetails();
+//					details.settingStats(gui.getScoreStats());	
+//					details.settingScores(list.getSelectedValuesList());
+					gui.getDetails().setVisible(true);
+				}
+			}
+		});
+		seeStats.setBounds(96, 719, 97, 25);
+		add(seeStats);
+
 		
 
 		
@@ -190,6 +217,14 @@ public class MainMenu extends JPanel implements UpdateScreen
 		add(errorCave);
 		errorCave.setVisible(false);
 		
+		errorStats = new JLabel("Error! Please select a player to view stats for!");
+		errorStats.setForeground(new Color(139, 69, 19));
+		errorStats.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		errorStats.setBounds(12, 757, 372, 35);
+		add(errorStats);
+		errorStats.setVisible(false);
+
+		
 		
 	}
 	
@@ -218,11 +253,11 @@ public class MainMenu extends JPanel implements UpdateScreen
 	{
 		if(gui == null)
 			return;
-		
-		m1 = new DefaultListModel<String>();
-		for(String s : gui.getHighScores())
+		DefaultListModel<String> m1 = new DefaultListModel<String>();
+		m1.setSize(10);
+		for(int i = 0; i < 10; i++)
 		{
-			m1.addElement(s);
+			m1.setElementAt(gui.getHighScores().get(i), i);
 		}
 		
 		list.setModel(m1);

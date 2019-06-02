@@ -22,7 +22,7 @@ public class Lose extends JPanel implements UpdateScreen
 	private GUI gui;
 	
 	private JList<String> hScores;
-	private DefaultListModel<String> myScores;
+	private JLabel yourScore;
 	/**
 	 * Create the panel.
 	 */
@@ -68,17 +68,24 @@ public class Lose extends JPanel implements UpdateScreen
 		hScores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		hScores.setBounds(54, 442, 176, 257);
 		add(hScores);
+		
+		yourScore = new JLabel("You had a score of:");
+		yourScore.setBounds(174, 65, 187, 16);
+		add(yourScore);
 
 	}
 	public void updatePanel(String update)
 	{
-		myScores = new DefaultListModel<String>();
-		for(String s : gui.getHighScores())
+		yourScore.setText("You had a score of: " + gui.getScore() + "points!");
+		
+		DefaultListModel<String> m1 = new DefaultListModel<String>();
+		m1.setSize(10);
+		for(int i = 0; i < 10; i++)
 		{
-			myScores.addElement(s);
+			m1.setElementAt(gui.getHighScores().get(i), i);
 		}
 		
-		hScores.setModel(myScores);
+		hScores.setModel(m1);
 	}
 
 }

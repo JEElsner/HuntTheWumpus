@@ -53,6 +53,18 @@ public enum UpdateType
 	 */
 	GET_HIGH_SCORE(Void.class, new ArrayList<String>().getClass()),
 	
+	/* To Control:
+	 * -------------
+	 * Purpose: Notify to receive High Score
+	 * Objects:
+	 * 
+	 * To GUI:
+	 * ------------
+	 * Purpose: Notify the GUI to display high scores
+	 * Objects: Array of high scores
+	 */
+	GET_SCORE_STATS(Integer.class, int[].class),
+	
 	/* To Control: N/A
 	 * 
 	 * To GUI: Sends the statistics about the last trivia question, how many trivia questions have been

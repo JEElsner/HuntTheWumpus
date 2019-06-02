@@ -25,7 +25,13 @@ import gui.UpdateType;
 
 public class Control extends SwingWorker<Void, Update>
 {	
+	// Whether the player loses at any time when they have 0 coins
+	// If false, as long as the player doesn't purchase anything, they haven't lost the game yet
+	// Make this true to adhere to the specification, honestly, I like it false though
+	public static final boolean LOSE_WITH_0_COINS = false;
 	
+	// Debug variable that is activated by typing debug
+	// Can be used in conditional breakpoints and stuff
 	public static volatile boolean debugging = false;
 	
 	// Thread: Initial thread
@@ -96,6 +102,9 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Initial
 	public static void debug()
 	{
+		for(int i = 0; i < 8; i++)
+			controlObject.playerObject.spendCoin();
+		
 		System.out.println();
 		System.out.println("  Gamestate readout  ");
 		System.out.println("=====================");
@@ -217,6 +226,10 @@ public class Control extends SwingWorker<Void, Update>
 							break;
 							
 						case GET_HIGH_SCORE:
+							break;
+							
+						case GET_SCORE_STATS:
+							publish(new Update(UpdateType.GET_SCORE_STATS, false, HighScore.returnStats((int) msg.getData())));
 							break;
 							
 						case GIVE_ANSWER:
@@ -519,11 +532,21 @@ public class Control extends SwingWorker<Void, Update>
 			};
 		publish(new Update(UpdateType.TRIVIA_STATS, false, triviaStats)); // Send Stats to GUI
 		
-		System.out.print("Answer: " + answer);
+/*		System.out.print("Answer: " + answer);
 		if(triviaStats[0] == 1)
 			System.out.println(" Correct");
 		else
-			System.out.println();
+			System.out.println();*/
+		
+		// If we want, make the player lose when they have zero coins
+		// After answering a trivia question is the only time when they will have zero coins, so this only needs to be here
+		if(playerObject.getCoins() <= 0 && LOSE_WITH_0_COINS)
+		{
+			publish(new Update(UpdateType.TRIVIA_SUCCESS, false, false));
+			endGame(false);
+			
+			return;
+		}
 		
 		// If enough questions have been answered correct, the trivia event finishes, and the result is carried out
 		if(Trivia.triviaPassed())
@@ -665,12 +688,12 @@ public class Control extends SwingWorker<Void, Update>
 		HighScore.addScore(playerObject.getName(), playerObject.finalScore(wumpusKilled), caveObject.version,
 				playerObject.getTurns(), playerObject.getCoins(), playerObject.getArrows());
 		
+		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
+		
 		if(wumpusKilled) // If the wumpus was killed, the game is won
 			publish(new Update(UpdateType.DISPLAY_WIN, false, playerObject.finalScore(wumpusKilled))); // Pass high scores?
 		else // The the wumpus wasn't killed the game is lost
 			publish(new Update(UpdateType.DISPLAY_LOSE, false, playerObject.finalScore(wumpusKilled))); // Pass high scores?
-		
-		publish(new Update(UpdateType.GET_HIGH_SCORE, false, HighScore.returnHighscore()));
 	}
 	
 	public void exitGame()

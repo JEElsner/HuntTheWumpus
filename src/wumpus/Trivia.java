@@ -140,14 +140,20 @@ public class Trivia
 
 	public static String getHint()
 	{
-		String result = "";
-		result += "" + questions[hint] + "-" + answers[hint];
-		if (wrong[hint] <= toAsk - 1)
-			hint++;
 		if (hint <= 115)
+		{
+			String result = "";
+			result += "" + questions[hint] + "-" + answers[hint];
+			if (wrong[hint] <= toAsk - 1)
+				hint++;
+			
 			return result;
+		}
 		else
-			return "No more hints.Already got every possible hint.";
+		{
+			hint++;
+			return "No more hints. Already got every possible hint.";
+		}
 	}
 
 	public static boolean triviaPassed()
@@ -184,9 +190,14 @@ public class Trivia
 	{
 		return totalQuestions - totalQuestionsAsked;
 	}
+	
+	public static int hintsGiven()
+	{
+		return hint;
+	}
 
 	public static void debug()
 	{
-		toAsk = 85;
+		hint = 113;
 	}
 }

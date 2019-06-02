@@ -407,7 +407,10 @@ public class Control extends SwingWorker<Void, Update>
 		}
 		
 		// Send a trivia hint
-		publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
+		if(Trivia.hintsGiven() < 116)
+			publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
+		if(Trivia.hintsGiven() == 116)
+			publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
 		
 		publish(new Update(UpdateType.MOVE, false, playerRoom));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(playerRoom, caveObject.getConnections(playerRoom))));
@@ -655,7 +658,11 @@ public class Control extends SwingWorker<Void, Update>
 			counts[4] = 5;
 		}else
 		{
-			publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
+			if(Trivia.hintsGiven() < 116)
+				publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
+			if(Trivia.hintsGiven() == 116)
+				publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));
+				
 		}
 	}
 

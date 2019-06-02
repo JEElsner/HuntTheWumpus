@@ -66,7 +66,7 @@ public class Trivia
 		
 	}
 
-	// Method used to check if given answer is corrrect(guess)
+	// Method used to check if given answer is correct(guess)
 	// takes in the question number - i
 	// Assign asked value to true because it was asked
 	
@@ -75,22 +75,30 @@ public class Trivia
 		return questions[toAsk];
 	}
 	
-	public static boolean answer(String guess)
+	public static void resetToAsk()
 	{
+		toAsk=1;
+	}
+	
+	public static boolean answer(String guess)
+	{	
+		if(toAsk==116)
+			resetToAsk();
 		asked[toAsk]=true;
 		totalQuestionsAsked++;
 		
 		if (guess.equalsIgnoreCase(answers[toAsk]))
 		{
-			gotIt[toAsk++]=true; // toAsk will increment after it is used to reference the array
+			gotIt[toAsk]=true; // toAsk will increment after it is used to reference the array
 			correct++;
-			if(toAsk==116) toAsk=1;
+			toAsk++;
 			return true;
 			
 		}
 		else
 		{
-			gotIt[toAsk++]=false;
+			gotIt[toAsk]=false;
+			toAsk++;
 			wrong[wrongCount++]=toAsk;
 			return false;
 		}
@@ -115,7 +123,7 @@ public class Trivia
 		if(hint<=115)
 		return result;
 		else
-		return "No more hints.";
+		return "No more hints.Already got every possible hint.";
 	}
 	
 	
@@ -165,7 +173,13 @@ public class Trivia
 		     System.out.println(getHint());
 			*/
 			
-			System.out.println(" "+questions[115]+" "+answers[115]);
+			for(int i=1;i<=125;i++)
+			{	
+			boolean x;
+			System.out.println(getQuestion());
+			x= answer("idk");
+			}
+			
 			
 		} catch (FileNotFoundException e)
 		{

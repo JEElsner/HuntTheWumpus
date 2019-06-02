@@ -478,11 +478,6 @@ public class GUI
 	{
 		for(Update update : updates)
 		{
-			if(update.isUpdateProcessed())
-			{
-				continue;
-			}
-			
 			switch(update.getType())
 			{
 			case NEW_DOORS:

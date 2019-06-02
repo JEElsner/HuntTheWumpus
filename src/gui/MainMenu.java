@@ -263,7 +263,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 	public void startNewGame()
 	{
 		gui.setName(plyrName.getText());
-		if(gui.getName().replaceAll(" ", "").length() != 3 || isAlphabet(gui.getName()))
+		if(gui.getName().replaceAll(" ", "").length() != 3 || !(isAlphabet(gui.getName())))
 		{
 			nameError.setVisible(true);
 		}
@@ -286,20 +286,13 @@ public class MainMenu extends JPanel implements UpdateScreen
 	
 	public boolean isAlphabet(String str)
 	{
-		if(str != null)
-		{
 			for(int i = 0; i < str.length(); i++)
 			{
-				if(str.charAt(i) < 65)
+				if(!(Character.isLetter(str.charAt(i))))
+				{
 					return false;
-				else if(str.charAt(i) > 90 && str.charAt(i) < 97)
-					return false;
-				else if(str.charAt(i) > 122)
-					return false;
+				}
 			}
-			return false;
-		}
-		
 		return true;
 	}
 	

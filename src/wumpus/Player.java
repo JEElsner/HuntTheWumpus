@@ -30,6 +30,7 @@ public class Player
 		
 	}
 	
+	// Returns false if you can't collect more coins
 	public boolean coinsLimit()
 	{
 		if(maxCoins <= 0)

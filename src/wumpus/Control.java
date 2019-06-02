@@ -398,7 +398,7 @@ public class Control extends SwingWorker<Void, Update>
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
 		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
 		
-		if(playerObject.coinsLimit())
+		if(!playerObject.coinsLimit())
 		{
 			publish(new Update(UpdateType.MAX_COINS_REACHED, false));
 		}

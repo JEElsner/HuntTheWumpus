@@ -75,6 +75,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JTextPane warnings;
 	private JLabel coinMax;
 	private JLabel completedMessage;
+	private JButton shootArrow;
 		
 	public GamePanel(GUI guiObject)
 	{
@@ -130,7 +131,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buySecret.setBounds(839, 84, 111, 25);
 		add(buySecret);
 		
-		JButton shootArrow = new JButton("Shoot Arrow");
+		shootArrow = new JButton("Shoot Arrow");
 		shootArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateRequired = "shoot";
@@ -583,6 +584,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		buyArrow.setEnabled((gui.getCoins() >= 2));
 		buySecret.setEnabled((gui.getCoins() >= 2));
+		shootArrow.setEnabled((gui.getArrows() > 0));
 		
 		warnings.setText(gui.displayBWarn() +  gui.displayPWarn() + gui.displayWWarn());
 		

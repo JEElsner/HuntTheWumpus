@@ -102,8 +102,8 @@ public class Control extends SwingWorker<Void, Update>
 	// Thread: Initial
 	public static void debug()
 	{
-		for(int i = 0; i < 8; i++)
-			controlObject.playerObject.spendCoin();
+/*		for(int i = 0; i < 8; i++)
+			controlObject.playerObject.spendCoin();*/
 		
 		System.out.println();
 		System.out.println("  Gamestate readout  ");
@@ -662,8 +662,11 @@ public class Control extends SwingWorker<Void, Update>
 		
 		// FIXME The player presses the 'shoot arrow' button, moves, then presses a direction to shoot
 		
-		// Make the player lose an arrow, and update the GUI
-		publish(new Update(UpdateType.SHOOT_ARROW, false, playerObject.shootArrows()));
+		if(playerObject.shootArrows() >= 0)
+		{
+			// Make the player lose an arrow, and update the GUI
+			publish(new Update(UpdateType.SHOOT_ARROW, false, playerObject.getArrows()));
+		}
 		
 		if(Map.getNearbyRoom(mapObject.getPlayerRoom(), dir) == mapObject.getWumpusRoom())
 			killedWumpus();

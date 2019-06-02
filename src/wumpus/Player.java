@@ -46,7 +46,8 @@ public class Player
 	
 	public int shootArrows()
 	{
-		arrows--;
+		if(arrows > 0)
+			arrows--;
 		return arrows;
 	}
 	
@@ -122,6 +123,9 @@ public class Player
 
 	public int spendCoin()
 	{
-		return --coins;
+		if(coins > 0)
+			return --coins;
+		else
+			return coins;
 	}
 }

@@ -103,9 +103,15 @@ public class Player
 	public int finalScore(boolean wumpusKilled)
 	{
 		score = (coins + (10 * arrows) - turns);
+		
 		if(wumpusKilled)
 		{
 			score = score + 100;
+		}
+		
+		if(score < 0)
+		{
+			score = 0;
 		}
 		
 		return score;

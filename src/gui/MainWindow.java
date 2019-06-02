@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
+import java.awt.Color;
 
 public class MainWindow extends JFrame
 {
@@ -40,11 +41,13 @@ public class MainWindow extends JFrame
 	 */
 	protected MainWindow(GUI guiObject)
 	{
+		setBackground(new Color(222, 184, 135));
 		this.guiObject = guiObject;
 		this.setResizable(false);
 		
 		//titleScreen = new TitleScreen(guiObject);
 		menuScreen = new MainMenu(guiObject);
+		menuScreen.setBackground(new Color(222, 184, 135));
 		gameplayScreen = new GamePanel(guiObject);
 		highScoreScreen = new HighScore(guiObject);
 		triviaScreen = new Trivia(guiObject);
@@ -64,6 +67,7 @@ public class MainWindow extends JFrame
 				});
 		setBounds(200, 200, 550, 400);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(222, 184, 135));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		

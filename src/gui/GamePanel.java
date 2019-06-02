@@ -18,6 +18,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
@@ -94,9 +96,14 @@ public class GamePanel extends JPanel implements UpdateScreen
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				gui.mainWindow.changeView(GUI.titleScreen);
-				clear();
-				
+				if(JOptionPane.showConfirmDialog(gui.mainWindow,
+						"Are you sure you want to quit? All your progress will be lost.",
+						"Confirm Quit",
+						JOptionPane.YES_NO_OPTION) == 0)
+				{
+					gui.mainWindow.changeView(GUI.titleScreen);
+					clear();
+				}
 			}
 		});
 		

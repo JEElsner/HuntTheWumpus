@@ -507,6 +507,8 @@ public class Control extends SwingWorker<Void, Update>
 		{
 			publish(new Update(UpdateType.TRIVIA_SUCCESS, false, false));
 			endGame(false);
+			
+			return;
 		}
 		
 		// Use a coin to ask the question (& update GUI)

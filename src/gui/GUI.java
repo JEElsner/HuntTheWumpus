@@ -472,6 +472,7 @@ public class GUI
 				
 			case MOVE:
 				setCurrentRoom((int) update.getData());
+				this.mainWindow.gameplayScreen.clear();
 				break;
 				
 			case PURCHASE_ARROW:

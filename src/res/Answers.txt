@@ -1,7 +1,7 @@
 False
 0
 True
-skull
+the skull
 Acid
 Canada
 Australia
@@ -22,7 +22,7 @@ Earth
 Scotland
 double helix
 Circulation
-Ribs
+Rib
 Magma
 Lava
 Australia

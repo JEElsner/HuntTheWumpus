@@ -1,12 +1,12 @@
 package gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.ListModel;
 
 import wumpus.Control;
 import wumpus.Map;
@@ -351,6 +351,10 @@ public class GUI
 						mainWindow = new MainWindow(thisGUI);
 						mainWindow.setSize(1000, 1000);
 						mainWindow.setVisible(true);
+						
+						Toolkit kit = Toolkit.getDefaultToolkit();
+						Dimension size = kit.getScreenSize();
+						mainWindow.setLocation(size.width / 2 - mainWindow.getWidth() / 2, 0);
 					} catch (Exception e)
 					{
 						e.printStackTrace();

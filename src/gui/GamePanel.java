@@ -521,6 +521,9 @@ public class GamePanel extends JPanel implements UpdateScreen
 			coinMax.setVisible(true);
 		}
 		
+		buyArrow.setEnabled((gui.getCoins() >= 2));
+		buySecret.setEnabled((gui.getCoins() >= 2));
+		
 		warnings.setText(gui.displayBWarn() +  gui.displayPWarn() + gui.displayWWarn());
 		
 		for(JButton b : moving)

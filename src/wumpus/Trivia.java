@@ -72,18 +72,14 @@ public class Trivia
 	
 	public static String getQuestion()
 	{
+		if(toAsk<116)
 		return questions[toAsk];
-	}
-	
-	public static void resetToAsk()
-	{
-		toAsk=1;
+		else 
+		return "Ran out of questions.";
 	}
 	
 	public static boolean answer(String guess)
 	{	
-		if(toAsk==116)
-			resetToAsk();
 		asked[toAsk]=true;
 		totalQuestionsAsked++;
 		

@@ -471,9 +471,19 @@ public class GamePanel extends JPanel implements UpdateScreen
 			completedMessage.setText("You got more arrows!");
 		}
 		
+		if(action.equals("arrow fail"))
+		{
+			completedMessage.setText("You failed to get more arrows!");
+		}
+		
 		if(action.equals("secret"))
 		{
 			completedMessage.setText("You got a secret!");
+		}
+		
+		if(action.equals("secret fail"))
+		{
+			completedMessage.setText("You failed to get a secret!");
 		}
 		
 		if(action.equals("bats"))

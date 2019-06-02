@@ -85,7 +85,7 @@ public class Trivia extends JPanel implements UpdateScreen
 		answers.setColumns(10);
 		
 		numNeeded = new JLabel("You must answer **** correctly");
-		numNeeded.setBounds(73, 427, 273, 25);
+		numNeeded.setBounds(73, 427, 306, 25);
 		add(numNeeded);
 		
 		answeredStats = new JLabel("Insert Current Stats on questions right");
@@ -144,7 +144,7 @@ public class Trivia extends JPanel implements UpdateScreen
 			
 			if(stats[0] == 1)
 			{
-				correctMessage.setText("Congratulations you got it right! On to the net one!");
+				correctMessage.setText("Congratulations you got it right! On to the next one!");
 				correctMessage.setVisible(true);
 			}
 		}

@@ -49,6 +49,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private JLabel errorStats;
 	
 	private String myStats;
+	private JButton btnNewButton;
 	
 	public String getMyStats()
 	{
@@ -164,6 +165,16 @@ public class MainMenu extends JPanel implements UpdateScreen
 		list.setBounds(54, 442, 176, 257);
 		add(list);
 		
+		list.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2)
+				{
+					gui.setNameScore(list.getSelectedValue());
+					gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
+				}
+			}
+			});
+		
 		seeStats = new JButton("See Stats");
 		seeStats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -223,6 +234,15 @@ public class MainMenu extends JPanel implements UpdateScreen
 		errorStats.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		errorStats.setBounds(12, 757, 372, 35);
 		add(errorStats);
+		
+		btnNewButton = new JButton("New button");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		btnNewButton.setBounds(74, 293, 97, 25);
+		add(btnNewButton);
 		errorStats.setVisible(false);
 
 		

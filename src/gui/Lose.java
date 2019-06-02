@@ -8,6 +8,8 @@ import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -68,6 +70,16 @@ public class Lose extends JPanel implements UpdateScreen
 		hScores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		hScores.setBounds(54, 442, 176, 257);
 		add(hScores);
+		
+		hScores.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2)
+				{
+					gui.setNameScore(hScores.getSelectedValue());
+					gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, hScores.getSelectedIndex()));
+				}
+			}
+			});
 		
 		yourScore = new JLabel("You had a score of:");
 		yourScore.setBounds(174, 65, 187, 16);

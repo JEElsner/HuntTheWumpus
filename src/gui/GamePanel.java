@@ -606,16 +606,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		coins.setText("Coins: " + gui.getCoins());
 		arrows.setText("Arrows: " + gui.getArrows());
 		
-		if(gui.getCoins() < 100)
-		{
-			coinMax.setVisible(false);
-		}
-		
-		if(gui.getCoins() == 100)
-		{
-			coinMax.setVisible(true);
-		}
-		
 		buyArrow.setEnabled((gui.getCoins() >= 2));
 		buySecret.setEnabled((gui.getCoins() >= 2));
 		shootArrow.setEnabled((gui.getArrows() > 0));

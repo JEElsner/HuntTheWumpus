@@ -3,6 +3,7 @@ package gui;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Graphics;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Polygon;
 import java.awt.Canvas;
 import wumpus.MovementDirection;
@@ -331,6 +333,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		coinMax.setVisible(false);
 		add(coinMax);
 		
+		MyCellRenderer cellRenderer = new MyCellRenderer(530);
+		
 		myTriviaAnswers = new JList<String>();
 		myTriviaAnswers.setFont(new Font("Georgia", Font.BOLD, 16));
 		myTriviaAnswers.setSelectionBackground(new Color(210, 180, 140));
@@ -338,6 +342,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		myTriviaAnswers.setBackground(new Color(180, 150, 110));
 		//myTriviaAnswers.setModel(triviaAnswers);
 		myTriviaAnswers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		myTriviaAnswers.setCellRenderer(cellRenderer);
 		myTriviaAnswers.setBounds(230, 780, 554, 60);
 		//add(myTriviaAnswers);
 		
@@ -663,4 +668,25 @@ public class GamePanel extends JPanel implements UpdateScreen
 	
 		
 	}
+	
+	private class MyCellRenderer extends DefaultListCellRenderer {
+		   public static final String HTML_1 = "<html><body style='width: ";
+		   public static final String HTML_2 = "px'>";
+		   public static final String HTML_3 = "</html>";
+		   private int width;
+
+		   public MyCellRenderer(int width) {
+		      this.width = width;
+		   }
+
+		   @Override
+		   public Component getListCellRendererComponent(JList list, Object value,
+		         int index, boolean isSelected, boolean cellHasFocus) {
+		      String text = HTML_1 + String.valueOf(width) + HTML_2 + value.toString()
+		            + HTML_3;
+		      return super.getListCellRendererComponent(list, text, index, isSelected,
+		            cellHasFocus);
+		   }
+
+		}
 }

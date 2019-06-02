@@ -294,7 +294,7 @@ public enum UpdateType
 	 * 
 	 * To GUI:
 	 * ------------
-	 * Purpose: Notify the GUI of current coin total
+	 * Purpose: Notify the GUI of max coins
 	 * Objects:
 	 */
 	MAX_COINS_REACHED(Void.class, Void.class),

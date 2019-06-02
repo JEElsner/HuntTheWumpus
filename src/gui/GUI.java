@@ -52,6 +52,7 @@ public class GUI
 	private ScoreDetails details;
 	
 	private int[] scoreStats = new int[4];
+	private String nameScore;
 	
 	private ArrayList<String> secrets = new ArrayList<String>();
 	private ArrayList<String> triviaAnswers = new ArrayList<String>();
@@ -172,6 +173,16 @@ public class GUI
 		{
 			scoreStats[i] = scoreStats[i];
 		}
+	}
+
+	public String getNameScore()
+	{
+		return nameScore;
+	}
+
+	public void setNameScore(String nameScore)
+	{
+		this.nameScore = nameScore;
 	}
 
 	public int getBats()
@@ -497,8 +508,9 @@ public class GUI
 			case GET_SCORE_STATS:
 				setScoreStats((int[]) update.getData());
 				details = new ScoreDetails();
-				details.settingScores(this.mainWindow.menuScreen.getMyStats());
-				details.settingStats(getScoreStats());
+				details.settingScores(getNameScore());
+				details.settingStats((int[]) update.getData());
+				details.setVisible(true);
 				break;
 			
 			case GET_COINS:
@@ -576,8 +588,17 @@ public class GUI
 				
 			case TRIVIA_SUCCESS:
 				setSuccessful((boolean) update.getData());
-				this.mainWindow.gameplayScreen.completed();
-				this.mainWindow.triviaScreen.clear();
+				if(isSuccessful())
+				{
+					this.mainWindow.gameplayScreen.completed();
+					this.mainWindow.triviaScreen.clear();
+				}
+				else
+				{
+					this.mainWindow.gameplayScreen.setCompletedAction("arrow fail");
+					this.mainWindow.gameplayScreen.completed();
+					this.mainWindow.triviaScreen.clear();
+				}
 				this.mainWindow.changeView(gameplay);
 				break;
 				

@@ -475,7 +475,6 @@ public class Control extends SwingWorker<Void, Update>
 	public void foundPit()
 	{	
 		// Move the player, then run checks for a new room
-		// FIXME The Room doesn't update on screen
 		mapObject.fallIntoPit();
 		publish(new Update(UpdateType.MOVE, false, mapObject.getPlayerRoom()));
 		publish(new Update(UpdateType.NEW_DOORS, false, Map.getDirections(mapObject.getPlayerRoom(), caveObject.getConnections(mapObject.getPlayerRoom()))));
@@ -660,8 +659,6 @@ public class Control extends SwingWorker<Void, Update>
 		// Add a player turn
 		playerObject.incrementTurns();
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
-		
-		// FIXME The player presses the 'shoot arrow' button, moves, then presses a direction to shoot
 		
 		if(playerObject.shootArrows() >= 0)
 		{

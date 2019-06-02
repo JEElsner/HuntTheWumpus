@@ -46,6 +46,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private JLabel nameError;
 	private JLabel errorCave;
 	JButton seeStats;
+	private JLabel errorStats;
 	
 	public MainMenu(GUI guiObject)
 	{
@@ -154,10 +155,17 @@ public class MainMenu extends JPanel implements UpdateScreen
 		seeStats = new JButton("See Stats");
 		seeStats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
-				ScoreDetails details = new ScoreDetails();
-				details.settingScores(list.getSelectedValuesList(), gui.getScoreStats());
-				details.setVisible(true);
+				if(list.getSelectedIndex() == -1)
+				{
+					errorStats.setVisible(true);
+				}
+				else
+				{
+					gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
+					ScoreDetails details = new ScoreDetails();
+					details.settingScores(list.getSelectedValuesList(), gui.getScoreStats());
+					details.setVisible(true);
+				}
 			}
 		});
 		seeStats.setBounds(96, 719, 97, 25);
@@ -195,6 +203,14 @@ public class MainMenu extends JPanel implements UpdateScreen
 		errorCave.setBounds(380, 125, 226, 16);
 		add(errorCave);
 		errorCave.setVisible(false);
+		
+		errorStats = new JLabel("Error! Please select a player to view stats for!");
+		errorStats.setForeground(new Color(139, 69, 19));
+		errorStats.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		errorStats.setBounds(12, 757, 372, 35);
+		add(errorStats);
+		errorStats.setVisible(false);
+
 		
 		
 	}

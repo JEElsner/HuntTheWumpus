@@ -597,13 +597,13 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 		playerName.setText(gui.getName());
 		
-			triviaAnswers = new DefaultListModel<String>();
-			for(String s : gui.getTriviaAnswers())
-			{
-				triviaAnswers.addElement(s);
-			}
-			
-			myTriviaAnswers.setModel(triviaAnswers);
+		triviaAnswers = new DefaultListModel<String>();
+		for(String s : gui.getTriviaAnswers())
+		{
+			triviaAnswers.addElement(s);
+		}
+		
+		myTriviaAnswers.setModel(triviaAnswers);
 		
 		
 		obtainedSecrets = new DefaultListModel<String>();

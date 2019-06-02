@@ -28,7 +28,7 @@ public class Control extends SwingWorker<Void, Update>
 	// Whether the player loses at any time when they have 0 coins
 	// If false, as long as the player doesn't purchase anything, they haven't lost the game yet
 	// Make this true to adhere to the specification, honestly, I like it false though
-	public static final boolean LOSE_WITH_0_COINS = true;
+	public static final boolean LOSE_WITH_0_COINS = false;
 	
 	// Debug variable that is activated by typing debug
 	// Can be used in conditional breakpoints and stuff

@@ -398,7 +398,7 @@ public class Control extends SwingWorker<Void, Update>
 		publish(new Update(UpdateType.GET_NUM_OF_TURNS, false, playerObject.getTurns()));
 		publish(new Update(UpdateType.GET_COINS, false, playerObject.getCoins()));
 		
-		if(playerObject.coinsLimit())
+		if(!playerObject.coinsLimit())
 		{
 			publish(new Update(UpdateType.MAX_COINS_REACHED, false));
 		}
@@ -503,7 +503,7 @@ public class Control extends SwingWorker<Void, Update>
 		publish(new Update(UpdateType.TRIVIA_STATS, false, triviaStats)); // Send stats to GUI
 		
 		// Spend a coin. If the player has run out of coins, he loses
-		if(playerObject.spendCoin() < 0)
+		if(playerObject.spendCoin() <= 0)
 		{
 			publish(new Update(UpdateType.TRIVIA_SUCCESS, false, false));
 			endGame(false);

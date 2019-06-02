@@ -30,6 +30,7 @@ public class Player
 		
 	}
 	
+	// Returns false if you can't collect more coins
 	public boolean coinsLimit()
 	{
 		if(maxCoins <= 0)
@@ -103,9 +104,15 @@ public class Player
 	public int finalScore(boolean wumpusKilled)
 	{
 		score = (coins + (10 * arrows) - turns);
+		
 		if(wumpusKilled)
 		{
 			score = score + 100;
+		}
+		
+		if(score < 0)
+		{
+			score = 0;
 		}
 		
 		return score;

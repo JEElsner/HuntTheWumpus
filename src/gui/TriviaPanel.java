@@ -12,6 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Font;
+import java.awt.Component;
 
 public class TriviaPanel extends JPanel implements UpdateScreen
 {
@@ -36,10 +39,12 @@ public class TriviaPanel extends JPanel implements UpdateScreen
 	 * Create the panel.
 	 */
 	public TriviaPanel(GUI guiObject)
-	{		
+	{
+		setBorder(new LineBorder(new Color(139, 69, 19), 4));
+		setBackground(new Color(222, 184, 135));		
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 900);
+		this.setSize(1100, 1000);
 		
 //		JButton btnMainMenu = new JButton("Main Menu");
 //		btnMainMenu.addActionListener(new ActionListener() {
@@ -54,7 +59,8 @@ public class TriviaPanel extends JPanel implements UpdateScreen
 
 		
 		encounter = new JLabel("You are attempting to *****");
-		encounter.setBounds(73, 395, 273, 25);
+		encounter.setFont(new Font("Papyrus", Font.BOLD, 20));
+		encounter.setBounds(172, 581, 517, 44);
 		add(encounter);
 		
 //		JButton submit = new JButton("Submit Answer");
@@ -69,6 +75,9 @@ public class TriviaPanel extends JPanel implements UpdateScreen
 //		add(submit);
 		
 		answers = new JTextField();
+		answers.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		answers.setBackground(new Color(245, 222, 179));
+		answers.setBorder(new LineBorder(new Color(160, 82, 45), 3));
 		answers.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -80,38 +89,64 @@ public class TriviaPanel extends JPanel implements UpdateScreen
 				}
 			}
 		});
-		answers.setBounds(409, 55, 331, 272);
+		answers.setBounds(544, 107, 360, 320);
 		add(answers);
 		answers.setColumns(10);
 		
 		numNeeded = new JLabel("You must answer **** correctly");
-		numNeeded.setBounds(73, 427, 306, 25);
+		numNeeded.setFont(new Font("Papyrus", Font.BOLD, 20));
+		numNeeded.setBounds(172, 624, 671, 47);
 		add(numNeeded);
 		
 		answeredStats = new JLabel("Insert Current Stats on questions right");
-		answeredStats.setBounds(73, 465, 255, 16);
+		answeredStats.setFont(new Font("Papyrus", Font.BOLD, 20));
+		answeredStats.setBounds(172, 668, 480, 39);
 		add(answeredStats);
 		
 		correctMessage = new JLabel("Congrats boi");
-		correctMessage.setBounds(73, 366, 331, 16);
+		correctMessage.setFont(new Font("Papyrus", Font.BOLD, 20));
+		correctMessage.setBounds(172, 535, 656, 47);
 		add(correctMessage);
 		correctMessage.setVisible(false);
 		
 		warnings = new JLabel("Warnings");
-		warnings.setBounds(73, 494, 244, 16);
+		warnings.setFont(new Font("Papyrus", Font.BOLD, 20));
+		warnings.setBounds(172, 706, 567, 44);
 		add(warnings);
 		
 		questions = new JTextArea();
-		questions.setBounds(80, 55, 317, 272);
+		questions.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		questions.setBackground(new Color(245, 222, 179));
+		questions.setBorder(new LineBorder(new Color(160, 82, 45), 3));
+		questions.setBounds(172, 107, 360, 320);
 		add(questions);
 		questions.setColumns(10);
 		questions.setLineWrap(true);
 		questions.setWrapStyleWord(true);
 		
 		coinsLeft = new JLabel("Coins Remaining:");
-		coinsLeft.setBounds(73, 340, 157, 16);
+		coinsLeft.setFont(new Font("Papyrus", Font.BOLD, 20));
+		coinsLeft.setBounds(172, 494, 244, 39);
 		add(coinsLeft);
-		//questions.setEditable(false);
+		
+		JLabel lblQuestions = new JLabel("Questions");
+		lblQuestions.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQuestions.setFont(new Font("Papyrus", Font.BOLD, 20));
+		lblQuestions.setBounds(223, 54, 244, 39);
+		add(lblQuestions);
+		
+		JLabel lblAnswers = new JLabel("Answers");
+		lblAnswers.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAnswers.setFont(new Font("Papyrus", Font.BOLD, 20));
+		lblAnswers.setBounds(599, 55, 244, 39);
+		add(lblAnswers);
+		
+		JLabel lblPressEnterTo = new JLabel("Press enter to submit");
+		lblPressEnterTo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPressEnterTo.setFont(new Font("Papyrus", Font.BOLD, 20));
+		lblPressEnterTo.setBounds(599, 440, 244, 39);
+		add(lblPressEnterTo);
+		questions.setEditable(false);
 
 
 	}
@@ -123,6 +158,7 @@ public class TriviaPanel extends JPanel implements UpdateScreen
 	
 	public void updatePanel(String update)
 	{
+		questions.setEditable(true);
 		answers.setText("");
 		
 		for(int i = 0; i < 4; i++)
@@ -131,6 +167,7 @@ public class TriviaPanel extends JPanel implements UpdateScreen
 		}
 		
 		questions.setText(gui.getQuestion());
+		questions.setEditable(false);
 		
 		coinsLeft.setText("Coins Remaining: " + gui.getCoins());
 		

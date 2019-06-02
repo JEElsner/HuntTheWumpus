@@ -62,11 +62,11 @@ public class MainMenu extends JPanel implements UpdateScreen
 
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 930);
+		this.setSize(1100, 1000);
 
 		JLabel lblTitle = new JLabel("Hunt The Wumpus");
 		lblTitle.setFont(new Font("Viner Hand ITC", Font.BOLD, 36));
-		lblTitle.setBounds(302, 13, 367, 45);
+		lblTitle.setBounds(370, 13, 367, 45);
 		add(lblTitle);
 		
 //		JButton btnForDebuggin = new JButton("For Debuggin");
@@ -82,7 +82,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		
 		JLabel lblHighScores = new JLabel("High Scores");
 		lblHighScores.setFont(new Font("Papyrus", Font.BOLD, 24));
-		lblHighScores.setBounds(70, 384, 160, 45);
+		lblHighScores.setBounds(138, 384, 160, 45);
 		add(lblHighScores);
 		
 //		JButton btnUpdate = new JButton("Update");
@@ -96,7 +96,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		
 		JLabel enterName = new JLabel("Enter Your 3 Character Name:");
 		enterName.setFont(new Font("Papyrus", Font.BOLD, 18));
-		enterName.setBounds(342, 227, 282, 32);
+		enterName.setBounds(410, 227, 282, 32);
 		add(enterName);
 		
 		// REVIEW Add Key listeners to components where pressing enter should start a new game or do something else
@@ -105,7 +105,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		plyrName.setBorder(new LineBorder(new Color(160, 82, 45), 3));
 		plyrName.setFont(new Font("Papyrus", Font.BOLD, 18));
 		plyrName.setBackground(new Color(245, 222, 179));
-		plyrName.setBounds(445, 272, 74, 35);
+		plyrName.setBounds(513, 272, 74, 35);
 		add(plyrName);
 		
 		plyrName.addKeyListener(new KeyAdapter() {
@@ -121,7 +121,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		nameError = new JLabel("Error! Invalid name, enter a name containing 3 alphabetic characters and no spaces");
 		nameError.setForeground(new Color(139, 69, 19));
 		nameError.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		nameError.setBounds(166, 154, 779, 25);
+		nameError.setBounds(234, 154, 779, 25);
 		nameError.setVisible(false);
 		add(nameError);
 		
@@ -136,7 +136,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 				startNewGame();
 			}
 		});
-		btnNewgame.setBounds(420, 505, 140, 55);
+		btnNewgame.setBounds(488, 505, 140, 55);
 		add(btnNewgame);
 				
 		list = new JList<String>();
@@ -147,7 +147,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		list.setVisibleRowCount(10);
 		//list.addMouseListener(mListen);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.setBounds(54, 442, 176, 257);
+		list.setBounds(122, 442, 176, 257);
 		add(list);
 		
 		list.addMouseListener(new MouseAdapter() {
@@ -186,7 +186,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		
 		JLabel lblChooseYourCave = new JLabel("Choose your Cave");
 		lblChooseYourCave.setFont(new Font("Papyrus", Font.BOLD, 24));
-		lblChooseYourCave.setBounds(700, 390, 252, 45);
+		lblChooseYourCave.setBounds(768, 390, 252, 45);
 		add(lblChooseYourCave);
 		
 		options.addElement("Cave One");
@@ -204,7 +204,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		caves.setModel(options);
 		caves.setVisibleRowCount(6);
 		caves.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		caves.setBounds(725, 455, 176, 218);
+		caves.setBounds(793, 455, 176, 218);
 		add(caves);
 		
 		caves.addMouseListener(new MouseAdapter() {
@@ -219,12 +219,12 @@ public class MainMenu extends JPanel implements UpdateScreen
 		errorCave = new JLabel("Error! Please select a Cave!");
 		errorCave.setForeground(new Color(139, 69, 19));
 		errorCave.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		errorCave.setBounds(380, 125, 226, 16);
+		errorCave.setBounds(448, 125, 226, 16);
 		add(errorCave);
 		
 		label = new JLabel("Double click to view more stats");
 		label.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
-		label.setBounds(12, 712, 301, 32);
+		label.setBounds(80, 712, 301, 32);
 		add(label);
 		
 		btnQuit = new JButton("Quit");
@@ -236,7 +236,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		btnQuit.setFont(new Font("Georgia", Font.BOLD, 20));
 		btnQuit.setBorder(new LineBorder(new Color(0, 128, 0), 4));
 		btnQuit.setBackground(new Color(154, 205, 50));
-		btnQuit.setBounds(420, 815, 140, 55);
+		btnQuit.setBounds(488, 820, 140, 55);
 		add(btnQuit);
 		errorCave.setVisible(false);
 		

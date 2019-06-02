@@ -84,6 +84,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		
 	public GamePanel(GUI guiObject)
 	{
+		setBorder(new LineBorder(new Color(139, 69, 19), 4));
 		setBackground(new Color(222, 184, 135));
 		gui = guiObject;
 		setLayout(null);
@@ -95,6 +96,9 @@ public class GamePanel extends JPanel implements UpdateScreen
 //		add(lblTitle);
 		
 		JButton btnMainMenu = new JButton("Quit to Main Menu");
+		btnMainMenu.setFont(new Font("Georgia", Font.BOLD, 16));
+		btnMainMenu.setBackground(new Color(205, 133, 63));
+		btnMainMenu.setBorder(new LineBorder(new Color(220, 20, 60), 3));
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -108,6 +112,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 				}
 			}
 		});
+		btnMainMenu.setBounds(37, 889, 175, 38);
+		add(btnMainMenu);
 		
 		completedMessage = new JLabel("Message");
 		completedMessage.setHorizontalAlignment(SwingConstants.CENTER);
@@ -115,33 +121,41 @@ public class GamePanel extends JPanel implements UpdateScreen
 		completedMessage.setForeground(Color.BLACK);
 		completedMessage.setFont(new Font("Papyrus", Font.BOLD, 18));
 		completedMessage.setBackground(new Color(180, 150, 110));
-		completedMessage.setBounds(338, 268, 298, 38);
+		completedMessage.setBounds(368, 268, 298, 38);
 		add(completedMessage);
 		completedMessage.setVisible(false);
-		btnMainMenu.setBounds(24, 881, 146, 25);
-		add(btnMainMenu);
+
 		
 		buyArrow = new JButton("Buy Arrow");
+		buyArrow.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		buyArrow.setBackground(new Color(154, 205, 50));
+		buyArrow.setBorder(new LineBorder(new Color(34, 139, 34), 3));
 		buyArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_ARROW, true));
 				clear();
 			}
 		});
-		buyArrow.setBounds(839, 46, 111, 25);
+		buyArrow.setBounds(915, 37, 111, 25);
 		add(buyArrow);
 		
 		buySecret = new JButton("Buy Secret");
+		buySecret.setBackground(new Color(154, 205, 50));
+		buySecret.setBorder(new LineBorder(new Color(34, 139, 34), 3));
+		buySecret.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_SECRET, true));
 				clear();
 			}
 		});
-		buySecret.setBounds(839, 84, 111, 25);
+		buySecret.setBounds(915, 75, 111, 25);
 		add(buySecret);
 		
 		shootArrow = new JButton("Shoot Arrow");
+		shootArrow.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		shootArrow.setBorder(new LineBorder(new Color(34, 139, 34), 3));
+		shootArrow.setBackground(new Color(154, 205, 50));
 		shootArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updateRequired = "shoot";
@@ -149,14 +163,20 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updateShooting();
 			}
 		});
-		shootArrow.setBounds(839, 122, 111, 25);
+		shootArrow.setBounds(915, 113, 111, 25);
 		add(shootArrow);
 		
 		chooseDirection = new JLabel("Choose a direction to shoot");
-		chooseDirection.setBounds(817, 224, 158, 16);
+		chooseDirection.setHorizontalAlignment(SwingConstants.CENTER);
+		chooseDirection.setForeground(new Color(139, 69, 19));
+		chooseDirection.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		chooseDirection.setBounds(815, 215, 261, 16);
 		add(chooseDirection);
 		
 		optOne = new JButton("");
+		optOne.setBackground(new Color(154, 205, 50));
+		optOne.setBorder(new LineBorder(new Color(34, 139, 34), 3));
+		optOne.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
 		optOne.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection.get(0)));
@@ -164,11 +184,14 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Shooting");
 			}
 		});
-		optOne.setBounds(839, 253, 111, 25);
+		optOne.setBounds(915, 244, 111, 25);
 		optOne.setVisible(false);
 		add(optOne);
 		
 		optTwo = new JButton("");
+		optTwo.setBackground(new Color(154, 205, 50));
+		optTwo.setBorder(new LineBorder(new Color(34, 139, 34), 3));
+		optTwo.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
 		optTwo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection.get(1)));
@@ -176,11 +199,14 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Shooting");
 			}
 		});
-		optTwo.setBounds(839, 281, 111, 25);
+		optTwo.setBounds(915, 272, 111, 25);
 		optTwo.setVisible(false);
 		add(optTwo);
 		
 		optThree = new JButton("");
+		optThree.setBackground(new Color(154, 205, 50));
+		optThree.setBorder(new LineBorder(new Color(34, 139, 34), 3));
+		optThree.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
 		optThree.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.SHOOT_ARROW, true, shootingDirection.get(2)));
@@ -188,7 +214,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				updatePanel("Shooting");
 			}
 		});
-		optThree.setBounds(839, 309, 111, 25);
+		optThree.setBounds(915, 300, 111, 25);
 		optThree.setVisible(false);
 		add(optThree);
 
@@ -200,13 +226,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 		yourRoom.setOpaque(true);
 		yourRoom.setBackground(new Color(180, 150, 110));
 		yourRoom.setForeground(Color.BLACK);
-		yourRoom.setBounds(415, 357, 167, 38);
+		yourRoom.setBounds(445, 357, 167, 38);
 		add(yourRoom);
 		
 		//----------------------------------//
 		//--------Movement Buttons----------//
 		//----------------------------------//
 		moveUp = new JButton("Up");
+		moveUp.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
+		moveUp.setBorder(new LineBorder(new Color(160, 82, 45), 3));
+		moveUp.setBackground(new Color(160, 195, 160));
 		moveUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
@@ -214,10 +243,13 @@ public class GamePanel extends JPanel implements UpdateScreen
 				clear();
 			}
 		});
-		moveUp.setBounds(431, 84, 97, 25);
+		moveUp.setBounds(461, 84, 97, 30);
 		add(moveUp);
 		
 		moveUpRight = new JButton("Up Right");
+		moveUpRight.setBorder(new LineBorder(new Color(160, 82, 45), 3));
+		moveUpRight.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
+		moveUpRight.setBackground(new Color(160, 195, 160));
 		moveUpRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
@@ -225,10 +257,13 @@ public class GamePanel extends JPanel implements UpdateScreen
 				clear();
 			}
 		});
-		moveUpRight.setBounds(678, 156, 97, 25);
+		moveUpRight.setBounds(708, 151, 97, 30);
 		add(moveUpRight);
 		
 		moveUpLeft = new JButton("Up Left");
+		moveUpLeft.setBorder(new LineBorder(new Color(160, 82, 45), 3));
+		moveUpLeft.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
+		moveUpLeft.setBackground(new Color(160, 195, 160));
 		moveUpLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
@@ -236,10 +271,13 @@ public class GamePanel extends JPanel implements UpdateScreen
 				clear();
 			}
 		});
-		moveUpLeft.setBounds(201, 156, 97, 25);
+		moveUpLeft.setBounds(231, 151, 97, 30);
 		add(moveUpLeft);
 		
 		moveDown = new JButton("Down");
+		moveDown.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
+		moveDown.setBorder(new LineBorder(new Color(160, 82, 45), 3));
+		moveDown.setBackground(new Color(160, 195, 160));
 		moveDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
@@ -247,10 +285,13 @@ public class GamePanel extends JPanel implements UpdateScreen
 				clear();
 			}
 		});
-		moveDown.setBounds(431, 628, 97, 25);
+		moveDown.setBounds(461, 628, 97, 30);
 		add(moveDown);
 		
 		moveDownRight = new JButton("Down Right");
+		moveDownRight.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
+		moveDownRight.setBorder(new LineBorder(new Color(160, 82, 45), 3));
+		moveDownRight.setBackground(new Color(160, 195, 160));
 		moveDownRight.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
@@ -258,10 +299,13 @@ public class GamePanel extends JPanel implements UpdateScreen
 				clear();
 			}
 		});
-		moveDownRight.setBounds(676, 570, 110, 25);
+		moveDownRight.setBounds(714, 557, 111, 30);
 		add(moveDownRight);
 		
 		moveDownLeft = new JButton("Down Left");
+		moveDownLeft.setBackground(new Color(160, 195, 160));
+		moveDownLeft.setBorder(new LineBorder(new Color(160, 82, 45), 3));
+		moveDownLeft.setFont(new Font("Tempus Sans ITC", Font.BOLD, 15));
 		moveDownLeft.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
@@ -269,7 +313,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 				clear();
 			}
 		});
-		moveDownLeft.setBounds(201, 570, 97, 25);
+		moveDownLeft.setBounds(231, 557, 97, 30);
 		add(moveDownLeft);
 		
 		moving[0] = moveUp;
@@ -280,7 +324,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		moving[5] = moveDownLeft;
 		
 		canvas.setBackground(new Color(222, 184, 135));
-		canvas.setBounds(176, 84, 622, 574);
+		canvas.setBounds(206, 84, 622, 574);
 		add(canvas);
 		
 		playerName = new JLabel();
@@ -318,11 +362,14 @@ public class GamePanel extends JPanel implements UpdateScreen
 		warnings.setBackground(new Color(238, 232, 170));
 		warnings.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
 		warnings.setEditable(false);
-		warnings.setBounds(12, 160, 158, 146);
+		warnings.setBounds(12, 160, 187, 146);
 		add(warnings);
 		
 		miss = new JLabel("Oh no! You missed!");
-		miss.setBounds(839, 160, 127, 16);
+		miss.setHorizontalAlignment(SwingConstants.CENTER);
+		miss.setForeground(new Color(139, 69, 19));
+		miss.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		miss.setBounds(877, 151, 187, 21);
 		miss.setVisible(false);
 		add(miss);
 		
@@ -333,7 +380,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		coinMax.setVisible(false);
 		add(coinMax);
 		
-		MyCellRenderer cellRenderer = new MyCellRenderer(530);
+		MyCellRenderer cellRenderer = new MyCellRenderer(550);
 		
 		myTriviaAnswers = new JList<String>();
 		myTriviaAnswers.setFont(new Font("Georgia", Font.BOLD, 16));
@@ -343,11 +390,11 @@ public class GamePanel extends JPanel implements UpdateScreen
 		//myTriviaAnswers.setModel(triviaAnswers);
 		myTriviaAnswers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		myTriviaAnswers.setCellRenderer(cellRenderer);
-		myTriviaAnswers.setBounds(230, 780, 554, 60);
+		myTriviaAnswers.setBounds(230, 780, 604, 60);
 		//add(myTriviaAnswers);
 		
 		JScrollPane tAnswers = new JScrollPane(myTriviaAnswers);
-		tAnswers.setBounds(180, 680, 724, 80);
+		tAnswers.setBounds(180, 680, 774, 80);
 		add(tAnswers);
 		
 		JLabel lblSecretsObtained = new JLabel("Secrets:");
@@ -362,20 +409,23 @@ public class GamePanel extends JPanel implements UpdateScreen
 		mySecrets.setBackground(new Color(180, 150, 110));
 		//mySecrets.setModel(obtainedSecrets);
 		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		mySecrets.setBounds(230, 780, 554, 60);
+		mySecrets.setBounds(230, 780, 604, 60);
 		//add(mySecrets);
 		
 		JScrollPane mySec = new JScrollPane(mySecrets);
-		mySec.setBounds(180, 780, 724, 80);
+		mySec.setBounds(180, 780, 774, 80);
 		add(mySec);
 		
 		stopShooting = new JButton("Stop Shooting");
+		stopShooting.setBackground(new Color(154, 205, 50));
+		stopShooting.setBorder(new LineBorder(new Color(220, 20, 60), 3));
+		stopShooting.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
 		stopShooting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				shoot();
 			}
 		});
-		stopShooting.setBounds(830, 364, 136, 25);
+		stopShooting.setBounds(889, 357, 158, 25);
 		add(stopShooting);
 		stopShooting.setVisible(false);
 		

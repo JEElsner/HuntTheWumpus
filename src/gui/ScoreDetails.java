@@ -8,6 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class ScoreDetails extends JFrame
 {
@@ -46,31 +50,43 @@ public class ScoreDetails extends JFrame
 	 */
 	public ScoreDetails()
 	{
+		setBackground(new Color(222, 184, 135));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(new Color(222, 184, 135));
+		contentPane.setBorder(new LineBorder(new Color(139, 69, 19), 4));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		nameScore = new JLabel("New label");
-		nameScore.setBounds(103, 36, 122, 16);
+		nameScore.setHorizontalAlignment(SwingConstants.CENTER);
+		nameScore.setFont(new Font("Tempus Sans ITC", Font.BOLD, 22));
+		nameScore.setBounds(91, 49, 196, 32);
 		contentPane.add(nameScore);
 		
 		caveNo = new JLabel("New label");
-		caveNo.setBounds(103, 107, 141, 22);
+		caveNo.setHorizontalAlignment(SwingConstants.CENTER);
+		caveNo.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		caveNo.setBounds(91, 126, 196, 32);
 		contentPane.add(caveNo);
 		
 		turnsNo = new JLabel("New label");
-		turnsNo.setBounds(103, 147, 122, 16);
+		turnsNo.setHorizontalAlignment(SwingConstants.CENTER);
+		turnsNo.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		turnsNo.setBounds(91, 171, 196, 32);
 		contentPane.add(turnsNo);
 		
 		coinsNo = new JLabel("New label");
-		coinsNo.setBounds(103, 176, 122, 22);
+		coinsNo.setHorizontalAlignment(SwingConstants.CENTER);
+		coinsNo.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		coinsNo.setBounds(91, 216, 196, 32);
 		contentPane.add(coinsNo);
 		
 		arrowsNo = new JLabel("New label");
-		arrowsNo.setBounds(103, 205, 122, 22);
+		arrowsNo.setHorizontalAlignment(SwingConstants.CENTER);
+		arrowsNo.setFont(new Font("Tempus Sans ITC", Font.BOLD, 20));
+		arrowsNo.setBounds(91, 261, 196, 42);
 		contentPane.add(arrowsNo);
 		
 		this.setSize(400, 400);

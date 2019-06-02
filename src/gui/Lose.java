@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class Lose extends JPanel implements UpdateScreen
 {
@@ -29,36 +30,49 @@ public class Lose extends JPanel implements UpdateScreen
 	 * Create the panel.
 	 */
 	public Lose(GUI guiObject)
-	{;
+	{
+		setBorder(new LineBorder(new Color(139, 69, 19), 4));
+		setBackground(new Color(222, 184, 135));;
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 800);
+		this.setSize(1100, 1000);
 		
 		JLabel lblYouLose = new JLabel("YOU LOSE");
-		lblYouLose.setBounds(180, 13, 92, 16);
+		lblYouLose.setForeground(new Color(178, 34, 34));
+		lblYouLose.setHorizontalAlignment(SwingConstants.CENTER);
+		lblYouLose.setFont(new Font("Papyrus", Font.BOLD, 26));
+		lblYouLose.setBounds(409, 37, 227, 68);
 		add(lblYouLose);
 		
 		JButton btnMainMenu = new JButton("CLICK HERE TO PLAY AGAIN");
+		btnMainMenu.setBorder(new LineBorder(new Color(178, 34, 34), 3));
+		btnMainMenu.setBackground(new Color(240, 128, 128));
+		btnMainMenu.setFont(new Font("Georgia", Font.BOLD, 18));
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
 				guiObject.mainWindow.changeView(GUI.titleScreen);
 			}
 		});
-		btnMainMenu.setBounds(12, 262, 193, 25);
+		btnMainMenu.setBounds(74, 791, 328, 40);
 		add(btnMainMenu);
 		
 		JButton button = new JButton("CLICK HERE TO STOP");
+		button.setBorder(new LineBorder(new Color(178, 34, 34), 3));
+		button.setBackground(new Color(240, 128, 128));
+		button.setFont(new Font("Georgia", Font.BOLD, 18));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				guiObject.notifyControl(new Update(UpdateType.WINDOW_CLOSING, true));
 			}
 		});
-		button.setBounds(245, 262, 193, 25);
+		button.setBounds(699, 791, 328, 40);
 		add(button);
 		
 		JLabel lblYouHaveSuffered = new JLabel("You have suffered a terrible death. Thank you for playing!");
-		lblYouHaveSuffered.setBounds(47, 112, 360, 16);
+		lblYouHaveSuffered.setHorizontalAlignment(SwingConstants.CENTER);
+		lblYouHaveSuffered.setFont(new Font("Papyrus", Font.BOLD, 22));
+		lblYouHaveSuffered.setBounds(180, 181, 707, 68);
 		add(lblYouHaveSuffered);
 		
 		hScores = new JList<String>();
@@ -68,7 +82,7 @@ public class Lose extends JPanel implements UpdateScreen
 		hScores.setBorder(new LineBorder(new Color(218, 165, 32), 6));
 		hScores.setVisibleRowCount(10);
 		hScores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		hScores.setBounds(54, 442, 176, 257);
+		hScores.setBounds(434, 380, 176, 257);
 		add(hScores);
 		
 		hScores.addMouseListener(new MouseAdapter() {
@@ -82,17 +96,20 @@ public class Lose extends JPanel implements UpdateScreen
 			});
 		
 		yourScore = new JLabel("You had a score of:");
-		yourScore.setBounds(121, 65, 187, 16);
+		yourScore.setHorizontalAlignment(SwingConstants.CENTER);
+		yourScore.setFont(new Font("Papyrus", Font.BOLD, 22));
+		yourScore.setBounds(324, 118, 399, 40);
 		add(yourScore);
 		
 		JLabel label = new JLabel("High Scores");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setFont(new Font("Papyrus", Font.BOLD, 24));
-		label.setBounds(54, 384, 160, 45);
+		label.setBounds(434, 322, 160, 45);
 		add(label);
 		
 		JLabel label_1 = new JLabel("Double click to view more stats");
 		label_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
-		label_1.setBounds(32, 712, 301, 32);
+		label_1.setBounds(392, 650, 301, 32);
 		add(label_1);
 
 	}

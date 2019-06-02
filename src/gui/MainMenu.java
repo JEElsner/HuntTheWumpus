@@ -147,6 +147,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 					nameError.setVisible(false);
 					errorCave.setVisible(false);
 					gui.mainWindow.gameplayScreen.updatePanel("name");
+					gui.mainWindow.gameplayScreen.clear();
 					gui.mainWindow.changeView(GUI.gameplay);
 				}
 			}

@@ -233,7 +233,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		btnQuit.setFont(new Font("Georgia", Font.BOLD, 20));
 		btnQuit.setBorder(new LineBorder(new Color(0, 128, 0), 4));
 		btnQuit.setBackground(new Color(154, 205, 50));
-		btnQuit.setBounds(420, 772, 140, 55);
+		btnQuit.setBounds(420, 815, 140, 55);
 		add(btnQuit);
 		errorCave.setVisible(false);
 		

@@ -81,8 +81,8 @@ public class ScoreDetails extends JFrame
 	public void settingStats(int[] stats)
 	{
 		turnsNo.setText("Turns Taken: " + stats[1]);
-		coinsNo.setText("Coins Gained: " + stats[2]);
-		arrowsNo.setText("Arrows Gained: " + stats[3]);
+		coinsNo.setText("Coins Remaining: " + stats[2]);
+		arrowsNo.setText("Arrows Remaining: " + stats[3]);
 		
 		if(stats[0] == 6)
 		{

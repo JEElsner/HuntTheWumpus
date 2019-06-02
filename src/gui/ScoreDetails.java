@@ -78,9 +78,8 @@ public class ScoreDetails extends JFrame
 		
 	}
 	
-	public void settingScores(List<String> nameAndScore, int[] stats)
+	public void settingStats(int[] stats)
 	{
-		nameScore.setText(nameAndScore.get(0));
 		turnsNo.setText("Turns Taken: " + stats[1]);
 		coinsNo.setText("Coins Gained: " + stats[2]);
 		arrowsNo.setText("Arrows Gained: " + stats[3]);
@@ -93,7 +92,11 @@ public class ScoreDetails extends JFrame
 		{
 			caveNo.setText("Cave: " + stats[0]);
 		}
-		
+	}
+	
+	public void settingScores(String nameAndScore)
+	{
+		nameScore.setText(nameAndScore);		
 		
 	}
 }

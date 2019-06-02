@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JList<String> myTriviaAnswers;
 	private DefaultListModel<String> triviaAnswers;
 	
-	JList<String> mySecrets;
+	private JList<String> mySecrets;
 	private DefaultListModel<String> obtainedSecrets;
 	
 	private ArrayList<JButton> shooting = new ArrayList<JButton>();
@@ -73,6 +73,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JLabel lblWarnings;
 	private JTextPane warnings;
 	private JLabel coinMax;
+	private JLabel completedMessage;
 		
 	public GamePanel(GUI guiObject)
 	{
@@ -91,6 +92,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent e) 
 			{
 				gui.mainWindow.changeView(GUI.titleScreen);
+				clear();
 				
 			}
 		});
@@ -101,6 +103,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buyArrow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_ARROW, true));
+				clear();
 			}
 		});
 		buyArrow.setBounds(839, 46, 111, 25);
@@ -110,6 +113,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buySecret.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gui.notifyControl(new Update(UpdateType.PURCHASE_SECRET, true));
+				clear();
 			}
 		});
 		buySecret.setBounds(839, 84, 111, 25);
@@ -185,6 +189,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP));
+				clear();
 			}
 		});
 		moveUp.setBounds(431, 84, 97, 25);
@@ -195,6 +200,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_RIGHT));
+				clear();
 			}
 		});
 		moveUpRight.setBounds(678, 156, 97, 25);
@@ -205,6 +211,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.UP_LEFT));
+				clear();
 			}
 		});
 		moveUpLeft.setBounds(201, 156, 97, 25);
@@ -215,6 +222,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN));
+				clear();
 			}
 		});
 		moveDown.setBounds(431, 628, 97, 25);
@@ -225,6 +233,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_RIGHT));
+				clear();
 			}
 		});
 		moveDownRight.setBounds(676, 570, 110, 25);
@@ -235,6 +244,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent e) {
 				updatePanel("Moving");
 				gui.notifyControl(new Update(UpdateType.MOVE, true, MovementDirection.DOWN_LEFT));
+				clear();
 			}
 		});
 		moveDownLeft.setBounds(201, 570, 97, 25);
@@ -343,6 +353,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 		});
 		add(btnQuit);
 		
+		completedMessage = new JLabel("Message");
+		completedMessage.setOpaque(true);
+		completedMessage.setForeground(Color.BLACK);
+		completedMessage.setFont(new Font("Papyrus", Font.BOLD, 18));
+		completedMessage.setBackground(new Color(180, 150, 110));
+		completedMessage.setBounds(338, 268, 298, 38);
+		add(completedMessage);
+		completedMessage.setVisible(false);
+		
 		//-----------Making Them Rotate---------------//
 		
 //		Canvas c = new Canvas();
@@ -419,6 +438,40 @@ public class GamePanel extends JPanel implements UpdateScreen
 	public void clear()
 	{
 		miss.setVisible(false);
+		completedMessage.setVisible(false);
+	}
+	
+	public void completed()
+	{
+		completedMessage.setVisible(true);
+	}
+	
+	public void setCompletedAction(String action)
+	{
+		if(action.equals("pits"))
+		{
+			completedMessage.setText("You escaped the pit!");
+		}
+		
+		if(action.equals("wumpus"))
+		{
+			completedMessage.setText("You escaped the wumpus!");
+		}
+		
+		if(action.equals("arrows"))
+		{
+			completedMessage.setText("You got more arrows!");
+		}
+		
+		if(action.equals("secret"))
+		{
+			completedMessage.setText("You got a secret!");
+		}
+		
+		if(action.equals("bats"))
+		{
+			completedMessage.setText("Bats move you elsewhere!");
+		}
 	}
 	
 	public void updateShooting()

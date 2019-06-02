@@ -153,28 +153,31 @@ public class Trivia extends JPanel implements UpdateScreen
 		{
 			encounter.setText("You have to escape the pit!");
 			numNeeded.setText("You must answer 2 out of 3 questions correctly to escape!");
-			//TODO print out / handle how many questions are answered and how many are needed
+			gui.mainWindow.gameplayScreen.setCompletedAction("pits");
 		}
 		
 		if(update.equals("wumpus"))
 		{
 			encounter.setText("You have to escape the Wumpus!");
 			numNeeded.setText("You must answer 3 out of 5 questions correctly");
-			//TODO print out / handle how many questions are answered and how many are needed
+			gui.mainWindow.gameplayScreen.setCompletedAction("wumpus");
+			
 		}
 		
 		if(update.equals("arrows"))
 		{
 			encounter.setText("You are trying to buy some more arrows");
 			numNeeded.setText("You must answer 2 out of 3 questions correctly");
-			//TODO print out / handle how many questions are answered and how many are needed
+			gui.mainWindow.gameplayScreen.setCompletedAction("arrows");
+			
 		}
 		
 		if(update.equals("secret"))
 		{
 			encounter.setText("You are trying to buy a secret");
 			numNeeded.setText("You must answer 2 out of 3 questions correctly");
-			//TODO print out / handle how many questions are answered and how many are needed
+			gui.mainWindow.gameplayScreen.setCompletedAction("secret");
+			
 		}
 		
 		answeredStats.setText("Questions correct: " + stats[1] + "        Questions asked: " + stats[2]);

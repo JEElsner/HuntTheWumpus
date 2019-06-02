@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -42,11 +43,22 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private JList<String> caves;
 	private DefaultListModel<String> options = new DefaultListModel<String>();
 	
-	private DefaultListModel<String> m1;
 	private JLabel nameError;
 	private JLabel errorCave;
 	JButton seeStats;
 	private JLabel errorStats;
+	
+	private String myStats;
+	
+	public String getMyStats()
+	{
+		return myStats;
+	}
+	
+	public void setMyStats(List<String> stats)
+	{
+		myStats = stats.get(0);
+	}
 	
 	public MainMenu(GUI guiObject)
 	{
@@ -162,9 +174,10 @@ public class MainMenu extends JPanel implements UpdateScreen
 				else
 				{
 					gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
-					ScoreDetails details = new ScoreDetails();
-					details.settingScores(list.getSelectedValuesList(), gui.getScoreStats());
-					details.setVisible(true);
+//					ScoreDetails details = gui.getDetails();
+//					details.settingStats(gui.getScoreStats());	
+//					details.settingScores(list.getSelectedValuesList());
+					gui.getDetails().setVisible(true);
 				}
 			}
 		});
@@ -240,11 +253,11 @@ public class MainMenu extends JPanel implements UpdateScreen
 	{
 		if(gui == null)
 			return;
-		
-		m1 = new DefaultListModel<String>();
-		for(String s : gui.getHighScores())
+		DefaultListModel<String> m1 = new DefaultListModel<String>();
+		m1.setSize(10);
+		for(int i = 0; i < 10; i++)
 		{
-			m1.addElement(s);
+			m1.setElementAt(gui.getHighScores().get(i), i);
 		}
 		
 		list.setModel(m1);

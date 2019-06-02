@@ -48,7 +48,6 @@ public class GUI
 	private boolean isSuccessful;
 	private boolean lastCorrect;
 	private int[] triviaStats = new int[4];
-	private boolean maxCoins;
 	
 	private ScoreDetails details;
 	
@@ -223,16 +222,6 @@ public class GUI
 	public void setCoins(int coins)
 	{
 		this.coins = coins;
-	}
-
-	public boolean isMaxCoins()
-	{
-		return maxCoins;
-	}
-
-	public void setMaxCoins(boolean maxCoins)
-	{
-		this.maxCoins = maxCoins;
 	}
 
 	public int getCurrentScore()
@@ -518,7 +507,6 @@ public class GUI
 				break;
 				
 			case MAX_COINS_REACHED:
-				setMaxCoins((boolean) update.getData());
 				this.mainWindow.gameplayScreen.maxCoins();
 				break;
 				

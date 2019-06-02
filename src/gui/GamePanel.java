@@ -445,10 +445,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	
 	public void maxCoins()
 	{
-		if(gui.isMaxCoins())
-		{
-			coinMax.setVisible(true);		
-		}
+		coinMax.setVisible(true);
 	}
 	
 	public void completed()

@@ -400,7 +400,7 @@ public class Control extends SwingWorker<Void, Update>
 		
 		if(playerObject.coinsLimit())
 		{
-			publish(new Update(UpdateType.MAX_COINS_REACHED, false, true));
+			publish(new Update(UpdateType.MAX_COINS_REACHED, false));
 		}
 		
 		// Send a trivia hint

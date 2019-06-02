@@ -22,7 +22,6 @@ public class Win extends JPanel implements UpdateScreen
 	private GUI gui;
 	
 	private JList<String> hScores;
-	private DefaultListModel<String> myScores;
 	private JLabel yourScore;
 	
 	/**
@@ -86,12 +85,13 @@ public class Win extends JPanel implements UpdateScreen
 	{
 		yourScore.setText("Congratulations! You got a Score of " + gui.getScore() + " Points!");
 		
-		myScores = new DefaultListModel<String>();
-		for(String s : gui.getHighScores())
+		DefaultListModel<String> m1 = new DefaultListModel<String>();
+		m1.setSize(10);
+		for(int i = 0; i < 10; i++)
 		{
-			myScores.addElement(s);
+			m1.setElementAt(gui.getHighScores().get(i), i);
 		}
 		
-		hScores.setModel(myScores);
+		hScores.setModel(m1);
 	}
 }

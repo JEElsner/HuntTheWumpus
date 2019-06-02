@@ -49,6 +49,8 @@ public class GUI
 	private boolean lastCorrect;
 	private int[] triviaStats = new int[4];
 	
+	private ScoreDetails details;
+	
 	private int[] scoreStats = new int[4];
 	
 	private ArrayList<String> secrets = new ArrayList<String>();
@@ -60,6 +62,11 @@ public class GUI
 	private int currentRoom;
 	
 
+	public ScoreDetails getDetails()
+	{
+		return details;
+	}
+	
 	public int getScore()
 	{
 		return score;
@@ -488,7 +495,10 @@ public class GUI
 				break;
 				
 			case GET_SCORE_STATS:
-				this.setScoreStats((int[]) update.getData());
+				setScoreStats((int[]) update.getData());
+				details = new ScoreDetails();
+				details.settingScores(this.mainWindow.menuScreen.getMyStats());
+				details.settingStats(getScoreStats());
 				break;
 			
 			case GET_COINS:
@@ -530,16 +540,14 @@ public class GUI
 				break;
 				
 			case ENCOUNTER_BAT:
-//				setQuestion((String) update.getData());
-//				this.mainWindow.gameplayScreen.updatePanel("bats");
-//				this.mainWindow.triviaScreen.updatePanel("bats");
-//				this.mainWindow.changeView(trivia);
+				this.mainWindow.gameplayScreen.setCompletedAction("bats");
+				this.mainWindow.gameplayScreen.completed();
 				break;
 				
 			case ENCOUNTER_PIT:
 				setQuestion((String) update.getData());
 				this.mainWindow.triviaScreen.updatePanel("pits");
-				mainWindow.changeView(trivia); // FIXME The screen doesn't change to trivia
+				mainWindow.changeView(trivia); 
 				break;
 				
 			case ENCOUNTER_WUMPUS:
@@ -564,6 +572,8 @@ public class GUI
 				
 			case TRIVIA_SUCCESS:
 				setSuccessful((boolean) update.getData());
+				this.mainWindow.gameplayScreen.completed();
+				this.mainWindow.triviaScreen.clear();
 				this.mainWindow.changeView(gameplay);
 				break;
 				

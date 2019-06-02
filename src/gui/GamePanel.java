@@ -22,6 +22,7 @@ import java.awt.Font;
 import javax.swing.border.LineBorder;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
+import javax.swing.SwingConstants;
 
 public class GamePanel extends JPanel implements UpdateScreen
 {
@@ -96,6 +97,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 				
 			}
 		});
+		
+		completedMessage = new JLabel("Message");
+		completedMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		completedMessage.setOpaque(true);
+		completedMessage.setForeground(Color.BLACK);
+		completedMessage.setFont(new Font("Papyrus", Font.BOLD, 18));
+		completedMessage.setBackground(new Color(180, 150, 110));
+		completedMessage.setBounds(338, 268, 298, 38);
+		add(completedMessage);
+		completedMessage.setVisible(false);
 		btnMainMenu.setBounds(12, 628, 97, 25);
 		add(btnMainMenu);
 		
@@ -352,15 +363,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 			}
 		});
 		add(btnQuit);
-		
-		completedMessage = new JLabel("Message");
-		completedMessage.setOpaque(true);
-		completedMessage.setForeground(Color.BLACK);
-		completedMessage.setFont(new Font("Papyrus", Font.BOLD, 18));
-		completedMessage.setBackground(new Color(180, 150, 110));
-		completedMessage.setBounds(338, 268, 298, 38);
-		add(completedMessage);
-		completedMessage.setVisible(false);
 		
 		//-----------Making Them Rotate---------------//
 		

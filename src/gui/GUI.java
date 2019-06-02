@@ -547,7 +547,7 @@ public class GUI
 			case ENCOUNTER_PIT:
 				setQuestion((String) update.getData());
 				this.mainWindow.triviaScreen.updatePanel("pits");
-				mainWindow.changeView(trivia); // FIXME The screen doesn't change to trivia
+				mainWindow.changeView(trivia); 
 				break;
 				
 			case ENCOUNTER_WUMPUS:
@@ -573,6 +573,7 @@ public class GUI
 			case TRIVIA_SUCCESS:
 				setSuccessful((boolean) update.getData());
 				this.mainWindow.gameplayScreen.completed();
+				this.mainWindow.triviaScreen.clear();
 				this.mainWindow.changeView(gameplay);
 				break;
 				

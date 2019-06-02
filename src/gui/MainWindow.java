@@ -23,8 +23,7 @@ public class MainWindow extends JFrame
 	//protected TitleScreen titleScreen;
 	protected MainMenu menuScreen;
 	protected GamePanel gameplayScreen;
-	protected HighScore highScoreScreen;
-	protected Trivia triviaScreen;
+	protected TriviaPanel triviaScreen;
 	protected Lose loseScreen;
 	protected Win winScreen;
 	protected ForDebugging debug;
@@ -46,8 +45,7 @@ public class MainWindow extends JFrame
 		//titleScreen = new TitleScreen(guiObject);
 		menuScreen = new MainMenu(guiObject);
 		gameplayScreen = new GamePanel(guiObject);
-		highScoreScreen = new HighScore(guiObject);
-		triviaScreen = new Trivia(guiObject);
+		triviaScreen = new TriviaPanel(guiObject);
 		loseScreen = new Lose(guiObject);
 		winScreen = new Win(guiObject);
 		debug = new ForDebugging(guiObject);
@@ -75,7 +73,6 @@ public class MainWindow extends JFrame
 		//contentPane.add(titleScreen, GUI.title);
 		contentPane.add(menuScreen, GUI.titleScreen);
 		contentPane.add(gameplayScreen, GUI.gameplay);
-		contentPane.add(highScoreScreen, GUI.highScoreNameEnter);
 		contentPane.add(triviaScreen, GUI.trivia);
 		contentPane.add(loseScreen, GUI.LoseScreen);
 		contentPane.add(winScreen, GUI.WinScreen);

@@ -5,6 +5,8 @@ import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -104,6 +106,16 @@ public class MainMenu extends JPanel implements UpdateScreen
 		plyrName.setBounds(445, 272, 74, 35);
 		add(plyrName);
 		
+		plyrName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					startNewGame();
+				}
+			}
+		});
+		
 		nameError = new JLabel("Error! Invalid name, enter a name containing 3 alphabetic characters and no spaces");
 		nameError.setForeground(new Color(139, 69, 19));
 		nameError.setFont(new Font("Times New Roman", Font.BOLD, 18));
@@ -119,26 +131,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		{
 			public void actionPerformed(ActionEvent event)
 			{
-				gui.setName(plyrName.getText());
-				if(gui.getName().replaceAll(" ", "").length() != 3 || isAlphabet(gui.getName()))
-				{
-					nameError.setVisible(true);
-				}
-				
-				else if(caves.isSelectionEmpty())
-				{
-					errorCave.setVisible(true);
-				}
-				
-				else {
-					gui.notifyControl(new Update(UpdateType.PLAYER_NAME, true, gui.getName()));
-					gui.notifyControl(new Update(UpdateType.NEW_GAME, true, checkCave()));
-					nameError.setVisible(false);
-					errorCave.setVisible(false);
-					gui.mainWindow.gameplayScreen.updatePanel("name");
-					gui.mainWindow.gameplayScreen.clear();
-					gui.mainWindow.changeView(GUI.gameplay);
-				}
+				startNewGame();
 			}
 		});
 		btnNewgame.setBounds(420, 505, 140, 55);
@@ -212,6 +205,15 @@ public class MainMenu extends JPanel implements UpdateScreen
 		caves.setBounds(725, 455, 176, 218);
 		add(caves);
 		
+		caves.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount() == 2)
+				{
+					startNewGame();
+				}
+			}
+			});
+		
 		errorCave = new JLabel("Error! Please select a Cave!");
 		errorCave.setForeground(new Color(139, 69, 19));
 		errorCave.setFont(new Font("Times New Roman", Font.BOLD, 18));
@@ -256,6 +258,29 @@ public class MainMenu extends JPanel implements UpdateScreen
 		super.repaint();
 	}
 	
+	public void startNewGame()
+	{
+		gui.setName(plyrName.getText());
+		if(gui.getName().replaceAll(" ", "").length() != 3 || isAlphabet(gui.getName()))
+		{
+			nameError.setVisible(true);
+		}
+		
+		else if(caves.isSelectionEmpty())
+		{
+			errorCave.setVisible(true);
+		}
+		
+		else {
+			gui.notifyControl(new Update(UpdateType.PLAYER_NAME, true, gui.getName()));
+			gui.notifyControl(new Update(UpdateType.NEW_GAME, true, checkCave()));
+			nameError.setVisible(false);
+			errorCave.setVisible(false);
+			gui.mainWindow.gameplayScreen.updatePanel("name");
+			gui.mainWindow.gameplayScreen.clear();
+			gui.mainWindow.changeView(GUI.gameplay);
+		}
+	}
 	
 	public boolean isAlphabet(String str)
 	{

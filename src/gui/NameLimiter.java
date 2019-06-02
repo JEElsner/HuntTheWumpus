@@ -15,14 +15,13 @@ public class NameLimiter extends PlainDocument
 	
 	public void insertString(int offset, String str, AttributeSet set) throws BadLocationException
 	{
-		if(str == null)
 		{
-			return;
-		}
-		
-		else if((getLength() + str.length()) <= limit)
-		{
-			str = str.toUpperCase();
+			if(getLength() + str.length() > limit)
+			{
+				str = str.substring(0, limit - getLength());
+			}
+			
+			super.insertString(offset, str, (javax.swing.text.AttributeSet) set);
 		}
 	}
 }

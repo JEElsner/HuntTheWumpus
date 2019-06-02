@@ -103,12 +103,11 @@ public class MainMenu extends JPanel implements UpdateScreen
 		plyrName.setBackground(new Color(245, 222, 179));
 		plyrName.setBounds(445, 272, 74, 35);
 		add(plyrName);
-		plyrName.setColumns(10);
 		
-		nameError = new JLabel("Error! Name entered is invalid, please try again with a name that is 3 characters long");
+		nameError = new JLabel("Error! Invalid name, enter a name containing 3 alphanumeric characters and no spaces");
 		nameError.setForeground(new Color(139, 69, 19));
 		nameError.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		nameError.setBounds(145, 154, 662, 25);
+		nameError.setBounds(166, 154, 779, 25);
 		nameError.setVisible(false);
 		add(nameError);
 		
@@ -121,7 +120,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 			public void actionPerformed(ActionEvent event)
 			{
 				gui.setName(plyrName.getText());
-				if(gui.getName().length() != 3)
+				if(gui.getName().replaceAll(" ", "").length() != 3 || isAlphabet(gui.getName()))
 				{
 					nameError.setVisible(true);
 				}
@@ -255,6 +254,26 @@ public class MainMenu extends JPanel implements UpdateScreen
 		updatePanel(updateRequired);
 		
 		super.repaint();
+	}
+	
+	
+	public boolean isAlphabet(String str)
+	{
+		if(str != null)
+		{
+			for(int i = 0; i < str.length(); i++)
+			{
+				if(str.charAt(i) < 65)
+					return false;
+				else if(str.charAt(i) > 90 && str.charAt(i) < 97)
+					return false;
+				else if(str.charAt(i) > 122)
+					return false;
+			}
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public int checkCave()

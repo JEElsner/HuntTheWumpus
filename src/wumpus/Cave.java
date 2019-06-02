@@ -1,8 +1,8 @@
 package wumpus;
 
 import java.io.FileNotFoundException;
-
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.Scanner;
 
 public class Cave
@@ -175,6 +175,35 @@ public class Cave
 	{
 		try
 		{
+			Field controlF = Control.class.getDeclaredField("controlObject");
+			Field caveF = Control.class.getDeclaredField("caveObject");
+			
+			controlF.setAccessible(true);
+			caveF.setAccessible(true);
+			
+			Cave c = (Cave) caveF.get(controlF.get(null));
+			c.printConnections();
+		}catch (NoSuchFieldException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+/*		try
+		{
 			Cave one = new Cave();
 			one.printConnections();
 			// System.out.println(one.getConnections(1));
@@ -182,7 +211,7 @@ public class Cave
 		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 
 		/*
 		 * try { read_map(); } catch (FileNotFoundException e) {

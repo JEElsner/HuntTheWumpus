@@ -120,6 +120,7 @@ public class Control extends SwingWorker<Void, Update>
 		System.out.println("Player - " + controlObject.playerObject.getName());
 		System.out.println("Turns: " + controlObject.playerObject.getTurns());
 		System.out.println("Coins: " + controlObject.playerObject.getCoins());
+		System.out.println("Coins left: " + controlObject.playerObject.getCoinsLeft());
 		System.out.println("Arrows: " + controlObject.playerObject.getArrows());
 		System.out.println();
 	}

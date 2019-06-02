@@ -135,4 +135,9 @@ public class Player
 		else
 			return coins;
 	}
+	
+	public int getCoinsLeft()
+	{
+		return maxCoins;
+	}
 }

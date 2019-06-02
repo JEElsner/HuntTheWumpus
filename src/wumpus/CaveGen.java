@@ -67,8 +67,6 @@ public class CaveGen
 						// Add the door in the adjacent room too
 						roomNotation[Map.getNearbyRoom(room + 1, dir) - 1][MovementDirection.getOpposite(dir).ordinal()] = room + 1;
 					}
-					else
-						roomNotation[room][dir.ordinal()] = 0;
 			}
 		}
 		

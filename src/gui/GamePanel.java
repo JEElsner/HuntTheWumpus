@@ -603,7 +603,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 			triviaAnswers.addElement(s);
 		}
 		
-		if(triviaAnswers.size() < 117)
+		if(gui.getTriviaAnswers().size() < 117)
 		{
 			myTriviaAnswers.setModel(triviaAnswers);
 		}

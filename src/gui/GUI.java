@@ -537,6 +537,7 @@ public class GUI
 				
 			case GET_TRIVIA_ANSWER:
 				triviaAnswers.add((String) update.getData());
+				this.mainWindow.gameplayScreen.updatePanel("trivia");
 				break;
 			
 			case GET_SECRET:

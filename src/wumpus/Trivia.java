@@ -7,11 +7,11 @@ import java.util.Scanner;
 public class Trivia
 {
 
-	private static String questions[] = new String[101]; //array of questions
-	private static String answers[] = new String[101];  //array of answers
-	private static boolean asked[] = new boolean[101];  //array of asked questions
-	private static boolean gotIt[]=new boolean[101]; //gotIt right or not
-	private static int wrong[]=new int[101];
+	private static String questions[] = new String[116]; //array of questions
+	private static String answers[] = new String[116];  //array of answers
+	private static boolean asked[] = new boolean[116];  //array of asked questions
+	private static boolean gotIt[]=new boolean[116]; //gotIt right or not
+	private static int wrong[]=new int[116];
 	private static int toAsk=1;
 	private static String reason="";
 	private static int hint=1;
@@ -33,7 +33,7 @@ public class Trivia
 		int i = 1;
 		InputStream qlist = Trivia.class.getResourceAsStream("/res/Questions.txt");
 		Scanner qreader = new Scanner(qlist);
-		while (qreader.hasNextLine() && (i < 101))
+		while (qreader.hasNextLine() && (i < 116))
 		{
 			String theLine = qreader.nextLine();
 			questions[i] = theLine;
@@ -41,24 +41,29 @@ public class Trivia
 			gotIt[i] = false;
 			i++;
 		}
-		System.out.println("-------Questions list-------");
-		for (int j = 1; j <= 100; j++)
-			System.out.println(questions[j]);
-		qreader.close();
+		
 		// -------------------------------------------------------------------------------
 		i = 1;
 		InputStream alist = Trivia.class.getResourceAsStream("/res/Answers.txt");
 		Scanner areader = new Scanner(alist);
-		while (areader.hasNextLine() && (i < 101))
+		while (areader.hasNextLine() && (i < 116))
 		{
 			String theLine = areader.nextLine();
 			answers[i] = theLine;
 			i++;
-		}
+		} 
+		/*
+		System.out.println("-------Questions list-------");
+		for (int j = 1; j <= 100; j++)
+			System.out.println(questions[j]);
+		
 		System.out.println("-------------Answers list------------");
 		for (int j = 1; j <= 100; j++)
 			System.out.println(answers[j]);
+			*/
+		qreader.close();
 		areader.close();
+		
 	}
 
 	// Method used to check if given answer is corrrect(guess)
@@ -79,6 +84,7 @@ public class Trivia
 		{
 			gotIt[toAsk++]=true; // toAsk will increment after it is used to reference the array
 			correct++;
+			if(toAsk==116) toAsk=1;
 			return true;
 			
 		}
@@ -104,8 +110,12 @@ public class Trivia
 	{
 		String result="";
 		result+=""+questions[hint]+ "-"+answers[hint];
-		hint++;
+		if(wrong[hint]<=toAsk-1)
+			hint++;
+		if(hint<=115)
 		return result;
+		else
+		return "No more hints.";
 	}
 	
 	public static boolean triviaPassed()
@@ -148,12 +158,14 @@ public class Trivia
 		try
 		{
 			read_qa();
-			answer("idk");
-			answer("idk");
-			answer("idk");
-			System.out.println(getHint());
-			System.out.println(getHint());
-			System.out.println(getHint());
+		/* Hints	
+		 * 
+		 * answer("idk");
+		     System.out.println(getHint());
+			*/
+			
+			System.out.println(" "+questions[115]+" "+answers[115]);
+			
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block

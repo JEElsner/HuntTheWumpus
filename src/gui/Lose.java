@@ -82,8 +82,18 @@ public class Lose extends JPanel implements UpdateScreen
 			});
 		
 		yourScore = new JLabel("You had a score of:");
-		yourScore.setBounds(174, 65, 187, 16);
+		yourScore.setBounds(121, 65, 187, 16);
 		add(yourScore);
+		
+		JLabel label = new JLabel("High Scores");
+		label.setFont(new Font("Papyrus", Font.BOLD, 24));
+		label.setBounds(54, 384, 160, 45);
+		add(label);
+		
+		JLabel label_1 = new JLabel("Double click to view more stats");
+		label_1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		label_1.setBounds(32, 712, 301, 32);
+		add(label_1);
 
 	}
 	public void updatePanel(String update)

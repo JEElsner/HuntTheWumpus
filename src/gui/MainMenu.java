@@ -46,10 +46,10 @@ public class MainMenu extends JPanel implements UpdateScreen
 	private JLabel nameError;
 	private JLabel errorCave;
 	JButton seeStats;
-	private JLabel errorStats;
+	//private JLabel errorStats;
 	
 	private String myStats;
-	private JButton btnNewButton;
+	private JLabel label;
 	
 	public String getMyStats()
 	{
@@ -175,26 +175,26 @@ public class MainMenu extends JPanel implements UpdateScreen
 			}
 			});
 		
-		seeStats = new JButton("See Stats");
-		seeStats.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(list.getSelectedIndex() == -1)
-				{
-					errorStats.setVisible(true);
-				}
-				else
-				{
-					gui.setNameScore(list.getSelectedValue());
-					gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
-//					ScoreDetails details = gui.getDetails();
-//					details.settingStats(gui.getScoreStats());	
-//					details.settingScores(list.getSelectedValuesList());
-					//gui.getDetails().setVisible(true);
-				}
-			}
-		});
-		seeStats.setBounds(96, 719, 97, 25);
-		add(seeStats);
+//		seeStats = new JButton("See Stats");
+//		seeStats.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				if(list.getSelectedIndex() == -1)
+//				{
+//					errorStats.setVisible(true);
+//				}
+//				else
+//				{
+//					gui.setNameScore(list.getSelectedValue());
+//					gui.notifyControl(new Update(UpdateType.GET_SCORE_STATS, true, list.getSelectedIndex()));
+////					ScoreDetails details = gui.getDetails();
+////					details.settingStats(gui.getScoreStats());	
+////					details.settingScores(list.getSelectedValuesList());
+//					//gui.getDetails().setVisible(true);
+//				}
+//			}
+//		});
+//		seeStats.setBounds(96, 719, 97, 25);
+//		add(seeStats);
 
 		
 
@@ -227,23 +227,19 @@ public class MainMenu extends JPanel implements UpdateScreen
 		errorCave.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		errorCave.setBounds(380, 125, 226, 16);
 		add(errorCave);
+		
+		label = new JLabel("Double click to view more stats");
+		label.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		label.setBounds(12, 712, 301, 32);
+		add(label);
 		errorCave.setVisible(false);
 		
-		errorStats = new JLabel("Error! Please select a player to view stats for!");
-		errorStats.setForeground(new Color(139, 69, 19));
-		errorStats.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		errorStats.setBounds(12, 757, 372, 35);
-		add(errorStats);
-		
-		btnNewButton = new JButton("New button");
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		btnNewButton.setBounds(74, 293, 97, 25);
-		add(btnNewButton);
-		errorStats.setVisible(false);
+//		errorStats = new JLabel("Error! Please select a player to view stats for!");
+//		errorStats.setForeground(new Color(139, 69, 19));
+//		errorStats.setFont(new Font("Times New Roman", Font.BOLD, 18));
+//		errorStats.setBounds(12, 757, 372, 35);
+//		add(errorStats);
+//		errorStats.setVisible(false);
 
 		
 		

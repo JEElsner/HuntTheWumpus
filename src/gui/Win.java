@@ -67,7 +67,7 @@ public class Win extends JPanel implements UpdateScreen
 		btnClickHereTo.setBounds(245, 262, 193, 25);
 		add(btnClickHereTo);
 		
-		JLabel lblYourNameWill = new JLabel("If you got a High Score, you name, score, and cave will appear on the main menu!");
+		JLabel lblYourNameWill = new JLabel("If you got a High Score, you name and score will appear on the main menu!");
 		lblYourNameWill.setBounds(12, 137, 489, 16);
 		add(lblYourNameWill);
 		
@@ -80,6 +80,16 @@ public class Win extends JPanel implements UpdateScreen
 		hScores.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		hScores.setBounds(54, 442, 176, 257);
 		add(hScores);
+		
+		JLabel label = new JLabel("High Scores");
+		label.setFont(new Font("Papyrus", Font.BOLD, 24));
+		label.setBounds(54, 376, 160, 45);
+		add(label);
+		
+		JLabel lblDoubleClickTo = new JLabel("Double click to view more stats");
+		lblDoubleClickTo.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		lblDoubleClickTo.setBounds(36, 712, 301, 32);
+		add(lblDoubleClickTo);
 		
 		hScores.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {

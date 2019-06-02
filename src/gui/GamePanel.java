@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		setBackground(new Color(222, 184, 135));
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 930);
+		this.setSize(1100, 930);
 		
 		
 //		JLabel lblTitle = new JLabel("Game Panel");
@@ -330,7 +330,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		myTriviaAnswers.setBackground(new Color(180, 150, 110));
 		//myTriviaAnswers.setModel(triviaAnswers);
 		myTriviaAnswers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		myTriviaAnswers.setBounds(230, 780, 534, 60);
+		myTriviaAnswers.setBounds(230, 780, 554, 60);
 		//add(myTriviaAnswers);
 		
 		JScrollPane tAnswers = new JScrollPane(myTriviaAnswers);
@@ -349,7 +349,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		mySecrets.setBackground(new Color(180, 150, 110));
 		//mySecrets.setModel(obtainedSecrets);
 		mySecrets.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		mySecrets.setBounds(230, 780, 534, 60);
+		mySecrets.setBounds(230, 780, 554, 60);
 		//add(mySecrets);
 		
 		JScrollPane mySec = new JScrollPane(mySecrets);
@@ -430,6 +430,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 			int i = 0;
 			shootingDirection.remove(i);
 		}
+		
+		for(JButton b: moving)
+		{
+			b.setEnabled(true);
+		}
+		
+		buyArrow.setEnabled(true);
+		buySecret.setEnabled(true);
+		shootArrow.setEnabled(true);
 		
 	}
 	
@@ -552,6 +561,15 @@ public class GamePanel extends JPanel implements UpdateScreen
 		{
 			b.setVisible(true);
 		}
+		
+		for(JButton b: moving)
+		{
+			b.setEnabled(false);
+		}
+		
+		buyArrow.setEnabled(false);
+		buySecret.setEnabled(false);
+		shootArrow.setEnabled(false);
 		
 	}
 

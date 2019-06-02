@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class MainMenu extends JPanel implements UpdateScreen
 {
@@ -100,6 +101,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		
 		// REVIEW Add Key listeners to components where pressing enter should start a new game or do something else
 		plyrName = new JTextField();
+		plyrName.setHorizontalAlignment(SwingConstants.CENTER);
 		plyrName.setBorder(new LineBorder(new Color(160, 82, 45), 3));
 		plyrName.setFont(new Font("Papyrus", Font.BOLD, 18));
 		plyrName.setBackground(new Color(245, 222, 179));

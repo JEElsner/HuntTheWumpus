@@ -104,7 +104,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 		plyrName.setBounds(445, 272, 74, 35);
 		add(plyrName);
 		
-		nameError = new JLabel("Error! Invalid name, enter a name containing 3 alphanumeric characters and no spaces");
+		nameError = new JLabel("Error! Invalid name, enter a name containing 3 alphabetic characters and no spaces");
 		nameError.setForeground(new Color(139, 69, 19));
 		nameError.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		nameError.setBounds(166, 154, 779, 25);

@@ -349,7 +349,7 @@ public class GUI
 					try
 					{
 						mainWindow = new MainWindow(thisGUI);
-						mainWindow.setSize(1000, 930);
+						mainWindow.setSize(1000, 1000);
 						mainWindow.setVisible(true);
 					} catch (Exception e)
 					{

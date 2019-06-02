@@ -50,6 +50,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 	
 	private String myStats;
 	private JLabel label;
+	private JButton btnQuit;
 	
 	public String getMyStats()
 	{
@@ -68,7 +69,7 @@ public class MainMenu extends JPanel implements UpdateScreen
 
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1000, 930);
+		//this.setSize(1000, 700);
 
 		JLabel lblTitle = new JLabel("Hunt The Wumpus");
 		lblTitle.setFont(new Font("Viner Hand ITC", Font.BOLD, 36));
@@ -232,6 +233,18 @@ public class MainMenu extends JPanel implements UpdateScreen
 		label.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		label.setBounds(12, 712, 301, 32);
 		add(label);
+		
+		btnQuit = new JButton("Quit");
+		btnQuit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				guiObject.notifyControl(new Update(UpdateType.WINDOW_CLOSING, true));
+			}
+		});
+		btnQuit.setFont(new Font("Georgia", Font.BOLD, 20));
+		btnQuit.setBorder(new LineBorder(new Color(0, 128, 0), 4));
+		btnQuit.setBackground(new Color(154, 205, 50));
+		btnQuit.setBounds(420, 795, 140, 55);
+		add(btnQuit);
 		errorCave.setVisible(false);
 		
 //		errorStats = new JLabel("Error! Please select a player to view stats for!");

@@ -83,14 +83,14 @@ public class GamePanel extends JPanel implements UpdateScreen
 		setBackground(new Color(222, 184, 135));
 		gui = guiObject;
 		setLayout(null);
-		this.setSize(1100, 930);
+	//	this.setSize(1100, 1000);
 		
 		
 //		JLabel lblTitle = new JLabel("Game Panel");
 //		lblTitle.setBounds(468, 0, 68, 16);
 //		add(lblTitle);
 		
-		JButton btnMainMenu = new JButton("Quit");
+		JButton btnMainMenu = new JButton("Quit to Main Menu");
 		btnMainMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -109,7 +109,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 		completedMessage.setBounds(338, 268, 298, 38);
 		add(completedMessage);
 		completedMessage.setVisible(false);
-		btnMainMenu.setBounds(12, 628, 97, 25);
+		btnMainMenu.setBounds(24, 881, 146, 25);
 		add(btnMainMenu);
 		
 		buyArrow = new JButton("Buy Arrow");
@@ -356,15 +356,6 @@ public class GamePanel extends JPanel implements UpdateScreen
 		JScrollPane mySec = new JScrollPane(mySecrets);
 		mySec.setBounds(180, 780, 724, 80);
 		add(mySec);
-		
-		JButton btnQuit = new JButton("Quit");
-		btnQuit.setBounds(12, 853, 97, 25);
-		btnQuit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				guiObject.notifyControl(new Update(UpdateType.WINDOW_CLOSING, true));
-			}
-		});
-		add(btnQuit);
 		
 		stopShooting = new JButton("Stop Shooting");
 		stopShooting.addActionListener(new ActionListener() {

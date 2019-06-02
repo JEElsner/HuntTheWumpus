@@ -152,6 +152,8 @@ public class Control extends SwingWorker<Void, Update>
 	
 	private ArrayList<Update> guiMessages; // Used to receive notifications of events happening on the gui
 	
+	int[] counts = new int[5];
+	
 	// Constructs the object
 	// Thread: Initial
 	public Control()
@@ -617,21 +619,40 @@ public class Control extends SwingWorker<Void, Update>
 		boolean twoRoomsAway = mapObject.isWumpus2RoomsAway();
 		int probability = (int)(Math.random() * 11);
 		
-		if(twoRoomsAway && probability >= 8)
+		for(int i = 0; i < counts.length; i++)
+		{
+			if(counts[i] > 0)
+			{
+				counts[i]--;
+			}
+			else
+			{
+				counts[i] = 0;
+			}
+				
+		}
+		
+		
+		if(twoRoomsAway && probability >= 8 && counts[0] == 0)
 		{
 			publish(new Update(UpdateType.GET_SECRET, false, "The wumpus is within two rooms of you."));
-		}else if(probability == 10)
+			counts[0] = 5;
+		}else if(probability == 7  && counts[1] == 0)
 		{
 			publish(new Update(UpdateType.GET_SECRET, false, "The wumpus is NOT within two rooms of you."));
-		}else if(probability == 1)
+			counts[1] = 5;
+		}else if(probability == 1 && counts[2] == 0)
 		{
 			publish(new Update(UpdateType.GET_SECRET, false, "You are in room " + mapObject.getPlayerRoom()));
-		}else if(probability <= 3)
+			counts[2] = 5;
+		}else if(probability <= 3 && counts[3] == 0)
 		{
 			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room " + ((Math.random() > 0.5) ? mapObject.getPitRoom() : mapObject.getPitRoom2())));
-		}else if(probability <= 5)
+			counts[3] = 5;
+		}else if(probability <= 5 && counts[4] == 0)
 		{
 			publish(new Update(UpdateType.GET_SECRET, false, "There is a pit in room " + ((Math.random() > 0.5) ? mapObject.getBatRoom() : mapObject.getBatRoom2())));
+			counts[4] = 5;
 		}else
 		{
 			publish(new Update(UpdateType.GET_TRIVIA_ANSWER, false, Trivia.getHint()));

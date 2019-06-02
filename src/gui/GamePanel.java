@@ -76,6 +76,7 @@ public class GamePanel extends JPanel implements UpdateScreen
 	private JLabel coinMax;
 	private JLabel completedMessage;
 	private JButton shootArrow;
+	private JButton stopShooting;
 		
 	public GamePanel(GUI guiObject)
 	{
@@ -365,6 +366,16 @@ public class GamePanel extends JPanel implements UpdateScreen
 		});
 		add(btnQuit);
 		
+		stopShooting = new JButton("Stop Shooting");
+		stopShooting.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				shoot();
+			}
+		});
+		stopShooting.setBounds(830, 364, 136, 25);
+		add(stopShooting);
+		stopShooting.setVisible(false);
+		
 		//-----------Making Them Rotate---------------//
 		
 //		Canvas c = new Canvas();
@@ -439,6 +450,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		buyArrow.setEnabled(true);
 		buySecret.setEnabled(true);
 		shootArrow.setEnabled(true);
+		
+		stopShooting.setVisible(false);
 		
 	}
 	
@@ -561,6 +574,8 @@ public class GamePanel extends JPanel implements UpdateScreen
 		{
 			b.setVisible(true);
 		}
+		
+		stopShooting.setVisible(true);
 		
 		for(JButton b: moving)
 		{

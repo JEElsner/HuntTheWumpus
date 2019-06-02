@@ -206,7 +206,10 @@ public class Control extends SwingWorker<Void, Update>
 					
 					// Ensure the message hasn't already been processed. If it has, get rid of it
 					if(msg.isUpdateProcessed())
+					{
 						guiMessages.remove(0);
+						continue;
+					}
 					
 					// --- Handle the Update --- //
 					

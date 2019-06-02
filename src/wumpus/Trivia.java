@@ -83,7 +83,10 @@ public class Trivia
 		asked[toAsk]=true;
 		totalQuestionsAsked++;
 		
-		if (guess.equalsIgnoreCase(answers[toAsk]))
+		
+		
+		if (guess.toLowerCase().contains(answers[toAsk].toLowerCase()) || 
+				answers[toAsk].toLowerCase().contains(guess.toLowerCase()))
 		{
 			gotIt[toAsk]=true; // toAsk will increment after it is used to reference the array
 			correct++;
